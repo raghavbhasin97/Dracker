@@ -14,7 +14,7 @@ class QRCode: UIViewController {
     
     let name: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Avenier", size: 30)
+        label.font = UIFont(name: "Avenir-Book", size: 30)
         label.textAlignment = .center
         label.textColor = .text_color
         return label
