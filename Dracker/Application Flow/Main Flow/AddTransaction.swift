@@ -250,6 +250,8 @@ class AddTransaction: UIViewController {
             present_alert_error(message: .no_internet, target: self)
             return
         }
+        //Dissmiss view
+        view.endEditing(true)
         //Get Fields
         let phone = extract_phone()
         let amount = amount_field.text!
