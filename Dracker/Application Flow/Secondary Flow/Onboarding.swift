@@ -179,7 +179,7 @@ class Onboarding: UIViewController {
             let uid = response["uid"] as! String
             let name = response["name"] as! String
             if uid != (UserDefaults.standard.object(forKey: "uid") as! String) {
-                present_alert_error(message: .phone_not_registered, target: self)
+                present_alert_error(message: .phone_not_match, target: self)
             } else {
                 self.save_and_redirect(number: self.phone_field.text!, name: name)
             }

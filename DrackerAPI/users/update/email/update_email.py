@@ -4,6 +4,7 @@ from firebase_admin import auth
 from firebase_admin import credentials
 import boto3
 import sendgrid
+import os
 
 client = boto3.resource('dynamodb') #get client
 table = client.Table('DrackerUser')
@@ -41,7 +42,7 @@ def lambda_handler(event, context):
       return {"message" : error_code}
 
 def send_verification_email(name, old_email, new_email, uid):
-    api_key = '...'
+    api_key = os.environ.get('sg_key')
     sg = sendgrid.SendGridAPIClient(apikey=api_key)
     data = {
       "personalizations": [

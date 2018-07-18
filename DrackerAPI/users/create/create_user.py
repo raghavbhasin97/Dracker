@@ -4,6 +4,7 @@ from firebase_admin import auth
 from firebase_admin import credentials
 import boto3
 import sendgrid
+import os
 
 client = boto3.resource('dynamodb') #get client
 table = client.Table('DrackerUser')
@@ -29,7 +30,7 @@ def lambda_handler(event, context):
     )
     create_table(uid)
     send_welcome_email(name, email, uid)
-    return {"message" : "SUCCESS"}
+    return {"message" : "SUCCESS", "uid": uid}
 
 
 def firebase_register(phone, name, email, password):
@@ -70,7 +71,7 @@ def create_table(table_name):
     )
 
 def send_welcome_email(name, email, uid):
-    api_key = '.....'
+    api_key = os.environ.get('sg_key')
     sg = sendgrid.SendGridAPIClient(apikey=api_key)
     data = {
       "personalizations": [

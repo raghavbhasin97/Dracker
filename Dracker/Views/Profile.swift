@@ -1,5 +1,6 @@
 import UIKit
 import Firebase
+import UserNotifications
 
 struct Options {
     var title: String
@@ -17,7 +18,7 @@ class Profile: UIView {
     let marker = UIImageView(image: #imageLiteral(resourceName: "marker"))
     weak var parent: UIViewController?
     var image_url: NSURL?
-    let data = [Options(title: "Change Passwod", image: "password_reset"),
+    let data = [Options(title: "Change Password", image: "password_reset"),
                 Options(title: "Change Email", image: "email_change"),
                 Options(title: "Logout", image: "logout")]
     
@@ -207,6 +208,7 @@ extension Profile: UITableViewDelegate, UITableViewDataSource {
             UserDefaults.standard.set(false, forKey: "auto_login")
             UserDefaults.standard.set(false, forKey: "touch")
             UserDefaults.standard.set(false, forKey: "reminder")
+            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
             self.parent?.present(Login(), animated: true, completion: nil)
         }
     }

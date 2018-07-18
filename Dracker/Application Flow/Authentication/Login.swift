@@ -2,7 +2,8 @@ import UIKit
 import Firebase
 
 class Login: UIViewController {
-    let logo_height: CGFloat = 120.0
+    let logo_height: CGFloat = 100.0
+    let icon_height: CGFloat = 24.0
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -10,7 +11,7 @@ class Login: UIViewController {
     
     let input_area: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = .theme
         return view
     }()
     
@@ -23,35 +24,68 @@ class Login: UIViewController {
     
     let title_tag: UILabel = {
         let title = UILabel()
-        title.font = UIFont(name: "AppleSDGothicNeo-UltraLight", size: 22)
+        title.font = UIFont(name: "AppleSDGothicNeo-UltraLight", size: 15)
         title.text = "Dracker"
         title.textColor = .white
         title.textAlignment = .center
         return title
     }()
     
+    let email_line: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.white.withAlphaComponent(0.50)
+        return view
+    }()
+    
+    let email_image: UIImageView = {
+        let image = UIImageView()
+        image.image = #imageLiteral(resourceName: "email")
+        image.tintColor = .white
+        image.contentMode = .scaleAspectFill
+        return image
+    }()
+    
+    let password_line: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.white.withAlphaComponent(0.40)
+        return view
+    }()
+    
+    let password_image: UIImageView = {
+        let image = UIImageView()
+        image.image = #imageLiteral(resourceName: "password")
+        image.tintColor = .white
+        image.contentMode = .scaleAspectFill
+        return image
+    }()
+    
     lazy var email_field: UITextField = {
         let field = UITextField()
         field.keyboardType = .emailAddress
-        field.borderStyle = .roundedRect
-        field.backgroundColor = .textfield
-        field.placeholder = "Email"
+        field.borderStyle = .none
+        field.backgroundColor = .clear
         field.delegate = self
         field.autocapitalizationType = .none
+        field.font = UIFont(name: "AppleSDGothicNeo-UltraLight", size: 16.5)
         field.returnKeyType = .next
+        field.attributedPlaceholder =   NSAttributedString(string: "Email", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+        field.textColor = .white
         return field
     }()
     
     lazy var password_field: UITextField = {
         let field = UITextField()
         field.keyboardType = .default
-        field.borderStyle = .roundedRect
-        field.backgroundColor = .textfield
-        field.placeholder = "Password"
+        field.borderStyle = .none
+        field.backgroundColor = .clear
         field.isSecureTextEntry = true
         field.autocapitalizationType = .none
         field.delegate = self
         field.returnKeyType = .go
+        field.font = UIFont(name: "AppleSDGothicNeo-UltraLight", size: 16.5)
+        field.returnKeyType = .next
+        field.attributedPlaceholder =   NSAttributedString(string: "Password", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+        field.textColor = .white
         return field
     }()
     
@@ -69,8 +103,8 @@ class Login: UIViewController {
     
     lazy var forget_button: UIButton = {
         let button = UIButton()
-        button.setTitleColor(.theme, for: .normal)
-        button.setTitleColor(UIColor.theme.withAlphaComponent(0.65), for: .highlighted)
+        button.setTitleColor(.theme_unselected, for: .normal)
+        button.setTitleColor(UIColor.theme_unselected.withAlphaComponent(0.65), for: .highlighted)
         button.isUserInteractionEnabled = true
         button.titleLabel?.textAlignment = .center
         button.setTitle("Forgot Password", for: .normal)
@@ -86,15 +120,15 @@ class Login: UIViewController {
     let signup_label: UILabel = {
         let label = UILabel()
         label.text = "Don't have an account?"
-        label.textColor = .text_color
+        label.textColor = .white
         label.font = .systemFont(ofSize: 15)
         return label
     }()
     
     let signup_button: UIButton = {
         let button = UIButton()
-        button.setTitleColor(.theme, for: .normal)
-        button.setTitleColor(UIColor.theme.withAlphaComponent(0.65), for: .highlighted)
+        button.setTitleColor(.theme_unselected, for: .normal)
+        button.setTitleColor(UIColor.theme_unselected.withAlphaComponent(0.65), for: .highlighted)
         button.isUserInteractionEnabled = true
         button.titleLabel?.textAlignment = .center
         button.titleLabel?.font = .boldSystemFont(ofSize: 15)
@@ -109,6 +143,10 @@ class Login: UIViewController {
         self.view.backgroundColor = .theme
         
         //Add subViews
+        input_area.addSubview(email_image)
+        input_area.addSubview(email_line)
+        input_area.addSubview(password_image)
+        input_area.addSubview(password_line)
         view.addSubview(input_area)
         view.addSubview(letter_D)
         view.addSubview(title_tag)
@@ -124,21 +162,39 @@ class Login: UIViewController {
         view.center_X(item: letter_D)
         view.addConstraintsWithFormat(format: "H:|[v0]|", views: title_tag)
         letter_D.widthAnchor.constraint(equalToConstant: logo_height).isActive = true
-        let logo_padding: CGFloat? =  5.0
-        view.addConstraintsWithFormat(format: "V:|-\(logo_padding!)-[v0(\(logo_height))]-5-[v1]", views: letter_D, title_tag)
+        let logo_padding: CGFloat? =  UIApplication.shared.statusBarFrame.height * 3
+        view.addConstraintsWithFormat(format: "V:|-\(logo_padding!)-[v0(\(logo_height))]-10-[v1]", views: letter_D, title_tag)
         
         
         //white area
         view.addConstraintsWithFormat(format: "H:|[v0]|", views: input_area)
         view.addConstraintsWithFormat(format: "V:|-180-[v0]|", views: input_area)
-
+        
+        //Email Setup
+        email_image.widthAnchor.constraint(equalToConstant: icon_height).isActive = true
+        email_image.heightAnchor.constraint(equalToConstant: icon_height).isActive = true
+        email_image.topAnchor.constraint(equalTo: email_field.topAnchor).isActive = true
+        input_area.addConstraintsWithFormat(format: "H:|-25-[v0]-25-|", views: email_line)
+        email_line.heightAnchor.constraint(equalToConstant: 1.0).isActive = true
+        email_line.topAnchor.constraint(equalTo: email_field.bottomAnchor, constant: 8).isActive = true
         
         //Email address Constraints
-        view.addConstraintsWithFormat(format: "H:|-16-[v0]-16-|", views: email_field)
-        view.addConstraintsWithFormat(format: "V:|-200-[v0(40)]-18-[v1(40)]-28-[v2(50)]-10-[v3(20)]", views: email_field, password_field, login_button, forget_button)
+        view.addConstraintsWithFormat(format: "H:|-30-[v0]-10-[v1]-30-|", views: email_image, email_field)
+        view.addConstraintsWithFormat(format: "V:|-200-[v0(\(icon_height))]-18-[v1(\(icon_height))]-25-[v2(50)]-10-[v3(20)]", views: email_field, password_field, login_button, forget_button)
+        
+        //Password Setup
+        
+        password_image.widthAnchor.constraint(equalToConstant: icon_height).isActive = true
+        password_image.heightAnchor.constraint(equalToConstant: icon_height).isActive = true
+        password_image.topAnchor.constraint(equalTo: password_field.topAnchor).isActive = true
+        input_area.addConstraintsWithFormat(format: "H:|-25-[v0]-25-|", views: password_line)
+        password_line.heightAnchor.constraint(equalToConstant: 1.0).isActive = true
+        password_line.topAnchor.constraint(equalTo: password_field.bottomAnchor, constant: 8).isActive = true
+        
+        
         
         //Password Constraints
-        view.addConstraintsWithFormat(format: "H:|-16-[v0]-16-|", views: password_field)
+        view.addConstraintsWithFormat(format: "H:|-30-[v0]-10-[v1]-30-|", views: password_image, password_field)
         
         //Button add
         view.addConstraintsWithFormat(format: "H:|-16-[v0]-16-|", views: login_button)

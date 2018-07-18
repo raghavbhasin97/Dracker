@@ -32,6 +32,7 @@ enum error_messages: String {
     case invalid_qr = "Invalid QR Code."
     case device_not_supported = "Your device does not support scanning QR code."
     case touchid_not_enabled = "Touch ID must be enabled to set a passcode."
+    case phone_not_match = "Phone number does not match with the one in records."
 }
 
 //MARK: Create Alert

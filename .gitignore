@@ -75,3 +75,4 @@ Pods/**
 Podfile.lock
 **/Dracker.xcdatamodeld
 **/GoogleService-Info.plist
+**/.DS_Store

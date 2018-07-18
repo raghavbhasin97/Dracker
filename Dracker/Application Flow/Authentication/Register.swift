@@ -193,7 +193,7 @@ class Register: UIViewController {
         let password = password_field.text!
         let phone = phone_field.text!
         let name = extract_name(name: (name_button.titleLabel?.text!)!)
-        create_user(phone: phone, password: password, email: email, name: name) { (res) in
+        create_user(phone: phone, password: password, email: email, name: name) {[unowned self] (res) in
             background_blur.removeFromSuperview()
             activity_indicator.removeFromSuperview()
             if res.isFailure {
@@ -209,6 +209,9 @@ class Register: UIViewController {
                 present_alert_error(message: .duplicate_phone, target: self)
                 return
             }
+            //Upload image
+            let uid = response["uid"] as! String
+            upload_to_S3(key: uid, data: self.image_url!, bucket: .profiles)
             //Present success
             present_alert_with_handler_and_message(message: .account_created, target: self, handler: { [unowned self](_) in
                 self.signin()
