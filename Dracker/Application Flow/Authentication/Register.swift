@@ -2,17 +2,13 @@ import UIKit
 import Firebase
 
 class Register: UIViewController {
+    let icon_height: CGFloat = 24.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
     }
     var image_url: NSURL?
-    let blue_area: UIView = {
-        let view = UIView()
-        view.backgroundColor = .theme
-        return view
-    }()
     
     let signin_view: UIView = {
         let view = UIView()
@@ -22,33 +18,66 @@ class Register: UIViewController {
     let signin_label: UILabel = {
         let label = UILabel()
         label.text = "Already have an account?"
-        label.textColor = .text_color
+        label.textColor = .white
         label.font = .systemFont(ofSize: 15)
         return label
+    }()
+    
+    let email_line: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.white.withAlphaComponent(0.50)
+        return view
+    }()
+    
+    let email_image: UIImageView = {
+        let image = UIImageView()
+        image.image = #imageLiteral(resourceName: "email")
+        image.tintColor = .white
+        image.contentMode = .scaleAspectFill
+        return image
+    }()
+    
+    let password_line: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.white.withAlphaComponent(0.40)
+        return view
+    }()
+    
+    let password_image: UIImageView = {
+        let image = UIImageView()
+        image.image = #imageLiteral(resourceName: "password")
+        image.tintColor = .white
+        image.contentMode = .scaleAspectFill
+        return image
     }()
     
     lazy var email_field: UITextField = {
         let field = UITextField()
         field.keyboardType = .emailAddress
-        field.borderStyle = .roundedRect
-        field.backgroundColor = .textfield
-        field.placeholder = "Email"
-        field.autocapitalizationType = .none
-        field.returnKeyType = .next
+        field.borderStyle = .none
+        field.backgroundColor = .clear
         field.delegate = self
+        field.autocapitalizationType = .none
+        field.font = UIFont(name: "AppleSDGothicNeo-UltraLight", size: 16.5)
+        field.returnKeyType = .next
+        field.attributedPlaceholder =   NSAttributedString(string: "Email", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+        field.textColor = .white
         return field
     }()
     
     lazy var password_field: UITextField = {
         let field = UITextField()
         field.keyboardType = .default
-        field.borderStyle = .roundedRect
-        field.backgroundColor = .textfield
-        field.placeholder = "Password"
+        field.borderStyle = .none
+        field.backgroundColor = .clear
         field.isSecureTextEntry = true
         field.autocapitalizationType = .none
-        field.returnKeyType = .next
         field.delegate = self
+        field.returnKeyType = .go
+        field.font = UIFont(name: "AppleSDGothicNeo-UltraLight", size: 16.5)
+        field.returnKeyType = .next
+        field.attributedPlaceholder =   NSAttributedString(string: "Password", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+        field.textColor = .white
         return field
     }()
     
@@ -67,7 +96,7 @@ class Register: UIViewController {
     lazy var signup_button: UIButton = {
         let button = UIButton(type: .roundedRect)
         button.isUserInteractionEnabled = false
-        button.backgroundColor = UIColor.theme.withAlphaComponent(0.75)
+        button.backgroundColor = UIColor.theme_unselected.withAlphaComponent(0.75)
         button.setTitle("Sign Up", for: .normal)
         button.clipsToBounds = true
         button.setTitleColor(.white, for: .normal)
@@ -78,8 +107,8 @@ class Register: UIViewController {
     
     let signin_button: UIButton = {
         let button = UIButton()
-        button.setTitleColor(.theme, for: .normal)
-        button.setTitleColor(UIColor.theme.withAlphaComponent(0.65), for: .highlighted)
+        button.setTitleColor(.theme_unselected, for: .normal)
+        button.setTitleColor(UIColor.theme_unselected.withAlphaComponent(0.65), for: .highlighted)
         button.isUserInteractionEnabled = true
         button.titleLabel?.textAlignment = .center
         button.titleLabel?.font = .boldSystemFont(ofSize: 15)
@@ -109,8 +138,8 @@ class Register: UIViewController {
         let button = UIButton()
         button.setTitle("@Name", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14.0)
-        button.setTitleColor(.black, for: .normal)
-        button.setTitleColor(UIColor.black.withAlphaComponent(0.7), for: .highlighted)
+        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(UIColor.white.withAlphaComponent(0.7), for: .highlighted)
         button.addTarget(self, action: #selector(set_name), for: .touchUpInside)
         button.titleLabel?.textAlignment = .center
         return button
@@ -123,32 +152,12 @@ class Register: UIViewController {
     }()
     fileprivate func setup()
     {
-        view.backgroundColor = .white
+        view.backgroundColor = .theme
         
         //Add sub views
-        view.addSubview(blue_area)
         view.addSubview(signin_view)
         signin_view.addSubview(signin_label)
         signin_view.addSubview(signin_button)
-        view.addSubview(email_field)
-        view.addSubview(password_field)
-        view.addSubview(phone_field)
-        view.addSubview(signup_button)
-        view.addSubview(profile_image)
-        view.addSubview(name_view)
-        name_view.addSubview(name_button)
-        
-        //profile Image
-        view.addConstraint(NSLayoutConstraint(item: profile_image, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0))
-        profile_image.widthAnchor.constraint(equalToConstant: 140).isActive = true
-        view.addConstraintsWithFormat(format: "V:|-\(UIApplication.shared.statusBarFrame.height + 8.0)-[v0(140)]", views: profile_image)
-        view.addConstraintsWithFormat(format: "H:|-16-[v0]-16-|", views: name_view)
-        name_view.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        view.addConstraint(NSLayoutConstraint(item: name_view, attribute: .top, relatedBy: .equal, toItem: profile_image, attribute: .bottom, multiplier: 1, constant: 2))
-        
-        // Theme setup
-        view.addConstraintsWithFormat(format: "H:|[v0]|", views: blue_area)
-        view.addConstraintsWithFormat(format: "V:|[v0(\(UIApplication.shared.statusBarFrame.height))]", views: blue_area)
         // Signin setup
         view.addConstraintsWithFormat(format: "V:[v0(20)]-16-|", views: signin_view)
         signin_view.widthAnchor.constraint(equalToConstant: 233).isActive = true
@@ -157,15 +166,7 @@ class Register: UIViewController {
         signin_view.addConstraintsWithFormat(format: "H:|[v0(176)][v1(63)]", views: signin_label, signin_button)
         signin_view.addConstraintsWithFormat(format: "V:|[v0]|", views: signin_button)
         
-        //Textfields setup and signup button
-        view.addConstraintsWithFormat(format: "H:|-16-[v0]-16-|", views: email_field)
-        view.addConstraintsWithFormat(format: "V:|-220-[v0(40)]-18-[v1(40)]-18-[v2(40)]-28-[v3(50)]", views: email_field, password_field, phone_field, signup_button)
-        view.addConstraintsWithFormat(format: "H:|-16-[v0]-16-|", views: password_field)
-        view.addConstraintsWithFormat(format: "H:|-16-[v0]-16-|", views: phone_field)
-        view.addConstraintsWithFormat(format: "H:|-16-[v0]-16-|", views: signup_button)
-        //Name view
-        name_view.addConstraintsWithFormat(format: "V:|[v0(20)]|", views: name_button)
-        name_view.addConstraintsWithFormat(format: "H:|[v0]|", views: name_button)
+    
     }
     
     @objc func signin()
@@ -184,7 +185,7 @@ class Register: UIViewController {
         background_blur.frame = view.frame
         if !validate_input(){ return }
         
-        //ADD Blur view
+        //Add Blur view
         view.addSubview(background_blur)
         view.addSubview(activity_indicator)
         activity_indicator.show()
@@ -295,12 +296,12 @@ extension Register: UITextFieldDelegate{
         {
             UIView.animate(withDuration: 0.2) {
                 self.signup_button.isUserInteractionEnabled = true
-                self.signup_button.backgroundColor = UIColor.theme
+                self.signup_button.backgroundColor = UIColor.theme_unselected
             }
         } else {
             UIView.animate(withDuration: 0.2) {
                 self.signup_button.isUserInteractionEnabled = false
-                self.signup_button.backgroundColor = UIColor.theme.withAlphaComponent(0.75)
+                self.signup_button.backgroundColor = UIColor.theme_unselected.withAlphaComponent(0.75)
             }
         }
     }

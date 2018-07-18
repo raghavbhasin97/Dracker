@@ -4,6 +4,7 @@ import Firebase
 class Login: UIViewController {
     let logo_height: CGFloat = 100.0
     let icon_height: CGFloat = 24.0
+    let logo_padding: CGFloat? =  80.0
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -137,77 +138,79 @@ class Login: UIViewController {
         return button
     }()
     
-    fileprivate func setup()
-    {
-        //main view
-        self.view.backgroundColor = .theme
-        
-        //Add subViews
-        input_area.addSubview(email_image)
-        input_area.addSubview(email_line)
-        input_area.addSubview(password_image)
-        input_area.addSubview(password_line)
-        view.addSubview(input_area)
-        view.addSubview(letter_D)
-        view.addSubview(title_tag)
-        view.addSubview(email_field)
-        view.addSubview(password_field)
-        view.addSubview(login_button)
-        view.addSubview(forget_button)
+    fileprivate func setup_signUp() {
         view.addSubview(signup_view)
         signup_view.addSubview(signup_label)
         signup_view.addSubview(signup_button)
-        
-        //Logo View
-        view.center_X(item: letter_D)
-        view.addConstraintsWithFormat(format: "H:|[v0]|", views: title_tag)
-        letter_D.widthAnchor.constraint(equalToConstant: logo_height).isActive = true
-        let logo_padding: CGFloat? =  UIApplication.shared.statusBarFrame.height * 3
-        view.addConstraintsWithFormat(format: "V:|-\(logo_padding!)-[v0(\(logo_height))]-10-[v1]", views: letter_D, title_tag)
-        
-        
-        //white area
-        view.addConstraintsWithFormat(format: "H:|[v0]|", views: input_area)
-        view.addConstraintsWithFormat(format: "V:|-180-[v0]|", views: input_area)
-        
-        //Email Setup
-        email_image.widthAnchor.constraint(equalToConstant: icon_height).isActive = true
-        email_image.heightAnchor.constraint(equalToConstant: icon_height).isActive = true
-        email_image.topAnchor.constraint(equalTo: email_field.topAnchor).isActive = true
-        input_area.addConstraintsWithFormat(format: "H:|-25-[v0]-25-|", views: email_line)
-        email_line.heightAnchor.constraint(equalToConstant: 1.0).isActive = true
-        email_line.topAnchor.constraint(equalTo: email_field.bottomAnchor, constant: 8).isActive = true
-        
-        //Email address Constraints
-        view.addConstraintsWithFormat(format: "H:|-30-[v0]-10-[v1]-30-|", views: email_image, email_field)
-        view.addConstraintsWithFormat(format: "V:|-200-[v0(\(icon_height))]-18-[v1(\(icon_height))]-25-[v2(50)]-10-[v3(20)]", views: email_field, password_field, login_button, forget_button)
-        
-        //Password Setup
-        
-        password_image.widthAnchor.constraint(equalToConstant: icon_height).isActive = true
-        password_image.heightAnchor.constraint(equalToConstant: icon_height).isActive = true
-        password_image.topAnchor.constraint(equalTo: password_field.topAnchor).isActive = true
-        input_area.addConstraintsWithFormat(format: "H:|-25-[v0]-25-|", views: password_line)
-        password_line.heightAnchor.constraint(equalToConstant: 1.0).isActive = true
-        password_line.topAnchor.constraint(equalTo: password_field.bottomAnchor, constant: 8).isActive = true
-        
-        
-        
-        //Password Constraints
-        view.addConstraintsWithFormat(format: "H:|-30-[v0]-10-[v1]-30-|", views: password_image, password_field)
-        
-        //Button add
-        view.addConstraintsWithFormat(format: "H:|-16-[v0]-16-|", views: login_button)
-        view.center_X(item: forget_button)
-        forget_button.widthAnchor.constraint(equalToConstant: 140).isActive = true
-        
-        // Signup setup
         view.addConstraintsWithFormat(format: "V:[v0(20)]-16-|", views: signup_view)
         signup_view.widthAnchor.constraint(equalToConstant: 227).isActive = true
         view.center_X(item: signup_view)
         signup_view.addConstraintsWithFormat(format: "V:|[v0]|", views: signup_label)
         signup_view.addConstraintsWithFormat(format: "H:|[v0(161)][v1(65)]", views: signup_label, signup_button)
         signup_view.addConstraintsWithFormat(format: "V:|[v0]|", views: signup_button)
+    }
+    
+    fileprivate func setup_buttons() {
+        input_area.addSubview(login_button)
+        input_area.addSubview(forget_button)
+        view.addConstraintsWithFormat(format: "H:|-16-[v0]-16-|", views: login_button)
+        view.center_X(item: forget_button)
+        forget_button.widthAnchor.constraint(equalToConstant: 140).isActive = true
+    }
+    
+    fileprivate func setup_logo() {
+        view.addSubview(letter_D)
+        view.addSubview(title_tag)
+        view.center_X(item: letter_D)
+        view.addConstraintsWithFormat(format: "H:|[v0]|", views: title_tag)
+        letter_D.widthAnchor.constraint(equalToConstant: logo_height).isActive = true
+        view.addConstraintsWithFormat(format: "H:|[v0]|", views: input_area)
+    }
+    
+    fileprivate func setup_email() {
+        input_area.addSubview(email_image)
+        input_area.addSubview(email_line)
+        input_area.addSubview(email_field)
+        email_image.widthAnchor.constraint(equalToConstant: icon_height).isActive = true
+        email_image.heightAnchor.constraint(equalToConstant: icon_height).isActive = true
+        email_image.topAnchor.constraint(equalTo: email_field.topAnchor).isActive = true
+        input_area.addConstraintsWithFormat(format: "H:|-25-[v0]-25-|", views: email_line)
+        email_line.heightAnchor.constraint(equalToConstant: 1.0).isActive = true
+        email_line.topAnchor.constraint(equalTo: email_field.bottomAnchor, constant: 8).isActive = true
+        input_area.addConstraintsWithFormat(format: "H:|-30-[v0]-10-[v1]-30-|", views: email_image, email_field)
+    }
+    
+    fileprivate func setup_password() {
+        input_area.addSubview(password_image)
+        input_area.addSubview(password_line)
+        input_area.addSubview(password_field)
+        password_image.widthAnchor.constraint(equalToConstant: icon_height).isActive = true
+        password_image.heightAnchor.constraint(equalToConstant: icon_height).isActive = true
+        password_image.topAnchor.constraint(equalTo: password_field.topAnchor).isActive = true
+        input_area.addConstraintsWithFormat(format: "H:|-25-[v0]-25-|", views: password_line)
+        password_line.heightAnchor.constraint(equalToConstant: 1.0).isActive = true
+        password_line.topAnchor.constraint(equalTo: password_field.bottomAnchor, constant: 8).isActive = true
+        input_area.addConstraintsWithFormat(format: "H:|-30-[v0]-10-[v1]-30-|", views: password_image, password_field)
+    }
+    
+    fileprivate func setup()
+    {
+        //main view
+        self.view.backgroundColor = .theme
+      
+        //Add views
+        view.addSubview(input_area)
+        
+        // Call component setups
+        setup_logo()
+        setup_email()
+        setup_password()
+        setup_buttons()
+        setup_signUp()
+        
+        //Relative vertical positioning
+        view.addConstraintsWithFormat(format: "V:|-\(logo_padding!)-[v0(\(logo_height))]-10-[v1]-20-[v2]|", views: letter_D, title_tag, input_area)
+        view.addConstraintsWithFormat(format: "V:|-20-[v0(\(icon_height))]-18-[v1(\(icon_height))]-25-[v2(50)]-10-[v3(20)]", views: email_field, password_field, login_button, forget_button)
     }
     
     @objc func login_clicked()

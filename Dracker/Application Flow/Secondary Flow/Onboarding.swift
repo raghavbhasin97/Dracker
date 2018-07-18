@@ -171,17 +171,20 @@ class Onboarding: UIViewController {
             present_alert_error(message: .incorrect_code, target: self)
             return
         }
-        get_user_data(phone: phone_field.text!) { (data) in
-            if data.isFailure {
-                return
-            }
-            let response = data.value as! [String: Any]
-            let uid = response["uid"] as! String
-            let name = response["name"] as! String
-            if uid != (UserDefaults.standard.object(forKey: "uid") as! String) {
-                present_alert_error(message: .phone_not_match, target: self)
-            } else {
-                self.save_and_redirect(number: self.phone_field.text!, name: name)
+        loading(target: self) {[unowned self] (_) in
+            get_user_data(phone: self.phone_field.text!) { (data) in
+                stop_loading()
+                if data.isFailure {
+                    return
+                }
+                let response = data.value as! [String: Any]
+                let uid = response["uid"] as! String
+                let name = response["name"] as! String
+                if uid != (UserDefaults.standard.object(forKey: "uid") as! String) {
+                    present_alert_error(message: .phone_not_match, target: self)
+                } else {
+                    self.save_and_redirect(number: self.phone_field.text!, name: name)
+                }
             }
         }
     }
