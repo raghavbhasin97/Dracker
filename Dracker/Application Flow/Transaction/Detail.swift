@@ -22,7 +22,7 @@ class Detail: UIViewController {
         background_blur.removeFromSuperview()
     }
     
-    func loading() {
+    func loading(completion: @escaping (Bool) -> Void) {
         //Add Loading logic
         let window = UIScreen.main.bounds
         view.addSubview(background_blur)
@@ -31,6 +31,12 @@ class Detail: UIViewController {
         background_blur.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
         activty?.center = CGPoint(x: window.width/2, y: window.height/2)
         activty?.startAnimating()
+        background_blur.alpha = 0
+        activty?.layer.transform = CATransform3DMakeTranslation(0, view.frame.height/2, 0)
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {[unowned self] in
+            self.background_blur.alpha = 1.0
+            self.activty?.layer.transform = CATransform3DMakeTranslation(0, 0, 0)
+        }, completion: completion)
     }
     
     //MARK: View Components
@@ -203,21 +209,22 @@ class Detail: UIViewController {
             parameters["payer_uid"] = other_uid
             parameters["payee_uid"] = current_uid
             parameters["time"] = time
-            self.loading()
-            post_settle_transaction(parameters: parameters, completion: { (res) in
-                if res.isFailure { return }
-                //Send a message to the creditor about debt repayment
-                let message = "\(name!) payed you \(amount.as_amount()) for \"\(description!)\""
-                send_message(phone: (self.data?.phone)!, message: message)
-                //Delete the tagged image if one exists.
-                self.delete_image()
-                //Delete pending notification
-                remove_notification(identifier: self.data?.notification_identifier)
-                let settled_transaction = Settled(is_debt: is_debt!, amount: String(amount), description: description!, name: name!)
-                settled_transactions.insert(settled_transaction, at: 0)
-                //Delete entry and redirect to Home
-                
-                self.delete_and_push_back()
+            self.loading(completion: { (_) in
+                post_settle_transaction(parameters: parameters, completion: { (res) in
+                    if res.isFailure { return }
+                    //Send a message to the creditor about debt repayment
+                    let message = "\(name!) payed you \(amount.as_amount()) for \"\(description!)\""
+                    send_message(phone: (self.data?.phone)!, message: message)
+                    //Delete the tagged image if one exists.
+                    self.delete_image()
+                    //Delete pending notification
+                    remove_notification(identifier: self.data?.notification_identifier)
+                    let settled_transaction = Settled(is_debt: is_debt!, amount: String(amount), description: description!, name: name!)
+                    settled_transactions.insert(settled_transaction, at: 0)
+                    //Delete entry and redirect to Home
+                    
+                    self.delete_and_push_back()
+                })
             })
         }
         action.setValue(UIColor.settle_action, forKey: "titleTextColor")
@@ -240,12 +247,13 @@ class Detail: UIViewController {
             parameters["payer_uid"] = current_uid
             parameters["payee_uid"] = other_uid
             //Delete the tagged image if one exists.
-            self.loading()
-            post_delete_transaction(parameters: parameters, completion: { (res) in
-                if res.isFailure { return }
-                self.delete_image()
-                //Delete entry and redirect to Home
-                self.delete_and_push_back()
+            self.loading(completion: { (_) in
+                post_delete_transaction(parameters: parameters, completion: { (res) in
+                    if res.isFailure { return }
+                    self.delete_image()
+                    //Delete entry and redirect to Home
+                    self.delete_and_push_back()
+                })
             })
         })
         action.setValue(UIColor.delete_action, forKey: "titleTextColor")

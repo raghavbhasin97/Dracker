@@ -93,6 +93,12 @@ class Home: UIViewController {
         background_blur.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
         activty?.center = CGPoint(x: window.width/2, y: window.height/2)
         activty?.startAnimating()
+        background_blur.alpha = 0
+        activty?.layer.transform = CATransform3DMakeTranslation(0, view.frame.height/2, 0)
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {[unowned self] in
+            self.background_blur.alpha = 1.0
+            self.activty?.layer.transform = CATransform3DMakeTranslation(0, 0, 0)
+            }, completion: nil)
     }
     
     func loading_initial() {
@@ -135,9 +141,9 @@ class Home: UIViewController {
         view.addConstraintsWithFormat(format: "V:[v0(55)]|", views: create_view)
         view.addConstraintsWithFormat(format: "H:|[v0]|", views: create_view)
         create_view.addSubview(create_button)
-        create_view.addConstraintsWithFormat(format: "V:[v0(\(add_action_height))]-2-|", views: create_button)
+        create_view.addConstraintsWithFormat(format: "V:[v0(\(add_action_height-10))]-7.5-|", views: create_button)
         create_view.center_X(item: create_button)
-        create_button.widthAnchor.constraint(equalToConstant: add_action_height).isActive = true
+        create_button.widthAnchor.constraint(equalToConstant: add_action_height-10).isActive = true
     }
     
     fileprivate func select_menu_item(path: IndexPath) {

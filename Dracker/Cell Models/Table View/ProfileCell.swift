@@ -1,6 +1,11 @@
 import UIKit
 
 class ProfileCell: BaseTableViewCell {
+    
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+        super.setHighlighted(false, animated: false)
+    }
+    
     let option_label: UILabel = {
         let label = UILabel()
         label.textAlignment = .left

@@ -18,6 +18,7 @@ class Change: UIViewController {
     let textfield: UITextField = {
         let field = UITextField()
         field.font = .systemFont(ofSize: 18)
+        field.autocapitalizationType = .none
         return field
     }()
     

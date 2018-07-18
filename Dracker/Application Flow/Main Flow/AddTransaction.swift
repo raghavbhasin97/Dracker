@@ -15,15 +15,21 @@ class AddTransaction: UIViewController {
         background_blur.removeFromSuperview()
     }
     
-    fileprivate func loading() {
-        view.endEditing(true)
+    func loading(completion: @escaping (Bool) -> Void) {
         //Add Loading logic
         let window = UIScreen.main.bounds
         view.addSubview(background_blur)
         view.addSubview(activty!)
+        
         background_blur.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
         activty?.center = CGPoint(x: window.width/2, y: window.height/2)
         activty?.startAnimating()
+        background_blur.alpha = 0
+        activty?.layer.transform = CATransform3DMakeTranslation(0, view.frame.height/2, 0)
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {[unowned self] in
+            self.background_blur.alpha = 1.0
+            self.activty?.layer.transform = CATransform3DMakeTranslation(0, 0, 0)
+            }, completion: completion)
     }
     
     weak var dahsboard: HomeView?
@@ -244,7 +250,6 @@ class AddTransaction: UIViewController {
             present_alert_error(message: .no_internet, target: self)
             return
         }
-        loading()
         //Get Fields
         let phone = extract_phone()
         let amount = amount_field.text!
@@ -285,25 +290,27 @@ class AddTransaction: UIViewController {
             parameters["payee_uid"] = others_uid!
         }
         //Post to databse
-        put_transaction(parameters: parameters) {[unowned self] (data) in
-            let transaction_identifier = data.value as! String
-            item.transaction_id = transaction_identifier
-            if self.is_debt && UserDefaults.standard.bool(forKey: "reminder") {
-                var user_info: [AnyHashable: Any] = [:]
-                user_info["transaction_id"] = transaction_identifier
-                user_info["uid"] = current_uid
-                user_info["payer_uid"] = self.others_uid!
-                user_info["notification_identifier"] = notification_identifier
-                create_notification(title: "You have an outstanding payment.", body: "You owe \(self.others_name!) $\(amount) for \"\(description)\"", identifier: notification_identifier, info: user_info)
+        loading { (_) in
+            put_transaction(parameters: parameters) {[unowned self] (data) in
+                let transaction_identifier = data.value as! String
+                item.transaction_id = transaction_identifier
+                if self.is_debt && UserDefaults.standard.bool(forKey: "reminder") {
+                    var user_info: [AnyHashable: Any] = [:]
+                    user_info["transaction_id"] = transaction_identifier
+                    user_info["uid"] = current_uid
+                    user_info["payer_uid"] = self.others_uid!
+                    user_info["notification_identifier"] = notification_identifier
+                    create_notification(title: "You have an outstanding payment.", body: "You owe \(self.others_name!) $\(amount) for \"\(description)\"", identifier: notification_identifier, info: user_info)
+                }
+                //Update internal data for consistency
+                let amount_value = Double(amount)!
+                if self.is_debt {
+                    debit += amount_value
+                } else {
+                    credit += amount_value
+                }
+                self.insert_and_push_back(item: item)
             }
-            //Update internal data for consistency
-            let amount_value = Double(amount)!
-            if self.is_debt {
-                debit += amount_value
-            } else {
-                credit += amount_value
-            }
-            self.insert_and_push_back(item: item)
         }
     }
     
