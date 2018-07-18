@@ -1,37 +1,6 @@
 import UIKit
 
 class AddTransaction: UIViewController {
-    let background_blur = UIVisualEffectView(effect: UIBlurEffect(style: .extraLight))
-    var activty: UIActivityIndicatorView? = {
-        let activity = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
-        activity.color = .red
-        return activity
-    }()
-    
-    fileprivate func stop_loading() {
-        activty?.stopAnimating()
-        activty?.removeFromSuperview()
-        activty = nil
-        background_blur.removeFromSuperview()
-    }
-    
-    func loading(completion: @escaping (Bool) -> Void) {
-        //Add Loading logic
-        let window = UIScreen.main.bounds
-        view.addSubview(background_blur)
-        view.addSubview(activty!)
-        
-        background_blur.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
-        activty?.center = CGPoint(x: window.width/2, y: window.height/2)
-        activty?.startAnimating()
-        background_blur.alpha = 0
-        activty?.layer.transform = CATransform3DMakeTranslation(0, view.frame.height/2, 0)
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {[unowned self] in
-            self.background_blur.alpha = 1.0
-            self.activty?.layer.transform = CATransform3DMakeTranslation(0, 0, 0)
-            }, completion: completion)
-    }
-    
     weak var dahsboard: HomeView?
     var image_url: NSURL?
     var is_debt = false
@@ -292,7 +261,7 @@ class AddTransaction: UIViewController {
             parameters["payee_uid"] = others_uid!
         }
         //Post to databse
-        loading { (_) in
+        loading(target: self) { (_) in
             put_transaction(parameters: parameters) {[unowned self] (data) in
                 let transaction_identifier = data.value as! String
                 item.transaction_id = transaction_identifier

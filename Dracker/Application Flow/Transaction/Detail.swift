@@ -8,37 +8,6 @@ class Detail: UIViewController {
     weak var dahsboard: HomeView?
     var index: IndexPath?
     
-    //MARK: Blur logic
-    let background_blur = UIVisualEffectView(effect: UIBlurEffect(style: .extraLight))
-    var activty: UIActivityIndicatorView? = {
-        let activity = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
-        activity.color = .red
-        return activity
-    }()
-    
-    func stop_loading() {
-        activty?.stopAnimating()
-        activty?.removeFromSuperview()
-        background_blur.removeFromSuperview()
-    }
-    
-    func loading(completion: @escaping (Bool) -> Void) {
-        //Add Loading logic
-        let window = UIScreen.main.bounds
-        view.addSubview(background_blur)
-        view.addSubview(activty!)
-        
-        background_blur.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
-        activty?.center = CGPoint(x: window.width/2, y: window.height/2)
-        activty?.startAnimating()
-        background_blur.alpha = 0
-        activty?.layer.transform = CATransform3DMakeTranslation(0, view.frame.height/2, 0)
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {[unowned self] in
-            self.background_blur.alpha = 1.0
-            self.activty?.layer.transform = CATransform3DMakeTranslation(0, 0, 0)
-        }, completion: completion)
-    }
-    
     //MARK: View Components
     lazy var transaction_image: ActivityImageView = {
         let image = ActivityImageView(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
@@ -209,7 +178,7 @@ class Detail: UIViewController {
             parameters["payer_uid"] = other_uid
             parameters["payee_uid"] = current_uid
             parameters["time"] = time
-            self.loading(completion: { (_) in
+            loading(target: self, completion: { (_) in
                 post_settle_transaction(parameters: parameters, completion: { (res) in
                     if res.isFailure { return }
                     //Send a message to the creditor about debt repayment
@@ -247,7 +216,7 @@ class Detail: UIViewController {
             parameters["payer_uid"] = current_uid
             parameters["payee_uid"] = other_uid
             //Delete the tagged image if one exists.
-            self.loading(completion: { (_) in
+            loading(target: self, completion: { (_) in
                 post_delete_transaction(parameters: parameters, completion: { (res) in
                     if res.isFailure { return }
                     self.delete_image()
