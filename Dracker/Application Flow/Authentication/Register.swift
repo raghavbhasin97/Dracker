@@ -343,27 +343,32 @@ class Register: UIViewController {
             activity_indicator.layer.transform = CATransform3DMakeTranslation(0, 0, 0)
         }) { (_) in
             create_user(phone: phone, password: password, email: email, name: name) {[unowned self] (res) in
-                background_blur.removeFromSuperview()
-                activity_indicator.removeFromSuperview()
-                if res.isFailure {
-                    present_alert_error(message: .no_internet, target: self)
-                    return
-                }
-                let response = res.value as! [String: Any]
-                let message = response["message"] as! String
-                if  message == "EMAIL_EXISTS" {
-                    present_alert_error(message: .duplicate_account, target: self)
-                    return
-                } else if message == "PHONE_NUMBER_EXISTS" {
-                    present_alert_error(message: .duplicate_phone, target: self)
-                    return
-                }
-                //Upload image
-                let uid = response["uid"] as! String
-                upload_to_S3(key: uid, data: self.image_url!, bucket: .profiles)
-                //Present success
-                present_alert_with_handler_and_message(message: .account_created, target: self, handler: { [unowned self](_) in
-                    self.signin()
+                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {[unowned self] in
+                    background_blur.alpha = 0
+                    activity_indicator.layer.transform = CATransform3DMakeTranslation(0, self.view.frame.height/2, 0)
+                }, completion: {[unowned self] (_) in
+                    background_blur.removeFromSuperview()
+                    activity_indicator.removeFromSuperview()
+                    if res.isFailure {
+                        present_alert_error(message: .no_internet, target: self)
+                        return
+                    }
+                    let response = res.value as! [String: Any]
+                    let message = response["message"] as! String
+                    if  message == "EMAIL_EXISTS" {
+                        present_alert_error(message: .duplicate_account, target: self)
+                        return
+                    } else if message == "PHONE_NUMBER_EXISTS" {
+                        present_alert_error(message: .duplicate_phone, target: self)
+                        return
+                    }
+                    //Upload image
+                    let uid = response["uid"] as! String
+                    upload_to_S3(key: uid, data: self.image_url!, bucket: .profiles)
+                    //Present success
+                    present_alert_with_handler_and_message(message: .account_created, target: self, handler: { [unowned self](_) in
+                        self.signin()
+                    })
                 })
             }
         }

@@ -21,26 +21,31 @@ func authenticate_visual(caller: UIViewController, email:String, password: Strin
     }) { (_) in
         //Try Signing In Running on delay for visual elements
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            Auth.auth().signIn(withEmail: email, password: password, completion: { (result, err) in
-                //Remove views
-                background_blur.removeFromSuperview()
-                activity_indicator.removeFromSuperview()
-                //If the login was unsuccessful
-                let user = result?.user
-                if err != nil {
-                    present_alert_error(message: .incorrect_login, target: caller)
-                } else if !(user?.isEmailVerified)! {
-                    //If email is not verified
-                    present_alert_error(message: .unverified_email, target: caller)
-                } else {
-                    if let uid = UserDefaults.standard.object(forKey: "uid") as? String {
-                        if uid != user?.uid {
-                            UserDefaults.standard.removeObject(forKey: "phone")
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                background_blur.alpha = 0
+                activity_indicator.layer.transform = CATransform3DMakeTranslation(0, caller.view.frame.height/2, 0)
+            }, completion: { (_) in
+                Auth.auth().signIn(withEmail: email, password: password, completion: { (result, err) in
+                    //Remove views
+                    background_blur.removeFromSuperview()
+                    activity_indicator.removeFromSuperview()
+                    //If the login was unsuccessful
+                    let user = result?.user
+                    if err != nil {
+                        present_alert_error(message: .incorrect_login, target: caller)
+                    } else if !(user?.isEmailVerified)! {
+                        //If email is not verified
+                        present_alert_error(message: .unverified_email, target: caller)
+                    } else {
+                        if let uid = UserDefaults.standard.object(forKey: "uid") as? String {
+                            if uid != user?.uid {
+                                UserDefaults.standard.removeObject(forKey: "phone")
+                            }
                         }
+                        store_credentials(email: email, password: password, user_id: (user?.uid)!)
+                        move_to_home(caller: caller)
                     }
-                    store_credentials(email: email, password: password, user_id: (user?.uid)!)
-                    move_to_home(caller: caller)
-                }
+                })
             })
         }
     }
