@@ -80,7 +80,7 @@ An iOS app to track/manage debt. This app allows users to create transactions, a
 - Firebase (Login/Authentication)
 - DZNEmptyDataSet (For nice empty table look)
 - Alamofire (API calls (to Twillo))
-- SendGrid (for emailing note attached to a transaction)
+- SendGrid (for emailing Welcome, Verification, Note and Email change messages)
 
 
 ## Meta
