@@ -76,6 +76,7 @@ class QRScanner: UIViewController {
         let y_axis = (view.frame.height - width)/2 - (navigationController?.navigationBar.frame.height)!
         box.frame = CGRect(x: padding, y: y_axis, width: width, height: width)
         view.bringSubview(toFront: box)
+        box.alpha = 0.5
     }
     
     fileprivate func convert_to_dictionary(result: String) -> [String : Any]? {

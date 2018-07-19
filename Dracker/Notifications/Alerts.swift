@@ -43,28 +43,6 @@ fileprivate func create_alert(message: String, title: String, handler: ((UIAlert
     return alert
 }
 
-enum textfield_messages: String {
-    case regiser_name = "Please enter your name."
-}
-
-//MARK: With textfield
-func present_alert_with_textfield(target: UIViewController , message: textfield_messages, title: String, placeholder: String, keyboard: UIKeyboardType, accessory_view: UIView? = nil ,action_completion: ((String) -> Void)? = nil) {
-    execute_on_main {
-        let alert = UIAlertController(title: title, message: message.rawValue, preferredStyle: .alert)
-        alert.addTextField { (field) in
-            field.keyboardType = keyboard
-            field.enablesReturnKeyAutomatically = true
-            field.placeholder = placeholder
-            if accessory_view != nil {field.inputAccessoryView = accessory_view }
-        }
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (_) in
-            let value = alert.textFields![0].text!
-            action_completion?(value)
-        }))
-        target.present(alert, animated: true)
-    }
-}
-
 //MARK: Image Picker
 func image_picker_action_sheet(controller: UIViewController, picker: UIImagePickerController, action1: String, action2: String, camera: UIImagePickerControllerCameraDevice, first_responder: UITextField? = nil)  -> UIAlertController {
     let actions = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)

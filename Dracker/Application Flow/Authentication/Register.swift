@@ -3,6 +3,8 @@ import Firebase
 
 class Register: UIViewController {
     let icon_height: CGFloat = 24.0
+    let profile_height: CGFloat = 110.0
+    let logo_padding: CGFloat? =  30.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -13,6 +15,22 @@ class Register: UIViewController {
     let signin_view: UIView = {
         let view = UIView()
         return view
+    }()
+    
+    let profile_label: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "Avenir-Book", size: 15)
+        label.textColor = .white
+        label.text = "Profile Information"
+        return label
+    }()
+    
+    let personal_label: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "Avenir-Book", size: 15)
+        label.textColor = .white
+        label.text = "Personal Information"
+        return label
     }()
     
     let signin_label: UILabel = {
@@ -51,6 +69,34 @@ class Register: UIViewController {
         return image
     }()
     
+    let phone_line: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.white.withAlphaComponent(0.40)
+        return view
+    }()
+    
+    let phone_image: UIImageView = {
+        let image = UIImageView()
+        image.image = #imageLiteral(resourceName: "phone_register")
+        image.tintColor = .white
+        image.contentMode = .scaleAspectFill
+        return image
+    }()
+    
+    let name_line: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.white.withAlphaComponent(0.40)
+        return view
+    }()
+    
+    let name_image: UIImageView = {
+        let image = UIImageView()
+        image.image = #imageLiteral(resourceName: "name")
+        image.tintColor = .white
+        image.contentMode = .scaleAspectFill
+        return image
+    }()
+    
     lazy var email_field: UITextField = {
         let field = UITextField()
         field.keyboardType = .emailAddress
@@ -62,6 +108,7 @@ class Register: UIViewController {
         field.returnKeyType = .next
         field.attributedPlaceholder =   NSAttributedString(string: "Email", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
         field.textColor = .white
+        field.autocorrectionType = .no
         return field
     }()
     
@@ -72,6 +119,7 @@ class Register: UIViewController {
         field.backgroundColor = .clear
         field.isSecureTextEntry = true
         field.autocapitalizationType = .none
+        field.autocorrectionType = .no
         field.delegate = self
         field.returnKeyType = .go
         field.font = UIFont(name: "AppleSDGothicNeo-UltraLight", size: 16.5)
@@ -81,16 +129,32 @@ class Register: UIViewController {
         return field
     }()
     
-    lazy var phone_field: UITextField = {
+    lazy var name_field: UITextField = {
         let field = UITextField()
         field.keyboardType = .default
-        field.borderStyle = .roundedRect
-        field.backgroundColor = .textfield
-        field.placeholder = "Phone"
-        field.keyboardType = .numberPad
-        field.autocapitalizationType = .none
-        field.returnKeyType = .go
+        field.borderStyle = .none
+        field.backgroundColor = .clear
+        field.autocapitalizationType = .words
         field.delegate = self
+        field.returnKeyType = .next
+        field.autocorrectionType = .no
+        field.font = UIFont(name: "AppleSDGothicNeo-UltraLight", size: 16.5)
+        field.returnKeyType = .next
+        field.attributedPlaceholder =   NSAttributedString(string: "Name", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+        field.textColor = .white
+        return field
+    }()
+    
+    lazy var phone_field: UITextField = {
+        let field = UITextField()
+        field.keyboardType = .numberPad
+        field.borderStyle = .none
+        field.backgroundColor = .clear
+        field.delegate = self
+        field.font = UIFont(name: "AppleSDGothicNeo-UltraLight", size: 16.5)
+        field.returnKeyType = .go
+        field.attributedPlaceholder =   NSAttributedString(string: "Phone", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+        field.textColor = .white
         return field
     }()
     lazy var signup_button: UIButton = {
@@ -125,48 +189,126 @@ class Register: UIViewController {
         profile.isUserInteractionEnabled = true
         profile.contentMode = .scaleAspectFill
         profile.clipsToBounds = true
-        profile.layer.cornerRadius = 70
+        profile.layer.cornerRadius = profile_height/2
         return profile
     }()
     
-    let name_view: UIView = {
+    
+    let input_area: UIView = {
         let view = UIView()
+        view.backgroundColor = .clear
         return view
     }()
     
-    lazy var name_button: UIButton = {
-        let button = UIButton()
-        button.setTitle("@Name", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 14.0)
-        button.setTitleColor(.white, for: .normal)
-        button.setTitleColor(UIColor.white.withAlphaComponent(0.7), for: .highlighted)
-        button.addTarget(self, action: #selector(set_name), for: .touchUpInside)
-        button.titleLabel?.textAlignment = .center
-        return button
-    }()
     lazy var picker: UIImagePickerController = {
         let image_picker = UIImagePickerController()
         image_picker.delegate = self
         image_picker.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
         return image_picker
     }()
-    fileprivate func setup()
-    {
-        view.backgroundColor = .theme
-        
-        //Add sub views
+    
+    fileprivate func setup_signIn() {
         view.addSubview(signin_view)
         signin_view.addSubview(signin_label)
         signin_view.addSubview(signin_button)
-        // Signin setup
         view.addConstraintsWithFormat(format: "V:[v0(20)]-16-|", views: signin_view)
         signin_view.widthAnchor.constraint(equalToConstant: 233).isActive = true
         view.center_X(item: signin_view)
         signin_view.addConstraintsWithFormat(format: "V:|[v0]|", views: signin_label)
         signin_view.addConstraintsWithFormat(format: "H:|[v0(176)][v1(63)]", views: signin_label, signin_button)
         signin_view.addConstraintsWithFormat(format: "V:|[v0]|", views: signin_button)
-        
+    }
     
+    fileprivate func setup_profile() {
+        view.addSubview(profile_image)
+        view.center_X(item: profile_image)
+        profile_image.widthAnchor.constraint(equalToConstant: profile_height).isActive = true
+    }
+    
+    fileprivate func setup_email() {
+        input_area.addSubview(email_image)
+        input_area.addSubview(email_line)
+        input_area.addSubview(email_field)
+        email_image.widthAnchor.constraint(equalToConstant: icon_height).isActive = true
+        email_image.heightAnchor.constraint(equalToConstant: icon_height).isActive = true
+        email_image.topAnchor.constraint(equalTo: email_field.topAnchor).isActive = true
+        input_area.addConstraintsWithFormat(format: "H:|-25-[v0]-25-|", views: email_line)
+        email_line.heightAnchor.constraint(equalToConstant: 1.0).isActive = true
+        email_line.topAnchor.constraint(equalTo: email_field.bottomAnchor, constant: 8).isActive = true
+        input_area.addConstraintsWithFormat(format: "H:|-30-[v0]-10-[v1]-30-|", views: email_image, email_field)
+    }
+    
+    fileprivate func setup_password() {
+        input_area.addSubview(password_image)
+        input_area.addSubview(password_line)
+        input_area.addSubview(password_field)
+        password_image.widthAnchor.constraint(equalToConstant: icon_height).isActive = true
+        password_image.heightAnchor.constraint(equalToConstant: icon_height).isActive = true
+        password_image.topAnchor.constraint(equalTo: password_field.topAnchor).isActive = true
+        input_area.addConstraintsWithFormat(format: "H:|-25-[v0]-25-|", views: password_line)
+        password_line.heightAnchor.constraint(equalToConstant: 1.0).isActive = true
+        password_line.topAnchor.constraint(equalTo: password_field.bottomAnchor, constant: 8).isActive = true
+        input_area.addConstraintsWithFormat(format: "H:|-30-[v0]-10-[v1]-30-|", views: password_image, password_field)
+    }
+    
+    fileprivate func setup_phone() {
+        input_area.addSubview(phone_image)
+        input_area.addSubview(phone_line)
+        input_area.addSubview(phone_field)
+        phone_image.widthAnchor.constraint(equalToConstant: icon_height).isActive = true
+        phone_image.heightAnchor.constraint(equalToConstant: icon_height).isActive = true
+        phone_image.topAnchor.constraint(equalTo: phone_field.topAnchor).isActive = true
+        input_area.addConstraintsWithFormat(format: "H:|-25-[v0]-25-|", views: phone_line)
+        phone_line.heightAnchor.constraint(equalToConstant: 1.0).isActive = true
+        phone_line.topAnchor.constraint(equalTo: phone_field.bottomAnchor, constant: 8).isActive = true
+        input_area.addConstraintsWithFormat(format: "H:|-30-[v0]-10-[v1]-30-|", views: phone_image, phone_field)
+    }
+    
+    fileprivate func setup_name() {
+        input_area.addSubview(name_image)
+        input_area.addSubview(name_line)
+        input_area.addSubview(name_field)
+        name_image.widthAnchor.constraint(equalToConstant: icon_height).isActive = true
+        name_image.heightAnchor.constraint(equalToConstant: icon_height).isActive = true
+        name_image.topAnchor.constraint(equalTo: name_field.topAnchor).isActive = true
+        input_area.addConstraintsWithFormat(format: "H:|-25-[v0]-25-|", views: name_line)
+        name_line.heightAnchor.constraint(equalToConstant: 1.0).isActive = true
+        name_line.topAnchor.constraint(equalTo: name_field.bottomAnchor, constant: 8).isActive = true
+        input_area.addConstraintsWithFormat(format: "H:|-30-[v0]-10-[v1]-30-|", views: name_image, name_field)
+    }
+    
+    fileprivate func setup_signUp() {
+        input_area.addSubview(signup_button)
+        input_area.addConstraintsWithFormat(format: "H:|-16-[v0]-16-|", views: signup_button)
+    }
+    
+    fileprivate func setup_sections() {
+        input_area.addSubview(personal_label)
+        input_area.addConstraintsWithFormat(format: "H:|-30-[v0]", views: personal_label)
+        input_area.addSubview(profile_label)
+        input_area.addConstraintsWithFormat(format: "H:|-30-[v0]", views: profile_label)
+    }
+    
+    fileprivate func setup()
+    {
+        //Main View
+        view.backgroundColor = .theme
+        view.addSubview(input_area)
+        view.addConstraintsWithFormat(format: "H:|[v0]|", views: input_area)
+ 
+        //Setup Component
+        setup_signIn()
+        setup_profile()
+        setup_email()
+        setup_password()
+        setup_phone()
+        setup_name()
+        setup_signUp()
+        setup_sections()
+        
+        //Relative possition
+        view.addConstraintsWithFormat(format: "V:|-\(logo_padding!)-[v0(\(profile_height))][v1]|", views: profile_image, input_area )
+        input_area.addConstraintsWithFormat(format: "V:|-15-[v0]-5-[v1(\(icon_height))]-18-[v2(\(icon_height))]-25-[v3]-5-[v4(\(icon_height))]-18-[v5(\(icon_height))]-25-[v6(50)]", views: profile_label, email_field, password_field, personal_label, name_field, phone_field, signup_button)
     }
     
     @objc func signin()
@@ -195,7 +337,7 @@ class Register: UIViewController {
         let email = email_field.text!
         let password = password_field.text!
         let phone = phone_field.text!
-        let name = extract_name(name: (name_button.titleLabel?.text!)!)
+        let name = name_field.text!
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             background_blur.alpha = 1.0
             activity_indicator.layer.transform = CATransform3DMakeTranslation(0, 0, 0)
@@ -239,7 +381,7 @@ class Register: UIViewController {
         } else if !valid_phone(phone: phone_field.text!) {
             present_alert_error(message: .incorrect_phone, target: self)
             return false
-        } else if !valid_name(name: extract_name(name: (name_button.titleLabel?.text!)!)) {
+        } else if !valid_name(name: name_field.text!) {
             present_alert_error(message: .incorrect_name, target: self)
             return false
         } else if image_url == nil {
@@ -247,21 +389,6 @@ class Register: UIViewController {
             return false
         }
         return true
-    }
-    @objc func set_name()
-    {
-        present_alert_with_textfield(target: self, message: .regiser_name, title: "", placeholder: "Name", keyboard: .default) { [unowned self] (name) in
-            if !valid_name(name: name) {
-                self.name_button.setTitle("@Name", for: .normal)
-                present_alert_error(message: .incorrect_name, target: self)
-                return
-            }
-            self.name_button.setTitle("@" + name, for: .normal)
-        }
-    }
-    fileprivate func extract_name(name: String) -> String {
-        let index = name.index(name.startIndex, offsetBy: 1)
-        return String(name[index...])
     }
     
     @objc func select_image()
@@ -284,7 +411,7 @@ extension Register: UIViewControllerTransitioningDelegate
 extension Register: UITextFieldDelegate{
     func textfields_valid() -> Bool
     {
-        return valid_email(email: email_field.text!)  && valid_password(password: password_field.text!) && valid_phone(phone: phone_field.text!)
+        return valid_email(email: email_field.text!)  && valid_password(password: password_field.text!) && valid_phone(phone: phone_field.text!) && valid_name(name: name_field.text!)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -310,6 +437,8 @@ extension Register: UITextFieldDelegate{
         if textField == email_field {
             password_field.becomeFirstResponder()
         } else if textField == password_field {
+            name_field.becomeFirstResponder()
+        } else if textField == name_field {
             phone_field.becomeFirstResponder()
         } else {
             if textfields_valid() {
