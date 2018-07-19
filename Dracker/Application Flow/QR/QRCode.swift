@@ -2,7 +2,7 @@ import UIKit
 import Firebase
 
 class QRCode: UIViewController {
-    
+    var current_brightness: CGFloat?
     let image = UIImageView()
     let navigation_title: UILabel = {
         let title = UILabel()
@@ -23,7 +23,13 @@ class QRCode: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        current_brightness = UIScreen.main.brightness
         authorize(completion: setup)
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(true)
+        UIScreen.main.brightness = current_brightness!
     }
     
     fileprivate func setup_graphic() {
@@ -49,6 +55,7 @@ class QRCode: UIViewController {
         self.name.text = "@" +  (UserDefaults.standard.object(forKey: "name") as! String)
         let json = get_data().encrypt()
         image.image = generate_QRCode(from: json!)
+        UIScreen.main.brightness = 1.0
     }
     
     fileprivate func generate_QRCode(from string: String) -> UIImage? {

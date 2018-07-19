@@ -8,7 +8,7 @@ struct SettingData {
 class Settings: UIView {
     let ID = "SettingsCell"
     let sections = ["Preferences", "Options"]
-    let data = [[SettingData(title: "Auto Login", image: "authorization"), SettingData(title: "Tocuh ID", image: "fingerprint"), SettingData(title: "Reminders", image: "notification"), SettingData(title: "Scan Sound", image: "sound")],
+    let data = [[SettingData(title: "Auto Login", image: "authorization"), SettingData(title: "Touch ID", image: "fingerprint"), SettingData(title: "Reminders", image: "notification"), SettingData(title: "Scan Sound", image: "sound")],
                 [SettingData(title: "Alerts", image: "alerts"), SettingData(title: "Change Passcode", image: "passcode")]
     ]
     let defaults_key = ["auto_login", "touch", "reminder", "sound"]
