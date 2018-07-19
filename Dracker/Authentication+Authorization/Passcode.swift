@@ -85,7 +85,7 @@ class Passcode: UIViewController {
     
     let label: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "AppleSDGothicNeo-UltraLight", size: 50)
+        label.font = UIFont(name: "Avenir-Book", size: 25)
         label.textColor = .text_color
         label.text = "Enter Passcode"
         label.textAlignment = .center
@@ -121,7 +121,7 @@ class Passcode: UIViewController {
         view.addConstraintsWithFormat(format: "H:|-\(padding)-[v0]-\(padding)-|", views: buttons_view)
         view.center_X(item: passcode_view)
         view.addConstraintsWithFormat(format: "H:|[v0]|", views: label)
-        view.addConstraintsWithFormat(format: "V:|-100-[v0]-10-[v1(\(passcode_size))]-10-[v2]-20-|", views: label, passcode_view, buttons_view)
+        view.addConstraintsWithFormat(format: "V:|-60-[v0]-40-[v1(\(passcode_size))]-10-[v2]-20-|", views: label, passcode_view, buttons_view)
         passcode_view.length = 4
         passcode_view.size = passcode_size
         passcode_view.widthAnchor.constraint(equalToConstant: passcode_size*passcode_length + 30)

@@ -8,23 +8,34 @@ An iOS app to track/manage debt. This app allows users to create transactions, a
 
 ## UI
 
+#### Login/Register
+<img src="img/login.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/register.png" width="180" height="310">
+
+
 #### Dashboard
 <img src="img/home.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/wallet.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/profile.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/settings.png" width="180" height="310">
 
 #### Existing Transactions
-<img src="img/details.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/settle.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/add_note.png" width="180" height="310">
+<img src="img/details.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/add_note.png" width="180" height="310">
 
 #### New Transactions
 <img src="img/add_transaction.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/qr_code.png" width="180" height="310">
 
 #### Summary
-<img src="img/friends.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/fridens_detail.png" width="180" height="310">
+<img src="img/friends.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/friends_detail.png" width="180" height="310">
+
+#### Profile
+<img src="img/change_password.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/change_email.png" width="180" height="310">
+
+#### Settings
+<img src="img/change_passcode.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/set_passcode.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/set_frequency.png" width="180" height="310">
 
 #### Security
 <img src="img/authentication.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/passcode.png" width="180" height="310">
 
 #### Miscellaneous
-<img src="img/change_password.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/quick_actions.png" width="180" height="310">
+<img src="img/quick_actions.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/notifications.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/no_internet.png" width="180" height="310">
+
 
 
 ## Features
