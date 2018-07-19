@@ -325,7 +325,7 @@ class Register: UIViewController {
         let background_blur = UIVisualEffectView(effect: UIBlurEffect(style: .extraLight))
         let activity_indicator = TextActivity(text: "Signing Up!")
         background_blur.frame = view.frame
-        if !validate_input(){ return } //Just a safecheck
+        if !validate_input(){ return }
         
         //Add Blur view
         view.addSubview(background_blur)
@@ -419,7 +419,7 @@ extension Register: UIViewControllerTransitioningDelegate
 extension Register: UITextFieldDelegate{
     func textfields_valid() -> Bool
     {
-        return valid_email(email: email_field.text!)  && valid_password(password: password_field.text!) && valid_phone(phone: phone_field.text!) && valid_name(name: name_field.text!) && (image_url != nil)
+        return valid_email(email: email_field.text!)  && valid_password(password: password_field.text!) && valid_phone(phone: phone_field.text!) && valid_name(name: name_field.text!)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
