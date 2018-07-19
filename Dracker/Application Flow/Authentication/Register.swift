@@ -325,12 +325,13 @@ class Register: UIViewController {
         let background_blur = UIVisualEffectView(effect: UIBlurEffect(style: .extraLight))
         let activity_indicator = TextActivity(text: "Signing Up!")
         background_blur.frame = view.frame
-        if !validate_input(){ return }
+        if !validate_input(){ return } //Just a safecheck
         
         //Add Blur view
         view.addSubview(background_blur)
         view.addSubview(activity_indicator)
         activity_indicator.show()
+        activity_indicator.alpha = 0
         background_blur.alpha = 0
         activity_indicator.layer.transform = CATransform3DMakeTranslation(0, view.frame.height/2, 0)
         //Get Parameters
@@ -340,11 +341,13 @@ class Register: UIViewController {
         let name = name_field.text!
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             background_blur.alpha = 1.0
+            activity_indicator.alpha = 1.0
             activity_indicator.layer.transform = CATransform3DMakeTranslation(0, 0, 0)
         }) { (_) in
             create_user(phone: phone, password: password, email: email, name: name) {[unowned self] (res) in
                 UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {[unowned self] in
                     background_blur.alpha = 0
+                    activity_indicator.alpha = 0
                     activity_indicator.layer.transform = CATransform3DMakeTranslation(0, self.view.frame.height/2, 0)
                 }, completion: {[unowned self] (_) in
                     background_blur.removeFromSuperview()
@@ -416,7 +419,7 @@ extension Register: UIViewControllerTransitioningDelegate
 extension Register: UITextFieldDelegate{
     func textfields_valid() -> Bool
     {
-        return valid_email(email: email_field.text!)  && valid_password(password: password_field.text!) && valid_phone(phone: phone_field.text!) && valid_name(name: name_field.text!)
+        return valid_email(email: email_field.text!)  && valid_password(password: password_field.text!) && valid_phone(phone: phone_field.text!) && valid_name(name: name_field.text!) && (image_url != nil)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

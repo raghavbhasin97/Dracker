@@ -14,15 +14,18 @@ func authenticate_visual(caller: UIViewController, email:String, password: Strin
     caller.view.addSubview(activity_indicator)
     activity_indicator.show()
     background_blur.alpha = 0
+    activity_indicator.alpha = 0
     activity_indicator.layer.transform = CATransform3DMakeTranslation(0, caller.view.frame.height/2, 0)
     UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
         background_blur.alpha = 1.0
+        activity_indicator.alpha = 1.0
         activity_indicator.layer.transform = CATransform3DMakeTranslation(0, 0, 0)
     }) { (_) in
         //Try Signing In Running on delay for visual elements
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                 background_blur.alpha = 0
+                activity_indicator.alpha = 0
                 activity_indicator.layer.transform = CATransform3DMakeTranslation(0, caller.view.frame.height/2, 0)
             }, completion: { (_) in
                 Auth.auth().signIn(withEmail: email, password: password, completion: { (result, err) in
