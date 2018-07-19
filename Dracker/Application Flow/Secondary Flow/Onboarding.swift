@@ -171,6 +171,7 @@ class Onboarding: UIViewController {
             present_alert_error(message: .incorrect_code, target: self)
             return
         }
+        view.endEditing(true)
         loading(target: self) {[unowned self] (_) in
             get_user_data(phone: self.phone_field.text!) { (data) in
                 stop_loading()
