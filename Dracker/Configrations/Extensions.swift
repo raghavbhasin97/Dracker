@@ -11,10 +11,6 @@ extension UIColor {
     }
     
     //MARK: Colors
-    //MARK: Light theme
-//    static let theme = UIColor(r: 73, g: 118, b: 171)
-//    static let theme_unselected = UIColor(r: 128, g: 175, b: 202)
-    //MARK: Dark theme
     static let theme = UIColor(r: 55, g: 52, b: 71)
     static let theme_unselected = UIColor(r: 155, g: 145, b: 208)
     static let profile_background = UIColor(r: 240, g: 240, b: 240)

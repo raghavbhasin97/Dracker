@@ -96,6 +96,7 @@ extension Contacts: UITableViewDelegate, UITableViewDataSource {
         }
         controller.uid = friend.uid
         controller.name = friend.name
+        controller.amount = friend.amount
         controller.transactions_list = transactions
         controller.setup_data()
         navigationController?.pushViewController(controller, animated: true)

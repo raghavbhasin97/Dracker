@@ -1,26 +1,49 @@
 import UIKit
+import DZNEmptyDataSet
 
 class FriendDetail: UIViewController {
+
     let ID = "FridensDetailCell"
-    let profile_size: CGFloat = 150
+    let profile_height: CGFloat = 70
+    let profile_width: CGFloat = 60
+    let empty_icons = [#imageLiteral(resourceName: "empty_transactions"), #imageLiteral(resourceName: "sent"), #imageLiteral(resourceName: "recieved")]
+    let empty_titles = ["No pending", "No money sent", "No money recieved"]
+    let padding: CGFloat = 5
     var transactions_list: [Friends_Data] = []
+    var filtered_list: [Friends_Data] = []
     var uid: String?
     var name: String?
+    var amount: Double?
     var width_anchor: NSLayoutConstraint?
     var height_anchor: NSLayoutConstraint?
-    let navigation_title: UILabel = {
-        let title = UILabel()
-        title.textColor = .white
-        title.font = UIFont.boldSystemFont(ofSize: 20)
-        return title
+    var previous_index: Int = 0
+    
+    lazy var image_view: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.clipsToBounds = true
+        view.layer.cornerRadius = padding
+        return view
     }()
+    
+    lazy var info: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
+    lazy var header_view: UIView = {
+        let view = UIView()
+        view.backgroundColor = .theme
+        return view
+    }()
+    
     lazy var profile_image: ActivityImageView = {
         let image_view = ActivityImageView()
-        image_view.contentMode = .scaleAspectFit
+        image_view.contentMode = .scaleAspectFill
         image_view.clipsToBounds = true
         image_view.translatesAutoresizingMaskIntoConstraints = false
-        image_view.layer.cornerRadius = profile_size/2
-        image_view.image = UIImage(named: "default_profile")
+        image_view.layer.cornerRadius = padding
+        image_view.image = #imageLiteral(resourceName: "default_profile")
         return image_view
     }()
     
@@ -28,6 +51,8 @@ class FriendDetail: UIViewController {
         let table = UITableView()
         table.dataSource = self
         table.delegate = self
+        table.emptyDataSetSource = self
+        table.emptyDataSetDelegate = self
         table.rowHeight = 80.0
         table.backgroundColor = .white
         table.showsVerticalScrollIndicator = false
@@ -35,49 +60,204 @@ class FriendDetail: UIViewController {
         return table
     }()
     
+    lazy var name_label: UILabel = {
+        let label = UILabel()
+        label.textColor = .theme
+        label.font = UIFont(name: "ArialRoundedMTBold", size: 16)
+        return label
+    }()
+    
+    lazy var handel_label: UILabel = {
+        let label = UILabel()
+        label.textColor = .theme
+        label.font = .systemFont(ofSize: 12)
+        return label
+    }()
+    
+    lazy var amount_label: UILabel = {
+        let label = UILabel()
+        label.textColor = .theme
+        label.font = UIFont(name: "Avenir-Book", size: 50)
+        return label
+    }()
+    
+    lazy var divider: UIView = {
+        let view = UIView()
+        view.backgroundColor = .theme
+        return view
+    }()
+    
+    lazy var selector: UISegmentedControl = {
+        let segmented = UISegmentedControl()
+        segmented.tintColor = .theme
+        segmented.insertSegment(withTitle: "Recieved", at: 0, animated: false)
+        segmented.insertSegment(withTitle: "Sent", at: 0, animated: false)
+        segmented.insertSegment(withTitle: "Pedning", at: 0, animated: false)
+        segmented.selectedSegmentIndex = 0
+        segmented.addTarget(self, action: #selector(segmented_tapped), for: .valueChanged)
+        return segmented
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
     }
     
-    fileprivate func setup_navigation() {
-        navigationItem.titleView = navigation_title
-        navigation_title.text = name
+    fileprivate func setup_image(header_height: CGFloat) {
+        view.addSubview(image_view)
+        let view_width: CGFloat = profile_width + 1.5*padding
+        view.addConstraintsWithFormat(format: "H:|-\(2*padding)-[v0(\(view_width))]", views: image_view)
+        image_view.addSubview(profile_image)
+        image_view.addConstraintsWithFormat(format: "H:|-\(padding)-[v0]-\(padding)-|", views: profile_image)
+        image_view.addConstraintsWithFormat(format: "V:|-\(padding)-[v0]-\(padding)-|", views: profile_image)
+        let image_height: CGFloat = header_height - (profile_height*0.45)
+        let view_height: CGFloat = profile_height + 1.5*padding
+        view.addConstraintsWithFormat(format: "V:|-\(image_height)-[v0(\(view_height))]", views: image_view)
+        view.bringSubview(toFront: image_view)
     }
     
-    fileprivate func setup_image() {
-        view.center_X(item: profile_image)
-        width_anchor = profile_image.widthAnchor.constraint(equalToConstant: profile_size)
-        view.addConstraintsWithFormat(format: "V:|-20-[v0]-10-[v1]-20-|", views: profile_image, details)
-        height_anchor = profile_image.heightAnchor.constraint(equalToConstant: profile_size)
-        width_anchor?.isActive = true
-        height_anchor?.isActive = true
+    fileprivate func setup_header_view() {
+        view.addSubview(header_view)
+        view.addConstraintsWithFormat(format: "H:|[v0]|", views: header_view)
+    }
+    
+    fileprivate func setup_table() {
+        view.addSubview(details)
+        view.addConstraintsWithFormat(format: "H:|[v0]|", views: details)
+    }
+    
+    fileprivate func setup_info() {
+        view.addSubview(info)
+        view.addConstraintsWithFormat(format: "H:|[v0]|", views: info)
+    }
+    
+    fileprivate func setup_user_data() {
+        info.addSubview(name_label)
+        info.addSubview(handel_label)
+        info.addSubview(amount_label)
+        info.addSubview(divider)
+        info.addSubview(selector)
+        info.addConstraintsWithFormat(format: "H:|-\(2*padding)-[v0]", views: name_label)
+        info.addConstraintsWithFormat(format: "H:|-\(2*padding)-[v0]", views: handel_label)
+        info.addConstraintsWithFormat(format: "V:|-\(0.70*profile_height)-[v0]-2-[v1]-5-[v2]", views: name_label, handel_label, selector)
+        info.addConstraintsWithFormat(format: "V:|-10-[v0]", views: amount_label)
+        info.addConstraintsWithFormat(format: "H:[v0]-40-|", views: amount_label)
+        info.addConstraintsWithFormat(format: "H:|[v0]|", views: divider)
+        info.addConstraintsWithFormat(format: "H:|-\(padding)-[v0]-\(padding)-|", views: selector)
+        divider.bottomAnchor.constraint(equalTo: info.bottomAnchor).isActive = true
+        divider.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
     }
     
     fileprivate func setup() {
+        //Setup Background
         view.backgroundColor = .white
-        view.addSubview(profile_image)
-        view.addSubview(details)
-        setup_image()
+        let header_height: CGFloat = (navigationController?.navigationBar.frame.height)!
+        
+        setup_header_view()
+        setup_table()
+        setup_info()
+        setup_image(header_height: header_height)
         details.register(FriendsDetailCell.self, forCellReuseIdentifier: ID)
-        view.addConstraintsWithFormat(format: "H:|-10-[v0]-10-|", views: details)
+        setup_user_data()
+        //Common Vertial Arrangement
+        view.addConstraintsWithFormat(format: "V:|[v0(\(header_height))][v1(130)][v2]|", views: header_view, info, details)
     }
     
     func setup_data() {
-        setup_navigation()
         profile_image.init_from_S3(key: uid!, bucket_name: .profiles)
+        name_label.text = name!
+        handel_label.text = generate_handel()
+        amount_label.text = amount?.as_amount()
+        if amount! < 0.0 {
+            amount_label.textColor = .delete_action
+        } else if amount! > 0.0 {
+            amount_label.textColor = .settle_action
+        } else {
+             amount_label.textColor = .theme
+        }
+        filter_data(index: 0)
         details.reloadData()
     }
 }
 
 extension FriendDetail : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return transactions_list.count
+        return filtered_list.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = details.dequeueReusableCell(withIdentifier: ID, for: indexPath) as! FriendsDetailCell
-        cell.create_view(data: transactions_list[indexPath.row])
+        cell.create_view(data: filtered_list[indexPath.row])
         return cell
+    }
+}
+
+//MARK: Data Functions
+extension FriendDetail {
+    
+    fileprivate func generate_handel() -> String{
+        let text = name!
+        return "@" + String(text.replacingOccurrences(of: " ", with: "-"))
+    }
+    
+    @objc func segmented_tapped(_ sender: UISegmentedControl) {
+        let index = sender.selectedSegmentIndex
+        var delete_indices:  [IndexPath] = []
+        for index in 0..<filtered_list.count {
+            delete_indices.append(IndexPath(row: index, section: 0))
+        }
+        filter_data(index: index)
+        var insert_indices:  [IndexPath] = []
+        for index in 0..<filtered_list.count {
+            insert_indices.append(IndexPath(row: index, section: 0))
+        }
+        
+        let delete_animation = index > previous_index ? UITableViewRowAnimation.right : .left
+        let settle_antimation = index > previous_index ? UITableViewRowAnimation.left : .right
+        
+        details.beginUpdates()
+        details.deleteRows(at: delete_indices, with: delete_animation)
+        details.insertRows(at: insert_indices, with: settle_antimation)
+        details.endUpdates()
+        previous_index = index
+    }
+    
+    fileprivate func filter_data(index: Int) {
+        if index == 0 {
+            filtered_list = transactions_list.filter({ (data) -> Bool in
+                return data.settelement_time == nil
+            })
+        } else if index == 1 {
+            filtered_list = transactions_list.filter({ (data) -> Bool in
+                return data.settelement_time != nil && data.is_debt
+            })
+        } else if index == 2 {
+            filtered_list = transactions_list.filter({ (data) -> Bool in
+                return data.settelement_time != nil && !data.is_debt
+            })
+        } else {
+            fatalError("Internal Inconsistency")
+        }
+    }
+}
+
+//MARK: Empty Table view
+extension FriendDetail: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
+    func emptyDataSetShouldDisplay(_ scrollView: UIScrollView!) -> Bool {
+        return filtered_list.count == 0
+    }
+    
+    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        let attributes = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 25)]
+        return NSAttributedString(string: empty_titles[selector.selectedSegmentIndex], attributes: attributes)
+    }
+    
+    func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        let attributes = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20)]
+        return NSAttributedString(string: "", attributes: attributes)
+    }
+    
+    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
+        return empty_icons[selector.selectedSegmentIndex]
     }
 }

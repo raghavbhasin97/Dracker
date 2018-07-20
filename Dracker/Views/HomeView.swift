@@ -100,7 +100,7 @@ extension HomeView: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
 extension HomeView: UIViewControllerPreviewingDelegate {
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         let item = tableView.indexPathForRow(at: location)
-        if item == nil { return nil}
+        if item == nil { return nil }
         let controller = Detail()
         controller.data = unsettled_transactions[(item?.row)!]
         controller.dahsboard = self
