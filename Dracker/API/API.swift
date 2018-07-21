@@ -120,10 +120,3 @@ func upload_to_S3(key: String, data: NSURL, bucket: AWSConstants) {
     let client = AWSS3TransferManager.default()
     client.upload(request!)
 }
-
-func delete_from_S3(key: String, bucket: AWSConstants) {
-    let request = AWSS3DeleteObjectRequest()
-    request?.bucket = bucket.rawValue
-    request?.key = key
-    AWSS3.default().deleteObject(request!)
-}
