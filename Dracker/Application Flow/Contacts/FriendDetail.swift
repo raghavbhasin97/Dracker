@@ -14,6 +14,7 @@ class FriendDetail: UIViewController {
     var uid: String?
     var name: String?
     var amount: Double?
+    var phone: String?
     var width_anchor: NSLayoutConstraint?
     var height_anchor: NSLayoutConstraint?
     var previous_index: Int = 0
@@ -53,7 +54,7 @@ class FriendDetail: UIViewController {
         table.delegate = self
         table.emptyDataSetSource = self
         table.emptyDataSetDelegate = self
-        table.rowHeight = 80.0
+        table.rowHeight = 60.0
         table.backgroundColor = .white
         table.showsVerticalScrollIndicator = false
         table.tableFooterView = UIView()
@@ -98,6 +99,13 @@ class FriendDetail: UIViewController {
         return segmented
     }()
     
+    lazy var phone_button: UIButton = {
+        let phone = UIButton()
+        phone.setImage(#imageLiteral(resourceName: "phone_register"), for: .normal)
+        phone.addTarget(self, action: #selector(call), for: .touchUpInside)
+        return phone
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -119,6 +127,9 @@ class FriendDetail: UIViewController {
     fileprivate func setup_header_view() {
         view.addSubview(header_view)
         view.addConstraintsWithFormat(format: "H:|[v0]|", views: header_view)
+        header_view.addSubview(phone_button)
+        header_view.addConstraintsWithFormat(format: "H:[v0(35)]-20-|", views: phone_button)
+        header_view.addConstraintsWithFormat(format: "V:[v0(35)]-10-|", views: phone_button)
     }
     
     fileprivate func setup_table() {
@@ -177,6 +188,12 @@ class FriendDetail: UIViewController {
         }
         filter_data(index: 0)
         details.reloadData()
+    }
+    
+    @objc fileprivate func call() {
+        let phone_string = "tel://\(phone!)"
+        let url: NSURL = URL(string: phone_string)! as NSURL
+        UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
     }
 }
 

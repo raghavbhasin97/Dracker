@@ -36,7 +36,11 @@ class FriendsDetailCell: BaseTableViewCell {
         let amount_value = Double(data.amount)!
         if data.settelement_time == nil {
             amount.textColor = .theme
-            amount.text = amount_value.as_amount()
+            if data.is_debt {
+                amount.text = "-" + amount_value.as_amount()
+            } else {
+                amount.text = "+" + amount_value.as_amount()
+            }
         } else {
             if data.is_debt {
                 amount.text = amount_value.as_amount()
