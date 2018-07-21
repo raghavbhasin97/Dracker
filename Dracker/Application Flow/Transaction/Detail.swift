@@ -184,14 +184,11 @@ class Detail: UIViewController {
                     //Send a message to the creditor about debt repayment
                     let message = "\(name!) payed you \(amount.as_amount()) for \"\(description!)\""
                     send_message(phone: (self.data?.phone)!, message: message)
-                    //Delete the tagged image if one exists.
-                    self.delete_image()
                     //Delete pending notification
                     remove_notification(identifier: self.data?.notification_identifier)
                     let settled_transaction = Settled(is_debt: is_debt!, amount: String(amount), description: description!, name: name!)
                     settled_transactions.insert(settled_transaction, at: 0)
                     //Delete entry and redirect to Home
-                    
                     self.delete_and_push_back()
                 })
             })
@@ -219,7 +216,6 @@ class Detail: UIViewController {
             loading(target: self, completion: { (_) in
                 post_delete_transaction(parameters: parameters, completion: { (res) in
                     if res.isFailure { return }
-                    self.delete_image()
                     //Delete entry and redirect to Home
                     self.delete_and_push_back()
                 })
@@ -263,17 +259,7 @@ class Detail: UIViewController {
             dahsboard?.refetch_data()
         }
     }
-    
-    /**
-     * This functions allows deletion of tagged image from S3
-     */
-    fileprivate func delete_image()
-    {
-        if data?.tagged_image != "noImage" {
-            delete_from_S3(key: (data?.tagged_image)!, bucket: .transactionImages)
-        }
-    }
-    
+
     fileprivate func set_bar_buttons()
     {
         settle_button.isEnabled = (data?.is_debt)!
