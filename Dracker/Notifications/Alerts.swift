@@ -4,6 +4,7 @@ import UIKit
 //MARK: Messages
 enum error_messages: String {
     case duplicate_phone = "Phone number is already associated with an existing account."
+    case identity_unverified = "There was an error validating your identity."
     case incorrect_email = "Email entered is invalid."
     case incorrect_password = "Password entered is invalid."
     case incorrect_login =  "Provided credentials are incorrect - please try again."

@@ -88,8 +88,8 @@ func get_users(completion: ((Result<Any>) -> Void)? = nil) {
     make_api_call(parameters: [:], api_endpoint: Endpoints.users_list, method: .get, custom_endpoint: nil, completion: completion)
 }
 
-func create_user(phone: String, password: String, email: String, name: String, completion: ((Result<Any>) -> Void)? = nil) {
-    let parameters = ["phone" : phone, "password" : password, "email" : email, "name" : name]
+func create_user(phone: String, password: String, email: String, name: String, address: String, city: String, state: String, zip: String, birthdate: Date, ssn: String, completion: ((Result<Any>) -> Void)? = nil) {
+    let parameters = ["phone" : phone, "password" : password, "email" : email, "name" : name, "street": address, "city": city, "state": state, "zip": zip, "ssn": ssn, "birthdate": birthdate.as_string(format: .birthdate)]
     make_api_call(parameters: parameters, api_endpoint: Endpoints.add_user, method: .put, custom_endpoint: nil, completion: completion)
 }
 

@@ -2,15 +2,13 @@ import UIKit
 import Alamofire
 import SystemConfiguration
 
-func execute_on_main(block: @escaping () -> Void)
-{
+func execute_on_main(block: @escaping () -> Void) {
     DispatchQueue.main.async {
         block()
     }
 }
 
-func execute_on_main_delay(delay: Double, block: @escaping () -> Void)
-{
+func execute_on_main_delay(delay: Double, block: @escaping () -> Void) {
     DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
         block()
     }
@@ -34,13 +32,36 @@ func valid_password(password: String) -> Bool {
     return password.count > 5
 }
 
+func valid_street(street: String) -> Bool {
+    return street.count > 2
+}
+
+func valid_city(city: String) -> Bool {
+    return city.count > 2
+}
+
+func valid_state(state: String) -> Bool {
+    return states.contains(state)
+}
+
+func valid_zip(zip: String) -> Bool {
+    let regex = "[0-9]{5}"
+    return NSPredicate(format:"SELF MATCHES %@", regex).evaluate(with: zip)
+}
+
+func valid_code(zip: String) -> Bool {
+    let regex = "[0-9]{5}"
+    return NSPredicate(format:"SELF MATCHES %@", regex).evaluate(with: zip)
+}
+
 func valid_phone(phone: String) -> Bool {
     let regex = "[0-9]{10}"
     return NSPredicate(format:"SELF MATCHES %@", regex).evaluate(with: phone)
 }
 
 func valid_name(name: String) -> Bool {
-    return name.count > 0 && name != "Name"
+    let regex = "[A-Za-z]+\\s[A-Za-z]+"
+    return NSPredicate(format:"SELF MATCHES %@", regex).evaluate(with: name)
 }
 
 func valid_code(code: String) -> Bool {
@@ -51,6 +72,19 @@ func valid_code(code: String) -> Bool {
 func valid_pin(pin: String) -> Bool {
     let regex = "[0-9]{4}"
     return NSPredicate(format:"SELF MATCHES %@", regex).evaluate(with: pin)
+}
+
+func valid_ssn(ssn: String) -> Bool {
+    let regex = "[0-9]{4}"
+    return NSPredicate(format:"SELF MATCHES %@", regex).evaluate(with: ssn)
+}
+
+func valid_birthdate(birthdate: Date) -> Bool {
+    let now = Date()
+    let calendar = Calendar.current
+    let ageComponents = calendar.dateComponents([.year], from: birthdate, to: now)
+    let age = ageComponents.year!
+    return age >= 18
 }
 
 func valid_frequency(frequency: String) -> Bool {

@@ -63,6 +63,7 @@ enum DateformatString: String {
     case month_day_year = "MM dd yyyy"
     case time_only = "HH:MM a"
     case month_name_day_year = "MMM dd, yyyy"
+    case birthdate = "yyyy-MM-dd"
 }
 
 extension Date {

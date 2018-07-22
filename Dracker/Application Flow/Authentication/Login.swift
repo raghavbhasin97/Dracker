@@ -10,6 +10,10 @@ class Login: UIViewController {
         setup()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+       
+    }
+    
     let input_area: UIView = {
         let view = UIView()
         view.backgroundColor = .theme
@@ -71,6 +75,7 @@ class Login: UIViewController {
         field.returnKeyType = .next
         field.attributedPlaceholder =   NSAttributedString(string: "Email", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
         field.textColor = .white
+        field.addTarget(self, action: #selector(textfieldDidChange), for: .allEditingEvents)
         return field
     }()
     
@@ -87,6 +92,7 @@ class Login: UIViewController {
         field.returnKeyType = .next
         field.attributedPlaceholder =   NSAttributedString(string: "Password", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
         field.textColor = .white
+        field.addTarget(self, action: #selector(textfieldDidChange), for: .allEditingEvents)
         return field
     }()
     
@@ -273,18 +279,13 @@ extension Login: UITextFieldDelegate{
         view.endEditing(true)
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
-        if textfields_valid()
-        {
-            UIView.animate(withDuration: 0.2) {
-                self.login_button.isUserInteractionEnabled = true
-                self.login_button.backgroundColor = .theme_unselected
-            }
+    @objc func textfieldDidChange() {
+        if textfields_valid() {
+            login_button.isUserInteractionEnabled = true
+            login_button.backgroundColor = .theme_unselected
         } else  {
-            UIView.animate(withDuration: 0.2) {
-                self.login_button.isUserInteractionEnabled = false
-                self.login_button.backgroundColor = UIColor.theme_unselected.withAlphaComponent(0.75)
-            }
+            login_button.isUserInteractionEnabled = false
+            login_button.backgroundColor = UIColor.theme_unselected.withAlphaComponent(0.75)
         }
     }
     
@@ -292,10 +293,9 @@ extension Login: UITextFieldDelegate{
         if textField == email_field {
             password_field.becomeFirstResponder()
         } else {
-            if textfields_valid() {
+            view.endEditing(true)
+            if login_button.isUserInteractionEnabled {
                 login_clicked()
-            } else {
-                view.endEditing(true)
             }
         }
         return false

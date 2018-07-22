@@ -5,6 +5,9 @@ class Register: UIViewController {
     let icon_height: CGFloat = 24.0
     let profile_height: CGFloat = 110.0
     let logo_padding: CGFloat? =  30.0
+    let view_padding: CGFloat =  20.0
+    let sliding_height: CGFloat = 210
+    let ID = "RegisterCell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,11 +20,11 @@ class Register: UIViewController {
         return view
     }()
     
-    let profile_label: UILabel = {
+    let security_label: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Avenir-Book", size: 15)
         label.textColor = .white
-        label.text = "Profile Information"
+        label.text = "Security Information"
         return label
     }()
     
@@ -30,6 +33,14 @@ class Register: UIViewController {
         label.font = UIFont(name: "Avenir-Book", size: 15)
         label.textColor = .white
         label.text = "Personal Information"
+        return label
+    }()
+    
+    let address_label: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "Avenir-Book", size: 15)
+        label.textColor = .white
+        label.text = "Address Information"
         return label
     }()
     
@@ -96,6 +107,117 @@ class Register: UIViewController {
         image.contentMode = .scaleAspectFill
         return image
     }()
+
+    let ssn_line: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.white.withAlphaComponent(0.40)
+        return view
+    }()
+    
+    let ssn_image: UIImageView = {
+        let image = UIImageView()
+        image.image = #imageLiteral(resourceName: "ssn").withRenderingMode(.alwaysTemplate)
+        image.tintColor = .white
+        image.contentMode = .scaleAspectFill
+        return image
+    }()
+    
+    lazy var ssn_field: UITextField = {
+        let field = UITextField()
+        field.keyboardType = .numberPad
+        field.borderStyle = .none
+        field.backgroundColor = .clear
+        field.delegate = self
+        field.autocapitalizationType = .none
+        field.font = UIFont(name: "AppleSDGothicNeo-UltraLight", size: 16.5)
+        field.returnKeyType = .next
+        field.attributedPlaceholder =   NSAttributedString(string: "SSN (Last 4)", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+        field.textColor = .white
+        field.autocorrectionType = .no
+        field.addTarget(self, action: #selector(valueChange), for: .allEditingEvents)
+        return field
+    }()
+    
+    let birthdate_line: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.white.withAlphaComponent(0.40)
+        return view
+    }()
+    
+    let birthdate_image: UIImageView = {
+        let image = UIImageView()
+        image.image = #imageLiteral(resourceName: "birthdate").withRenderingMode(.alwaysTemplate)
+        image.tintColor = .white
+        image.contentMode = .scaleAspectFill
+        return image
+    }()
+    
+    let street_line: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.white.withAlphaComponent(0.40)
+        return view
+    }()
+    
+    let street_image: UIImageView = {
+        let image = UIImageView()
+        image.image = #imageLiteral(resourceName: "street").withRenderingMode(.alwaysTemplate)
+        image.tintColor = .white
+        image.contentMode = .scaleAspectFill
+        return image
+    }()
+    
+    let city_line: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.white.withAlphaComponent(0.40)
+        return view
+    }()
+    
+    let city_image: UIImageView = {
+        let image = UIImageView()
+        image.image = #imageLiteral(resourceName: "city").withRenderingMode(.alwaysTemplate)
+        image.tintColor = .white
+        image.contentMode = .scaleAspectFill
+        return image
+    }()
+    
+    let zip_line: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.white.withAlphaComponent(0.40)
+        return view
+    }()
+    
+    let zip_image: UIImageView = {
+        let image = UIImageView()
+        image.image = #imageLiteral(resourceName: "zip").withRenderingMode(.alwaysTemplate)
+        image.tintColor = .white
+        image.contentMode = .scaleAspectFill
+        return image
+    }()
+    
+    let state_line: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.white.withAlphaComponent(0.40)
+        return view
+    }()
+    
+    let state_image: UIImageView = {
+        let image = UIImageView()
+        image.image = #imageLiteral(resourceName: "state").withRenderingMode(.alwaysTemplate)
+        image.tintColor = .white
+        image.contentMode = .scaleAspectFill
+        return image
+    }()
+    
+    lazy var birthdate_field: UIDatePicker = {
+        let picker = UIDatePicker()
+        picker.datePickerMode = .date
+        picker.backgroundColor = .clear
+        picker.tintColor = .white
+        picker.setValue(UIColor.white, forKeyPath: "textColor")
+        picker.addTarget(self, action: #selector(valueChange), for: .valueChanged)
+        picker.addTarget(self, action: #selector(tapped), for: .allTouchEvents)
+        return picker
+    }()
     
     lazy var email_field: UITextField = {
         let field = UITextField()
@@ -109,6 +231,7 @@ class Register: UIViewController {
         field.attributedPlaceholder =   NSAttributedString(string: "Email", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
         field.textColor = .white
         field.autocorrectionType = .no
+        field.addTarget(self, action: #selector(valueChange), for: .allEditingEvents)
         return field
     }()
     
@@ -121,11 +244,62 @@ class Register: UIViewController {
         field.autocapitalizationType = .none
         field.autocorrectionType = .no
         field.delegate = self
-        field.returnKeyType = .go
-        field.font = UIFont(name: "AppleSDGothicNeo-UltraLight", size: 16.5)
         field.returnKeyType = .next
+        field.font = UIFont(name: "AppleSDGothicNeo-UltraLight", size: 16.5)
         field.attributedPlaceholder =   NSAttributedString(string: "Password", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
         field.textColor = .white
+        field.addTarget(self, action: #selector(valueChange), for: .allEditingEvents)
+        return field
+    }()
+    
+    lazy var street_field: UITextField = {
+        let field = UITextField()
+        field.keyboardType = .default
+        field.borderStyle = .none
+        field.backgroundColor = .clear
+        field.autocapitalizationType = .words
+        field.delegate = self
+        field.returnKeyType = .next
+        field.autocorrectionType = .no
+        field.font = UIFont(name: "AppleSDGothicNeo-UltraLight", size: 16.5)
+        field.returnKeyType = .next
+        field.attributedPlaceholder =   NSAttributedString(string: "123 Main Street", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+        field.textColor = .white
+        field.addTarget(self, action: #selector(valueChange), for: .allEditingEvents)
+        return field
+    }()
+    
+    lazy var city_field: UITextField = {
+        let field = UITextField()
+        field.keyboardType = .default
+        field.borderStyle = .none
+        field.backgroundColor = .clear
+        field.autocapitalizationType = .words
+        field.delegate = self
+        field.returnKeyType = .next
+        field.autocorrectionType = .no
+        field.font = UIFont(name: "AppleSDGothicNeo-UltraLight", size: 16.5)
+        field.returnKeyType = .next
+        field.attributedPlaceholder =   NSAttributedString(string: "City", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+        field.textColor = .white
+        field.addTarget(self, action: #selector(valueChange), for: .allEditingEvents)
+        return field
+    }()
+    
+    lazy var zip_field: UITextField = {
+        let field = UITextField()
+        field.keyboardType = .numberPad
+        field.borderStyle = .none
+        field.backgroundColor = .clear
+        field.autocapitalizationType = .words
+        field.delegate = self
+        field.returnKeyType = .next
+        field.autocorrectionType = .no
+        field.font = UIFont(name: "AppleSDGothicNeo-UltraLight", size: 16.5)
+        field.returnKeyType = .next
+        field.attributedPlaceholder =   NSAttributedString(string: "11001", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+        field.textColor = .white
+        field.addTarget(self, action: #selector(valueChange), for: .allEditingEvents)
         return field
     }()
     
@@ -140,8 +314,9 @@ class Register: UIViewController {
         field.autocorrectionType = .no
         field.font = UIFont(name: "AppleSDGothicNeo-UltraLight", size: 16.5)
         field.returnKeyType = .next
-        field.attributedPlaceholder =   NSAttributedString(string: "Name", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+        field.attributedPlaceholder =   NSAttributedString(string: "Name (First Last)", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
         field.textColor = .white
+        field.addTarget(self, action: #selector(valueChange), for: .allEditingEvents)
         return field
     }()
     
@@ -152,11 +327,28 @@ class Register: UIViewController {
         field.backgroundColor = .clear
         field.delegate = self
         field.font = UIFont(name: "AppleSDGothicNeo-UltraLight", size: 16.5)
-        field.returnKeyType = .go
+        field.returnKeyType = .next
         field.attributedPlaceholder =   NSAttributedString(string: "Phone", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
         field.textColor = .white
+        field.addTarget(self, action: #selector(valueChange), for: .allEditingEvents)
         return field
     }()
+    
+    lazy var state_field: UITextField = {
+        let field = UITextField()
+        field.keyboardType = .default
+        field.borderStyle = .none
+        field.backgroundColor = .clear
+        field.autocapitalizationType = .allCharacters
+        field.delegate = self
+        field.font = UIFont(name: "AppleSDGothicNeo-UltraLight", size: 16.5)
+        field.returnKeyType = .done
+        field.attributedPlaceholder =   NSAttributedString(string: "CA", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+        field.textColor = .white
+        field.addTarget(self, action: #selector(valueChange), for: .allEditingEvents)
+        return field
+    }()
+    
     lazy var signup_button: UIButton = {
         let button = UIButton(type: .roundedRect)
         button.isUserInteractionEnabled = false
@@ -194,10 +386,28 @@ class Register: UIViewController {
     }()
     
     
-    let input_area: UIView = {
-        let view = UIView()
+    lazy var basic_area: UIView = {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: sliding_height))
         view.backgroundColor = .clear
         return view
+    }()
+    
+    lazy var security_area: UIView = {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: sliding_height))
+        view.backgroundColor = .clear
+        return view
+    }()
+    
+    lazy var address_area: UIView = {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: sliding_height))
+        view.backgroundColor = .clear
+        return view
+    }()
+    
+    lazy var options: ProfileOptions = {
+        let slider = ProfileOptions()
+        slider.container = self
+        return slider
     }()
     
     lazy var picker: UIImagePickerController = {
@@ -205,6 +415,20 @@ class Register: UIViewController {
         image_picker.delegate = self
         image_picker.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
         return image_picker
+    }()
+    
+    lazy var slidingViews: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        let collections = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 0
+        collections.dataSource = self
+        collections.delegate = self
+        collections.backgroundColor = .clear
+        collections.register(OptionsCell.self, forCellWithReuseIdentifier: ID)
+        collections.isPagingEnabled = true
+        collections.showsHorizontalScrollIndicator = false
+        return collections
     }()
     
     fileprivate func setup_signIn() {
@@ -226,89 +450,195 @@ class Register: UIViewController {
     }
     
     fileprivate func setup_email() {
-        input_area.addSubview(email_image)
-        input_area.addSubview(email_line)
-        input_area.addSubview(email_field)
+        basic_area.addSubview(email_image)
+        basic_area.addSubview(email_line)
+        basic_area.addSubview(email_field)
         email_image.widthAnchor.constraint(equalToConstant: icon_height).isActive = true
         email_image.heightAnchor.constraint(equalToConstant: icon_height).isActive = true
         email_image.topAnchor.constraint(equalTo: email_field.topAnchor).isActive = true
-        input_area.addConstraintsWithFormat(format: "H:|-25-[v0]-25-|", views: email_line)
+        basic_area.addConstraintsWithFormat(format: "H:|-25-[v0]-25-|", views: email_line)
         email_line.heightAnchor.constraint(equalToConstant: 1.0).isActive = true
         email_line.topAnchor.constraint(equalTo: email_field.bottomAnchor, constant: 8).isActive = true
-        input_area.addConstraintsWithFormat(format: "H:|-30-[v0]-10-[v1]-30-|", views: email_image, email_field)
+        basic_area.addConstraintsWithFormat(format: "H:|-30-[v0]-10-[v1]-30-|", views: email_image, email_field)
+    }
+    
+    fileprivate func setup_ssn() {
+        security_area.addSubview(ssn_image)
+        security_area.addSubview(ssn_line)
+        security_area.addSubview(ssn_field)
+        ssn_image.widthAnchor.constraint(equalToConstant: icon_height).isActive = true
+        ssn_image.heightAnchor.constraint(equalToConstant: icon_height).isActive = true
+        ssn_image.topAnchor.constraint(equalTo: ssn_field.topAnchor).isActive = true
+        security_area.addConstraintsWithFormat(format: "H:|-25-[v0]-25-|", views: ssn_line)
+        ssn_line.heightAnchor.constraint(equalToConstant: 1.0).isActive = true
+        ssn_line.topAnchor.constraint(equalTo: ssn_field.bottomAnchor, constant: 8).isActive = true
+        security_area.addConstraintsWithFormat(format: "H:|-30-[v0]-10-[v1]-30-|", views: ssn_image, ssn_field)
     }
     
     fileprivate func setup_password() {
-        input_area.addSubview(password_image)
-        input_area.addSubview(password_line)
-        input_area.addSubview(password_field)
+        security_area.addSubview(password_image)
+        security_area.addSubview(password_line)
+        security_area.addSubview(password_field)
         password_image.widthAnchor.constraint(equalToConstant: icon_height).isActive = true
         password_image.heightAnchor.constraint(equalToConstant: icon_height).isActive = true
         password_image.topAnchor.constraint(equalTo: password_field.topAnchor).isActive = true
-        input_area.addConstraintsWithFormat(format: "H:|-25-[v0]-25-|", views: password_line)
+        security_area.addConstraintsWithFormat(format: "H:|-25-[v0]-25-|", views: password_line)
         password_line.heightAnchor.constraint(equalToConstant: 1.0).isActive = true
         password_line.topAnchor.constraint(equalTo: password_field.bottomAnchor, constant: 8).isActive = true
-        input_area.addConstraintsWithFormat(format: "H:|-30-[v0]-10-[v1]-30-|", views: password_image, password_field)
+        security_area.addConstraintsWithFormat(format: "H:|-30-[v0]-10-[v1]-30-|", views: password_image, password_field)
+    }
+    
+    fileprivate func setup_birthdate() {
+        security_area.addSubview(birthdate_image)
+        security_area.addSubview(birthdate_line)
+        security_area.addSubview(birthdate_field)
+        birthdate_image.widthAnchor.constraint(equalToConstant: icon_height).isActive = true
+        birthdate_image.heightAnchor.constraint(equalToConstant: icon_height).isActive = true
+        birthdate_image.centerYAnchor.constraint(equalTo: birthdate_field.centerYAnchor).isActive = true
+        security_area.addConstraintsWithFormat(format: "H:|-25-[v0]-25-|", views: birthdate_line)
+        birthdate_line.heightAnchor.constraint(equalToConstant: 1.0).isActive = true
+        birthdate_line.topAnchor.constraint(equalTo: birthdate_field.bottomAnchor, constant: 8).isActive = true
+        security_area.addConstraintsWithFormat(format: "H:|-30-[v0]-10-[v1]-30-|", views: birthdate_image, birthdate_field)
     }
     
     fileprivate func setup_phone() {
-        input_area.addSubview(phone_image)
-        input_area.addSubview(phone_line)
-        input_area.addSubview(phone_field)
+        basic_area.addSubview(phone_image)
+        basic_area.addSubview(phone_line)
+        basic_area.addSubview(phone_field)
         phone_image.widthAnchor.constraint(equalToConstant: icon_height).isActive = true
         phone_image.heightAnchor.constraint(equalToConstant: icon_height).isActive = true
         phone_image.topAnchor.constraint(equalTo: phone_field.topAnchor).isActive = true
-        input_area.addConstraintsWithFormat(format: "H:|-25-[v0]-25-|", views: phone_line)
+        basic_area.addConstraintsWithFormat(format: "H:|-25-[v0]-25-|", views: phone_line)
         phone_line.heightAnchor.constraint(equalToConstant: 1.0).isActive = true
         phone_line.topAnchor.constraint(equalTo: phone_field.bottomAnchor, constant: 8).isActive = true
-        input_area.addConstraintsWithFormat(format: "H:|-30-[v0]-10-[v1]-30-|", views: phone_image, phone_field)
+        basic_area.addConstraintsWithFormat(format: "H:|-30-[v0]-10-[v1]-30-|", views: phone_image, phone_field)
     }
     
     fileprivate func setup_name() {
-        input_area.addSubview(name_image)
-        input_area.addSubview(name_line)
-        input_area.addSubview(name_field)
+        basic_area.addSubview(name_image)
+        basic_area.addSubview(name_line)
+        basic_area.addSubview(name_field)
         name_image.widthAnchor.constraint(equalToConstant: icon_height).isActive = true
         name_image.heightAnchor.constraint(equalToConstant: icon_height).isActive = true
         name_image.topAnchor.constraint(equalTo: name_field.topAnchor).isActive = true
-        input_area.addConstraintsWithFormat(format: "H:|-25-[v0]-25-|", views: name_line)
+        basic_area.addConstraintsWithFormat(format: "H:|-25-[v0]-25-|", views: name_line)
         name_line.heightAnchor.constraint(equalToConstant: 1.0).isActive = true
         name_line.topAnchor.constraint(equalTo: name_field.bottomAnchor, constant: 8).isActive = true
-        input_area.addConstraintsWithFormat(format: "H:|-30-[v0]-10-[v1]-30-|", views: name_image, name_field)
+        basic_area.addConstraintsWithFormat(format: "H:|-30-[v0]-10-[v1]-30-|", views: name_image, name_field)
+    }
+    
+    fileprivate func setup_street() {
+        address_area.addSubview(street_image)
+        address_area.addSubview(street_line)
+        address_area.addSubview(street_field)
+        street_image.widthAnchor.constraint(equalToConstant: icon_height).isActive = true
+        street_image.heightAnchor.constraint(equalToConstant: icon_height).isActive = true
+        street_image.topAnchor.constraint(equalTo: street_field.topAnchor).isActive = true
+        address_area.addConstraintsWithFormat(format: "H:|-25-[v0]-25-|", views: street_line)
+        street_line.heightAnchor.constraint(equalToConstant: 1.0).isActive = true
+        street_line.topAnchor.constraint(equalTo: street_field.bottomAnchor, constant: 8).isActive = true
+        address_area.addConstraintsWithFormat(format: "H:|-30-[v0]-10-[v1]-30-|", views: street_image, street_field)
+    }
+    
+    fileprivate func setup_city() {
+        address_area.addSubview(city_image)
+        address_area.addSubview(city_line)
+        address_area.addSubview(city_field)
+        city_image.widthAnchor.constraint(equalToConstant: icon_height).isActive = true
+        city_image.heightAnchor.constraint(equalToConstant: icon_height).isActive = true
+        city_image.topAnchor.constraint(equalTo: city_field.topAnchor).isActive = true
+        address_area.addConstraintsWithFormat(format: "H:|-25-[v0]-25-|", views: city_line)
+        city_line.heightAnchor.constraint(equalToConstant: 1.0).isActive = true
+        city_line.topAnchor.constraint(equalTo: city_field.bottomAnchor, constant: 8).isActive = true
+        address_area.addConstraintsWithFormat(format: "H:|-30-[v0]-10-[v1]-30-|", views: city_image, city_field)
+    }
+    
+    fileprivate func setup_zip() {
+        address_area.addSubview(zip_image)
+        address_area.addSubview(zip_line)
+        address_area.addSubview(zip_field)
+        zip_image.widthAnchor.constraint(equalToConstant: icon_height).isActive = true
+        zip_image.heightAnchor.constraint(equalToConstant: icon_height).isActive = true
+        zip_image.topAnchor.constraint(equalTo: zip_field.topAnchor).isActive = true
+        address_area.addConstraintsWithFormat(format: "H:|-25-[v0(110)]-40-[v1(110)]", views: zip_line, state_line)
+        zip_line.heightAnchor.constraint(equalToConstant: 1.0).isActive = true
+        zip_line.topAnchor.constraint(equalTo: zip_field.bottomAnchor, constant: 8).isActive = true
+        
+        address_area.addSubview(state_image)
+        address_area.addSubview(state_line)
+        address_area.addSubview(state_field)
+        state_image.widthAnchor.constraint(equalToConstant: icon_height).isActive = true
+        state_image.heightAnchor.constraint(equalToConstant: icon_height).isActive = true
+        state_image.topAnchor.constraint(equalTo: state_field.topAnchor).isActive = true
+        state_line.heightAnchor.constraint(equalToConstant: 1.0).isActive = true
+        state_line.topAnchor.constraint(equalTo: state_field.bottomAnchor, constant: 8).isActive = true
+        
+        let width = 100 - icon_height - 10
+        address_area.addConstraintsWithFormat(format: "H:|-30-[v0]-10-[v1(\(width))]-40-[v2]-10-[v3(\(width))]", views: zip_image, zip_field, state_image, state_field)
     }
     
     fileprivate func setup_signUp() {
-        input_area.addSubview(signup_button)
-        input_area.addConstraintsWithFormat(format: "H:|-16-[v0]-16-|", views: signup_button)
+        view.addSubview(signup_button)
+        view.addConstraintsWithFormat(format: "H:|-16-[v0]-16-|", views: signup_button)
     }
     
     fileprivate func setup_sections() {
-        input_area.addSubview(personal_label)
-        input_area.addConstraintsWithFormat(format: "H:|-30-[v0]", views: personal_label)
-        input_area.addSubview(profile_label)
-        input_area.addConstraintsWithFormat(format: "H:|-30-[v0]", views: profile_label)
+        basic_area.addSubview(personal_label)
+        basic_area.addConstraintsWithFormat(format: "H:|-30-[v0]", views: personal_label)
+        basic_area.addSubview(security_label)
+        basic_area.addConstraintsWithFormat(format: "H:|-30-[v0]", views: security_label)
+    }
+    
+    fileprivate func setup_basic_area() {
+        basic_area.addSubview(personal_label)
+        basic_area.addConstraintsWithFormat(format: "H:|-30-[v0]", views: personal_label)
+        setup_name()
+        setup_email()
+        setup_phone()
+        let height = view.frame.height - (logo_padding! + profile_height + 50.0 + UIApplication.shared.statusBarFrame.height + sliding_height)
+        basic_area.addConstraintsWithFormat(format: "V:|-\(height)-[v0]-5-[v1(\(icon_height))]-18-[v2(\(icon_height))]-18-[v3(\(icon_height))]", views: personal_label, name_field, email_field, phone_field)
+    }
+    
+    fileprivate func setup_security_area() {
+        security_area.addSubview(security_label)
+        security_area.addConstraintsWithFormat(format: "H:[v0]-30-|", views: security_label)
+        setup_password()
+        setup_ssn()
+        setup_birthdate()
+        let height = view.frame.height - (logo_padding! + profile_height + 50.0 + UIApplication.shared.statusBarFrame.height + sliding_height)
+        security_area.addConstraintsWithFormat(format: "V:|-\(height)-[v0]-5-[v1(\(icon_height))]-18-[v2(\(icon_height))]-18-[v3(\(50))]", views: security_label, password_field, ssn_field, birthdate_field)
+    }
+    
+    fileprivate func setup_address_area() {
+        address_area.addSubview(address_label)
+        address_area.center_X(item: address_label)
+        setup_street()
+        setup_city()
+        setup_zip()
+        let height = view.frame.height - (logo_padding! + profile_height + 50.0 + UIApplication.shared.statusBarFrame.height + sliding_height)
+        address_area.addConstraintsWithFormat(format: "V:|-\(height)-[v0]-5-[v1(\(icon_height))]-18-[v1(\(icon_height))]-18-[v2(\(icon_height))]-18-[v3(\(icon_height))]", views: address_label, street_field, city_field, zip_field)
+        address_area.addConstraintsWithFormat(format: "V:|-\(height)-[v0]-5-[v1(\(icon_height))]-18-[v1(\(icon_height))]-18-[v2(\(icon_height))]-18-[v3(\(icon_height))]", views: address_label, street_field, city_field, state_field)
     }
     
     fileprivate func setup()
     {
         //Main View
         view.backgroundColor = .theme
-        view.addSubview(input_area)
-        view.addConstraintsWithFormat(format: "H:|[v0]|", views: input_area)
+        view.addSubview(options)
+        view.addConstraintsWithFormat(format: "H:|[v0]|", views: options)
+        view.addSubview(slidingViews)
+        view.addConstraintsWithFormat(format: "H:|[v0]|", views: slidingViews)
  
         //Setup Component
         setup_signIn()
-        setup_profile()
-        setup_email()
-        setup_password()
-        setup_phone()
-        setup_name()
         setup_signUp()
-        setup_sections()
+        setup_profile()
+        setup_basic_area()
+        setup_security_area()
+        setup_address_area()
         
         //Relative possition
-        view.addConstraintsWithFormat(format: "V:|-\(logo_padding!)-[v0(\(profile_height))][v1]|", views: profile_image, input_area )
-        input_area.addConstraintsWithFormat(format: "V:|-15-[v0]-5-[v1(\(icon_height))]-18-[v2(\(icon_height))]-25-[v3]-5-[v4(\(icon_height))]-18-[v5(\(icon_height))]-25-[v6(50)]", views: profile_label, email_field, password_field, personal_label, name_field, phone_field, signup_button)
+        view.addConstraintsWithFormat(format: "V:|-\(logo_padding!)-[v0(\(profile_height))][v1(50)][v2(\(sliding_height))][v3(50)]", views: profile_image,options,slidingViews, signup_button)
     }
     
     @objc func signin()
@@ -319,8 +649,7 @@ class Register: UIViewController {
         present(controller, animated: true, completion: nil)
     }
     
-    @objc func signup_clicked()
-    {
+    @objc func signup_clicked() {
         view.endEditing(true)
         let background_blur = UIVisualEffectView(effect: UIBlurEffect(style: .extraLight))
         let activity_indicator = TextActivity(text: "Signing Up!")
@@ -339,12 +668,18 @@ class Register: UIViewController {
         let password = password_field.text!
         let phone = phone_field.text!
         let name = name_field.text!
+        let street = street_field.text!
+        let city = city_field.text!
+        let state = state_field.text!
+        let zip = zip_field.text!
+        let ssn = ssn_field.text!
+        let birthdate = birthdate_field.date
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             background_blur.alpha = 1.0
             activity_indicator.alpha = 1.0
             activity_indicator.layer.transform = CATransform3DMakeTranslation(0, 0, 0)
         }) { (_) in
-            create_user(phone: phone, password: password, email: email, name: name) {[unowned self] (res) in
+            create_user(phone: phone, password: password, email: email, name: name, address: street, city: city, state: state, zip: zip, birthdate: birthdate, ssn: ssn ) {[unowned self] (res) in
                 UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {[unowned self] in
                     background_blur.alpha = 0
                     activity_indicator.alpha = 0
@@ -364,6 +699,9 @@ class Register: UIViewController {
                     } else if message == "PHONE_NUMBER_EXISTS" {
                         present_alert_error(message: .duplicate_phone, target: self)
                         return
+                    } else if message == "ERROR" {
+                        present_alert_error(message: .identity_unverified, target: self)
+                        return
                     }
                     //Upload image
                     let uid = response["uid"] as! String
@@ -377,30 +715,15 @@ class Register: UIViewController {
         }
     }
     
-    fileprivate func validate_input() -> Bool
-    {
-        if !valid_email(email: email_field.text!)
-        {
-            present_alert_error(message: .incorrect_email, target: self)
-            return false
-        } else if !valid_password(password: password_field.text!) {
-            present_alert_error(message: .incorrect_password, target: self)
-            return false
-        } else if !valid_phone(phone: phone_field.text!) {
-            present_alert_error(message: .incorrect_phone, target: self)
-            return false
-        } else if !valid_name(name: name_field.text!) {
-            present_alert_error(message: .incorrect_name, target: self)
-            return false
-        } else if image_url == nil {
+    fileprivate func validate_input() -> Bool {
+        if image_url == nil {
             present_alert_error(message: .incorrect_profile, target: self)
             return false
         }
         return true
     }
     
-    @objc func select_image()
-    {
+    @objc func select_image() {
         let actions = image_picker_action_sheet(controller: self, picker: picker, action1: "Choose from Library", action2: "Take a picture", camera: .front)
         execute_on_main { [unowned self] in
             self.present(actions, animated: true, completion: nil)
@@ -417,43 +740,48 @@ extension Register: UIViewControllerTransitioningDelegate
 
 
 extension Register: UITextFieldDelegate{
-    func textfields_valid() -> Bool
-    {
-        return valid_email(email: email_field.text!)  && valid_password(password: password_field.text!) && valid_phone(phone: phone_field.text!) && valid_name(name: name_field.text!)
+    func textfields_valid() -> Bool {
+        return valid_email(email: email_field.text!)  && valid_password(password: password_field.text!) && valid_phone(phone: phone_field.text!) && valid_name(name: name_field.text!) && valid_street(street: street_field.text!) && valid_city(city: city_field.text!) && valid_zip(zip: zip_field.text!) && valid_state(state: state_field.text!) && valid_ssn(ssn: ssn_field.text!) && valid_birthdate(birthdate: birthdate_field.date)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
-        if textfields_valid()
-        {
-            UIView.animate(withDuration: 0.2) {
-                self.signup_button.isUserInteractionEnabled = true
-                self.signup_button.backgroundColor = UIColor.theme_unselected
-            }
-        } else {
-            UIView.animate(withDuration: 0.2) {
-                self.signup_button.isUserInteractionEnabled = false
-                self.signup_button.backgroundColor = UIColor.theme_unselected.withAlphaComponent(0.75)
-            }
+    @objc func valueChange() {
+        if textfields_valid() {
+            signup_button.isUserInteractionEnabled = true
+            signup_button.backgroundColor = .theme_unselected
+        } else  {
+            signup_button.isUserInteractionEnabled = false
+            signup_button.backgroundColor = UIColor.theme_unselected.withAlphaComponent(0.75)
         }
     }
     
+    @objc fileprivate func tapped() {
+        view.endEditing(true)
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == email_field {
-            password_field.becomeFirstResponder()
-        } else if textField == password_field {
-            name_field.becomeFirstResponder()
-        } else if textField == name_field {
+        if textField == name_field {
+            email_field.becomeFirstResponder()
+        } else if textField == email_field {
             phone_field.becomeFirstResponder()
-        } else {
-            if textfields_valid() {
-                signup_clicked()
-            } else {
-                view.endEditing(true)
-            }
+        } else if textField == phone_field {
+            street_field.becomeFirstResponder()
+            scroll_to_menu_item(item: 1)
+        } else if textField == street_field {
+            city_field.becomeFirstResponder()
+        } else if textField == city_field {
+            zip_field.becomeFirstResponder()
+        } else if textField == zip_field {
+            state_field.becomeFirstResponder()
+        } else if textField == state_field {
+            view.endEditing(true)
+        } else if textField == password_field {
+            ssn_field.becomeFirstResponder()
+        } else if textField == ssn_field {
+            view.endEditing(true)
         }
         return false
     }
@@ -466,5 +794,41 @@ extension Register: UIImagePickerControllerDelegate, UINavigationControllerDeleg
             image_url = image.get_temporary_path(quality: 0.50)
         } else { return }
         dismiss(animated: true, completion: nil)
+    }
+}
+
+extension Register: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return Int(options.count())
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ID, for: indexPath) as! OptionsCell
+        if indexPath.item == 0 {
+            cell.insert_component(component: basic_area)
+        } else if indexPath.item == 1 {
+            cell.insert_component(component: address_area)
+        } else if indexPath.item == 2 {
+            cell.insert_component(component: security_area)
+        }
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: view.frame.width, height: view.frame.height)
+    }
+    
+    func scroll_to_menu_item(item: Int) {
+        view.endEditing(true)
+        let path = IndexPath(item: item, section: 0)
+        slidingViews.scrollToItem(at: path, at: .left, animated: true)
+    }
+    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        view.endEditing(true)
+        let index = targetContentOffset.pointee.x/view.frame.width
+        let path = IndexPath(item: Int(index), section: 0)
+        options.Menu.selectItem(at: path, animated: true, scrollPosition: .left)
     }
 }
