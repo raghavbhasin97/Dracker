@@ -24,17 +24,18 @@ def lambda_handler(event, context):
     ssn = event['ssn']
     birthdate = event['birthdate']
     first,last = name.split(' ')
-    # First try creating a dwolla entry and validating data
-    dwolla_entry = create_dwolla_entry(first, last, email, street, city, state, zipcode, ssn, birthdate)
-    if dwolla_entry["message"] != "SUCCESS":
-      return dwolla_entry
-    customer_url = dwolla_entry["customer_url"]
-    register_event = firebase_register(phone, name, email, password)
-
+    
     # Try Firebase Register
+    register_event = firebase_register(phone, name, email, password)
     if register_event["message"] != "SUCCESS":
         return register_event
     uid = register_event["uid"]
+    # First try creating a dwolla entry and validating data
+    dwolla_entry = create_dwolla_entry(first, last, email, street, city, state, zipcode, ssn, birthdate)
+    if dwolla_entry["message"] != "SUCCESS":
+      auth.delete_user(uid)
+      return dwolla_entry
+    customer_url = dwolla_entry["customer_url"]
 
     # Add to Database
     #Table put item

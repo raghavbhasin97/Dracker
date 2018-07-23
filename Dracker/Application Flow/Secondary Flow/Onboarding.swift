@@ -163,6 +163,7 @@ class Onboarding: UIViewController {
         UserDefaults.standard.set(number, forKey: "phone")
         var controller: UIViewController?
         if bank_account {
+            UserDefaults.standard.set(false, forKey: "bank")
             controller = BankAccount()
         } else {
             UserDefaults.standard.set(true, forKey: "bank")

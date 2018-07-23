@@ -87,9 +87,8 @@ class Login: UIViewController {
         field.isSecureTextEntry = true
         field.autocapitalizationType = .none
         field.delegate = self
-        field.returnKeyType = .go
+        field.returnKeyType = .done
         field.font = UIFont(name: "AppleSDGothicNeo-UltraLight", size: 16.5)
-        field.returnKeyType = .next
         field.attributedPlaceholder =   NSAttributedString(string: "Password", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
         field.textColor = .white
         field.addTarget(self, action: #selector(textfieldDidChange), for: .allEditingEvents)
