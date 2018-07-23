@@ -181,6 +181,12 @@ class Detail: UIViewController {
             loading(target: self, completion: { (_) in
                 post_settle_transaction(parameters: parameters, completion: { (res) in
                     if res.isFailure { return }
+                    let val = res.value as! Int
+                    if val == 404 {
+                        stop_loading()
+                        present_alert_error(message: .cannot_settle, target: self)
+                        return
+                    }
                     //Send a message to the creditor about debt repayment
                     let message = "\(name!) payed you \(amount.as_amount()) for \"\(description!)\""
                     send_message(phone: (self.data?.phone)!, message: message)

@@ -9,7 +9,7 @@ An iOS app to track/manage debt. This app allows users to create transactions, a
 ## UI
 
 #### Login/Register
-<img src="img/login.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/register.png" width="180" height="310">
+<img src="img/login.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/register.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/register2.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/register3.png" width="180" height="310">
 
 
 #### Dashboard
@@ -34,7 +34,7 @@ An iOS app to track/manage debt. This app allows users to create transactions, a
 <img src="img/authentication.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/passcode.png" width="180" height="310">
 
 #### Miscellaneous
-<img src="img/quick_actions.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/notifications.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/no_internet.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/onboarding.png" width="180" height="310">
+<img src="img/quick_actions.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/notifications.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/no_internet.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/onboarding.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/bank.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/plaid.png" width="180" height="310">
 
 #### Email Templates
 <img src="img/welcome_email.jpg" width="200" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/verified_email.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/passwordReset_email.jpg" width="200" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/emailChange_email.jpg" width="210" height="310">
@@ -48,6 +48,8 @@ An iOS app to track/manage debt. This app allows users to create transactions, a
 - [x] Unique QR Code and adding transaction using QR Code.
 - [x] Access to data anywhere via AWS.
 - [x] Text messages when payments are completed.
+- [x] Ability to connect bank account (plaid integration).
+- [x] Sending/Recieving money through ACH.  
 - [x] Taggable transactions. An image (such as a bill) can be tagged with the transaction.
 - [x] Saving tagged images to camera roll.
 - [x] Enabling/disabling user notifications.
@@ -56,9 +58,6 @@ An iOS app to track/manage debt. This app allows users to create transactions, a
 - [x] Enabling/disabling touch ID.
 - [x] 3D touch compatibility for Quick Actions.
 - [x] 3D touch for Dashbard table cells.
-
-### Upcoming
-- \[ ] Support for actually moving around money.
 
 ## Requirements
 
@@ -74,8 +73,14 @@ An iOS app to track/manage debt. This app allows users to create transactions, a
 - Twillo is used to send messages for payment completion.
 - Firebase is used for Authentication.
 - SendGrid for emails.
+- AWS Lambda fir backend
+- API Gateway for API calls to backend
+- Plaid for bank account integration
+- Dwolla for making ACH Transactions
 
-## Libraries/Modules Used
+## Modules/Integrations Used
+- Dwolla (ACH Transactions API)
+- Plaid (Connecting user's bank account to dwolla)
 - AWS (data storage)
 - Twillo (payment completion notification)
 - Firebase (Login/Authentication)

@@ -139,8 +139,8 @@ class Onboarding: UIViewController {
             present_alert_error(message: .incorrect_phone, target: self)
             return
         }
-    
         verification = random_code()
+        print(verification)
         let message = "\(verification!) is your Dracker confirmation code."
         send_message(phone: number, message: message)
         disabled_top?.constant = -49.50
