@@ -37,6 +37,9 @@ An iOS app to track/manage debt. This app allows users to create transactions, a
 <img src="img/quick_actions.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/notifications.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/no_internet.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/onboarding.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/bank.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/plaid.png" width="180" height="310">
 
 #### Email Templates
+<img src="img/text-messages.png" width="180" height="310">
+
+#### Email Templates
 <img src="img/welcome_email.jpg" width="200" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/verified_email.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/passwordReset_email.jpg" width="200" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/emailChange_email.jpg" width="210" height="310">
 
 ## Features
