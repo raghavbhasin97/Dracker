@@ -9,5 +9,7 @@ def lambda_handler(event, context):
     response = []
     for item in data:
         item.pop('email', None)
+        item.pop('customer_url', None)
+        item.pop('funding_source', None)
         response.append(item)
     return json.dumps(response)

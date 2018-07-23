@@ -208,6 +208,7 @@ extension Profile: UITableViewDelegate, UITableViewDataSource {
             UserDefaults.standard.set(false, forKey: "auto_login")
             UserDefaults.standard.set(false, forKey: "touch")
             UserDefaults.standard.set(false, forKey: "reminder")
+            UserDefaults.standard.set(false, forKey: "bank")
             UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
             self.parent?.present(Login(), animated: true, completion: nil)
         }

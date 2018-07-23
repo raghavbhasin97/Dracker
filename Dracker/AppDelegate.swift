@@ -3,7 +3,7 @@ import CoreData
 import AWSCore
 import Firebase
 import UserNotifications
-
+import LinkKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -26,6 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setup_notifications()
         setup_AWS()
         setup_Firebase()
+        setup_plaid()
         secure_entry()
         if let shortcutItem = launchOptions?[UIApplicationLaunchOptionsKey.shortcutItem] as? UIApplicationShortcutItem {
             if shortcutItem.type == "com.drackerapp.dracker.add_transaction" {
@@ -76,11 +77,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     //MARK: View Controller set ups
     
-    fileprivate func redirect_to_Home()
-    {
+    fileprivate func redirect_to_Home() {
         window = UIWindow(frame: UIScreen.main.bounds)
         if let _ = UserDefaults.standard.object(forKey: "phone")  {
-            window?.rootViewController = root_navigation()
+            if !UserDefaults.standard.bool(forKey: "bank") {
+                window?.rootViewController = BankAccount()
+            } else {
+                window?.rootViewController = root_navigation()
+            }
         } else {
             window?.rootViewController = Onboarding()
         }
@@ -109,6 +113,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let credentialsProvider = AWSStaticCredentialsProvider(accessKey: AWS_accessKey, secretKey: AWS_secretKey)
         let configuration = AWSServiceConfiguration(region: .USEast1, credentialsProvider: credentialsProvider)
         AWSServiceManager.default().defaultServiceConfiguration = configuration
+    }
+    
+    fileprivate func setup_plaid() {
+        PLKPlaidLink.setup { (success, error) in
+            if let error = error {
+                NSLog("Unable to setup Plaid Link due to: \(error.localizedDescription)")
+            }
+        }
     }
     
     fileprivate func setup_Firebase() {

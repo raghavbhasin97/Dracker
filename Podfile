@@ -10,4 +10,5 @@ target 'Dracker' do
  	pod 'AlamofireImage'
 	pod 'SendGrid-Swift'
 	pod 'AES256CBC'
+	pod 'Plaid'
 end

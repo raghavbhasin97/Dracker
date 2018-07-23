@@ -66,6 +66,11 @@ func get_user_data(phone: String, completion: @escaping ((Result<Any>) -> Void))
     make_api_call(parameters: ["phone": phone], api_endpoint: Endpoints.user_data, method: .get, custom_endpoint: nil, completion: completion)
 }
 
+func put_funding_source(token: String, account_id: String, phone: String, completion: ((Result<Any>) -> Void)? = nil) {
+    let parameters = ["phone" : phone, "account_id" : account_id, "token" : token]
+    make_api_call(parameters: parameters, api_endpoint: Endpoints.attach_funding, method: .put, custom_endpoint: nil, completion: completion)
+}
+
 func post_delete_transaction(parameters: [String: String], completion: ((Result<Any>) -> Void)? = nil) {
     make_api_call(parameters: parameters, api_endpoint: Endpoints.delete_transaction, method: .get, custom_endpoint: nil, completion: completion)
 }
@@ -78,8 +83,7 @@ func update_email(parameters: [String: String], completion: @escaping ((Result<A
     make_api_call(parameters: parameters, api_endpoint: Endpoints.update_email, method: .put, custom_endpoint: nil, completion: completion)
 }
 
-func put_transaction(parameters: [String: String], completion: @escaping ((Result<Any>) -> Void))
-{
+func put_transaction(parameters: [String: String], completion: @escaping ((Result<Any>) -> Void)) {
     make_api_call(parameters: parameters, api_endpoint: Endpoints.add_transaction, method: .put, custom_endpoint: nil, completion: completion)
 }
 

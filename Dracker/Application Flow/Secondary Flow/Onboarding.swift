@@ -14,7 +14,7 @@ class Onboarding: UIViewController {
     let phone_label: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 22)
+        label.font = UIFont(name: "AppleSDGothicNeo-UltraLight", size: 20)
         label.numberOfLines = 3
         label.textColor = .text_color
         label.text = "Please confirm your Phone number to start."
@@ -156,13 +156,20 @@ class Onboarding: UIViewController {
         }
     }
     
-    fileprivate func save_and_redirect(number: String, name: String) {
+    fileprivate func save_and_redirect(number: String, name: String, bank_account: Bool) {
         
         UserDefaults.standard.set(true, forKey: "sound")
         UserDefaults.standard.set(name, forKey: "name")
         UserDefaults.standard.set(number, forKey: "phone")
-        let controller = root_navigation()
-        self.present(controller, animated: true, completion: nil)
+        var controller: UIViewController?
+        if bank_account {
+            controller = BankAccount()
+        } else {
+            UserDefaults.standard.set(true, forKey: "bank")
+            controller = root_navigation()
+        }
+        
+        self.present(controller!, animated: true, completion: nil)
     }
     
     @objc fileprivate func confirm_code() {
@@ -181,10 +188,11 @@ class Onboarding: UIViewController {
                 let response = data.value as! [String: Any]
                 let uid = response["uid"] as! String
                 let name = response["name"] as! String
+                let bank_account = (response["funding_source"] == nil )
                 if uid != (UserDefaults.standard.object(forKey: "uid") as! String) {
                     present_alert_error(message: .phone_not_match, target: self)
                 } else {
-                    self.save_and_redirect(number: self.phone_field.text!, name: name)
+                    self.save_and_redirect(number: self.phone_field.text!, name: name, bank_account: bank_account)
                 }
             }
         }

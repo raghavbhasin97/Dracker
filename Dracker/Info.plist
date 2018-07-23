@@ -2,6 +2,19 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>PLKPlaidLinkConfiguration</key>
+	<dict>
+		<key>clientName</key>
+		<string>5b3eb126f0590c001214f16f</string>
+		<key>env</key>
+		<string>sandbox</string>
+		<key>key</key>
+		<string>7c578ca1c9481d5e8378ec54ce799f</string>
+		<key>product</key>
+		<string>auth</string>
+		<key>selectAccount</key>
+		<true/>
+	</dict>
 	<key>NSLocationUsageDescription</key>
 	<string>Please provide acces to Location Services</string>
 	<key>NSCameraUsageDescription</key>

@@ -12,6 +12,7 @@
 		3C03673620FA94E900E885EB /* Friends.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C03673520FA94E900E885EB /* Friends.swift */; };
 		3C03673B20FAAF8B00E885EB /* FriendsDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C03673A20FAAF8B00E885EB /* FriendsDetailCell.swift */; };
 		3C03F5C820F7EFE0002697BB /* Detail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C03F5C720F7EFE0002697BB /* Detail.swift */; };
+		3C450B4A21054FA30083C860 /* BankAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C450B4921054FA30083C860 /* BankAccount.swift */; };
 		3C4E2B2220F7EC330053D65E /* Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4E2B2120F7EC330053D65E /* Wallet.swift */; };
 		3C4E2B2420F7ED160053D65E /* WalletCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4E2B2320F7ED160053D65E /* WalletCell.swift */; };
 		3C81E51420F939C900693677 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C81E51320F939C900693677 /* Settings.swift */; };
@@ -79,6 +80,7 @@
 		3C03673520FA94E900E885EB /* Friends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friends.swift; sourceTree = "<group>"; };
 		3C03673A20FAAF8B00E885EB /* FriendsDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsDetailCell.swift; sourceTree = "<group>"; };
 		3C03F5C720F7EFE0002697BB /* Detail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detail.swift; sourceTree = "<group>"; };
+		3C450B4921054FA30083C860 /* BankAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankAccount.swift; sourceTree = "<group>"; };
 		3C4E2B2120F7EC330053D65E /* Wallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wallet.swift; sourceTree = "<group>"; };
 		3C4E2B2320F7ED160053D65E /* WalletCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletCell.swift; sourceTree = "<group>"; };
 		3C81E51320F939C900693677 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 				3CB48E9C20F6F10300019DC9 /* Onboarding.swift */,
 				3C81E51B20F93B5400693677 /* Notification.swift */,
 				3CEAA0FE20F9959F005D7D82 /* NetworkConnection.swift */,
+				3C450B4921054FA30083C860 /* BankAccount.swift */,
 			);
 			path = "Secondary Flow";
 			sourceTree = "<group>";
@@ -526,6 +529,7 @@
 				"${BUILT_PRODUCTS_DIR}/DZNEmptyDataSet/DZNEmptyDataSet.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${PODS_ROOT}/Plaid/ios/LinkKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SendGrid-Swift/SendGrid_Swift.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -539,6 +543,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DZNEmptyDataSet.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LinkKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SendGrid_Swift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -563,6 +568,7 @@
 				3C931D3420FFBB9600C3EFEF /* Animations.swift in Sources */,
 				3CA9DD5F20F6EDAE000EB47F /* slide_backward.swift in Sources */,
 				3C03673620FA94E900E885EB /* Friends.swift in Sources */,
+				3C450B4A21054FA30083C860 /* BankAccount.swift in Sources */,
 				3CEAA0F220F975E1005D7D82 /* Payer.swift in Sources */,
 				3CC67E2A20F8FD3E0020E89A /* Templates.swift in Sources */,
 				3CC67E3020F935F20020E89A /* QRCode.swift in Sources */,
