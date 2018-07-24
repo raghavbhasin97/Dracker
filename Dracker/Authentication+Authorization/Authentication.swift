@@ -102,3 +102,22 @@ func authorize(completion: @escaping () -> Void) {
         completion()
     }
 }
+
+func authorize_unconditional(completion: @escaping () -> Void) {
+    let context = LAContext()
+    context.localizedFallbackTitle = "Enter Passcode"
+    context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "Please Authenticate") { (success, err) in
+        if success {
+            UserDefaults.standard.set(true, forKey: "auth")
+            execute_on_main { completion() }
+        } else {
+            execute_on_main {
+                let controller = Passcode()
+                controller.completion = completion
+                if let main = UIApplication.shared.keyWindow?.rootViewController {
+                    main.present(controller, animated: true, completion: nil)
+                }
+            }
+        }
+    }
+}

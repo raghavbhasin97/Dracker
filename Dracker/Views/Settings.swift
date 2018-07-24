@@ -1,5 +1,6 @@
 import UIKit
 import LocalAuthentication
+import LinkKit
 
 struct SettingData {
     var title: String
@@ -102,7 +103,7 @@ extension Settings: UITableViewDelegate, UITableViewDataSource {
         } else if indexPath.section == 2 {
             switch indexPath.row {
             case 0:
-                let controller = BankAccount()
+                let controller = UpdateBankAccount()
                 self.parent?.navigationController?.pushViewController(controller, animated: true)
             default:
                 break
