@@ -94,9 +94,12 @@ extension BankAccount : PLKPlaidLinkViewDelegate {
                     let response = data.value as! [String: Any]
                     let message = response["message"] as! String
                     if message == "SUCCESS" {
-                        UserDefaults.standard.set(true, forKey: "bank")
-                        let controller = root_navigation()
-                        self.present(controller, animated: true, completion: nil)
+                        
+                        present_alert_with_handler_and_message(message: .success_bank_attach, target: self, handler: { (_) in
+                            UserDefaults.standard.set(true, forKey: "bank")
+                            let controller = root_navigation()
+                            self.present(controller, animated: true, completion: nil)
+                        })
                     } else {
                         present_alert_error(message: .funding_error, target: self)
                     }
@@ -107,7 +110,9 @@ extension BankAccount : PLKPlaidLinkViewDelegate {
 
     func linkViewController(_ linkViewController: PLKPlaidLinkViewController, didExitWithError error: Error?, metadata: [String : Any]?) {
         dismiss(animated: true) {
-           present_alert_error(message: .funding_error, target: self)
+            if error != nil {
+                present_alert_error(message: .funding_error, target: self)
+            }
         }
     }
 }

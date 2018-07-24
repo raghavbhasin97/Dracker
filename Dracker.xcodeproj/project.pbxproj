@@ -34,6 +34,7 @@
 		3CA31BE020F70B61000306CF /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA31BDF20F70B61000306CF /* MenuCell.swift */; };
 		3CA31BE420F70B9F000306CF /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA31BE320F70B9F000306CF /* BaseCollectionViewCell.swift */; };
 		3CA31BE620F70F8C000306CF /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA31BE520F70F8C000306CF /* Endpoints.swift */; };
+		3CA8D75A210680CD00B8D0B8 /* UpdateBankAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA8D759210680CD00B8D0B8 /* UpdateBankAccount.swift */; };
 		3CA9DD4A20F6EBFF000EB47F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA9DD4920F6EBFF000EB47F /* AppDelegate.swift */; };
 		3CA9DD5120F6EC00000EB47F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3CA9DD5020F6EC00000EB47F /* Assets.xcassets */; };
 		3CA9DD5420F6EC00000EB47F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CA9DD5220F6EC00000EB47F /* LaunchScreen.storyboard */; };
@@ -102,6 +103,7 @@
 		3CA31BDF20F70B61000306CF /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
 		3CA31BE320F70B9F000306CF /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		3CA31BE520F70F8C000306CF /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
+		3CA8D759210680CD00B8D0B8 /* UpdateBankAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateBankAccount.swift; sourceTree = "<group>"; };
 		3CA9DD4620F6EBFF000EB47F /* Dracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CA9DD4920F6EBFF000EB47F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3CA9DD5020F6EC00000EB47F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -168,7 +170,6 @@
 				3CB48E9C20F6F10300019DC9 /* Onboarding.swift */,
 				3C81E51B20F93B5400693677 /* Notification.swift */,
 				3CEAA0FE20F9959F005D7D82 /* NetworkConnection.swift */,
-				3C450B4921054FA30083C860 /* BankAccount.swift */,
 			);
 			path = "Secondary Flow";
 			sourceTree = "<group>";
@@ -177,7 +178,6 @@
 			isa = PBXGroup;
 			children = (
 				3CB48E9720F6F04500019DC9 /* Home.swift */,
-				3CEAA0EF20F97541005D7D82 /* AddTransaction.swift */,
 			);
 			path = "Main Flow";
 			sourceTree = "<group>";
@@ -189,6 +189,15 @@
 				3C03673120FA92D200E885EB /* Contacts.swift */,
 			);
 			path = Contacts;
+			sourceTree = "<group>";
+		};
+		3C0FBECF210673EC00015830 /* Bank Account */ = {
+			isa = PBXGroup;
+			children = (
+				3C450B4921054FA30083C860 /* BankAccount.swift */,
+				3CA8D759210680CD00B8D0B8 /* UpdateBankAccount.swift */,
+			);
+			path = "Bank Account";
 			sourceTree = "<group>";
 		};
 		3C931D3220FFBB8000C3EFEF /* Animations */ = {
@@ -302,6 +311,7 @@
 		3CA9DD5B20F6ED39000EB47F /* Application Flow */ = {
 			isa = PBXGroup;
 			children = (
+				3C0FBECF210673EC00015830 /* Bank Account */,
 				3C03673920FAAA5B00E885EB /* Contacts */,
 				3CEAA0FA20F99351005D7D82 /* Authentication */,
 				3C03673020FA92BA00E885EB /* Main Flow */,
@@ -412,6 +422,7 @@
 		3CEAA0FB20F99361005D7D82 /* Transaction */ = {
 			isa = PBXGroup;
 			children = (
+				3CEAA0EF20F97541005D7D82 /* AddTransaction.swift */,
 				3C03F5C720F7EFE0002697BB /* Detail.swift */,
 				3CC67E2D20F921EA0020E89A /* Note.swift */,
 			);
@@ -585,6 +596,7 @@
 				3CEAA0F020F97541005D7D82 /* AddTransaction.swift in Sources */,
 				3CA9DD7020F6EF4F000EB47F /* Global Variables.swift in Sources */,
 				3C849DC1210443CA00025BC1 /* OptionsCell.swift in Sources */,
+				3CA8D75A210680CD00B8D0B8 /* UpdateBankAccount.swift in Sources */,
 				3C03673B20FAAF8B00E885EB /* FriendsDetailCell.swift in Sources */,
 				3C81E51E20F93B9C00693677 /* Change.swift in Sources */,
 				3CEAA0F420F9765F005D7D82 /* UserCell.swift in Sources */,

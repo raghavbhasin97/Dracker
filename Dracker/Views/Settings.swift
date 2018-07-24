@@ -7,9 +7,10 @@ struct SettingData {
 }
 class Settings: UIView {
     let ID = "SettingsCell"
-    let sections = ["Preferences", "Options"]
+    let sections = ["Preferences", "Options", "Financial"]
     let data = [[SettingData(title: "Auto Login", image: "authorization"), SettingData(title: "Touch ID", image: "fingerprint"), SettingData(title: "Reminders", image: "notification"), SettingData(title: "Scan Sound", image: "sound")],
-                [SettingData(title: "Alerts", image: "alerts"), SettingData(title: "Change Passcode", image: "passcode")]
+                [SettingData(title: "Alerts", image: "alerts"), SettingData(title: "Change Passcode", image: "passcode")],
+        [SettingData(title: "Change Bank Account", image: "bank")]
     ]
     let defaults_key = ["auto_login", "touch", "reminder", "sound"]
     weak var parent: Home?
@@ -71,31 +72,41 @@ extension Settings: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 { return }
-        switch indexPath.row {
-        case 0:
-            let controller = Notification()
-            self.parent?.navigationController?.pushViewController(controller, animated: true)
-            break
-        case 1:
-            if !UserDefaults.standard.bool(forKey: "touch") {
-                present_alert_error(message: .touchid_not_enabled, target: parent!)
-                return
-            }
-            let controller = Change()
-            controller.keyboard_type = .numberPad
-            controller.create(from: Configuration(title: "Enter the new passcode", image: "passcode", button: "Change Passcode", placeholder: "Enter 4 digit passcode", isSecure: true, action: { (passcode) -> Bool in
-                if !valid_pin(pin: passcode) {
-                    let target = UIApplication.shared.keyWindow?.rootViewController
-                    present_alert_error(message: .incorrect_passcode, target: target!)
-                    return false
+        if indexPath.section == 1 {
+            switch indexPath.row {
+            case 0:
+                let controller = Notification()
+                self.parent?.navigationController?.pushViewController(controller, animated: true)
+                break
+            case 1:
+                if !UserDefaults.standard.bool(forKey: "touch") {
+                    present_alert_error(message: .touchid_not_enabled, target: parent!)
+                    return
                 }
-                UserDefaults.standard.set(passcode, forKey: "pin")
-                return true
-            }))
-            self.parent?.navigationController?.pushViewController(controller, animated: true)
-            break
-        default:
-            break
+                let controller = Change()
+                controller.keyboard_type = .numberPad
+                controller.create(from: Configuration(title: "Enter the new passcode", image: "passcode", button: "Change Passcode", placeholder: "Enter 4 digit passcode", isSecure: true, action: { (passcode) -> Bool in
+                    if !valid_pin(pin: passcode) {
+                        let target = UIApplication.shared.keyWindow?.rootViewController
+                        present_alert_error(message: .incorrect_passcode, target: target!)
+                        return false
+                    }
+                    UserDefaults.standard.set(passcode, forKey: "pin")
+                    return true
+                }))
+                self.parent?.navigationController?.pushViewController(controller, animated: true)
+                break
+            default:
+                break
+            }
+        } else if indexPath.section == 2 {
+            switch indexPath.row {
+            case 0:
+                let controller = BankAccount()
+                self.parent?.navigationController?.pushViewController(controller, animated: true)
+            default:
+                break
+            }
         }
     }
 }

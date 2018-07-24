@@ -140,7 +140,6 @@ class Onboarding: UIViewController {
             return
         }
         verification = random_code()
-        print(verification)
         let message = "\(verification!) is your Dracker confirmation code."
         send_message(phone: number, message: message)
         disabled_top?.constant = -49.50

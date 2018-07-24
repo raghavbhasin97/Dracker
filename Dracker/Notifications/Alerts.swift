@@ -36,6 +36,7 @@ enum error_messages: String {
     case phone_not_match = "Phone number does not match with the one in records."
     case funding_error = "There was an error connecting to your bank account"
     case cannot_settle = "This transaction can not be settled at this time."
+    case success_bank_attach = "Your Bank Account was linked successfully."
 }
 
 //MARK: Create Alert

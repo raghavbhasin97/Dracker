@@ -36,7 +36,7 @@ An iOS app to track/manage debt. This app allows users to create transactions, a
 #### Miscellaneous
 <img src="img/quick_actions.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/notifications.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/no_internet.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/onboarding.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/bank.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/plaid.png" width="180" height="310">
 
-#### Email Templates
+#### SMS
 <img src="img/text-messages.png" width="180" height="310">
 
 #### Email Templates
@@ -82,12 +82,12 @@ An iOS app to track/manage debt. This app allows users to create transactions, a
 - Dwolla for making ACH Transactions
 
 ## Modules/Integrations Used
-- Dwolla (ACH Transactions API)
+- Dwolla (ACH Transactions API and identity validation with verified customer)
 - Plaid (Connecting user's bank account to dwolla)
 - AWS (data storage)
 - Twillo (payment completion notification)
-- Firebase (Login/Authentication)
-- DZNEmptyDataSet (For nice empty table look)
+- Firebase (Authentication)
+- DZNEmptyDataSet (For nice empty cell look)
 - Alamofire (API calls)
 - SendGrid (for emailing Welcome, Verification, Note and Email change messages)
 
