@@ -11,6 +11,7 @@ def lambda_handler(event, context):
 		phone = event['phone']
 		account_id = event['account_id']
 		token = event['token']
+		account_name = event["name"]
 		item = table.get_item(
 			Key={
 				'phone': phone
@@ -31,7 +32,7 @@ def lambda_handler(event, context):
 		bank_account_token = dwolla_response['processor_token']
 		request_body = {
 			'plaidToken': bank_account_token,
-			'name': 'Dracker Funding Source'
+			'name': account_name
 		}
 		dwolla_client = dwollav2.Client(
 			key = os.environ.get('dwolla_key'),

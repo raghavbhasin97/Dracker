@@ -86,7 +86,8 @@ extension BankAccount : PLKPlaidLinkViewDelegate {
         dismiss(animated: true) {
             loading(target: self, completion: { (_) in
                 let phone = UserDefaults.standard.object(forKey: "phone") as! String
-                put_funding_source(token: publicToken, account_id: metadata!["account_id"] as! String, phone: phone, completion: {[unowned self] (data) in
+                let account = metadata?["account"] as! [String: String]
+                put_funding_source(token: publicToken, account_id: account["id"]!, phone: phone, name: account["name"]!, completion: {[unowned self] (data) in
                     if data.isFailure {
                         return
                     }
