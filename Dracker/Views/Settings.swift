@@ -11,7 +11,7 @@ class Settings: UIView {
     let sections = ["Preferences", "Options", "Financial"]
     let data = [[SettingData(title: "Auto Login", image: "authorization"), SettingData(title: "Touch ID", image: "fingerprint"), SettingData(title: "Reminders", image: "notification"), SettingData(title: "Scan Sound", image: "sound")],
                 [SettingData(title: "Alerts", image: "alerts"), SettingData(title: "Change Passcode", image: "passcode")],
-        [SettingData(title: "Change Bank Account", image: "bank")]
+        [SettingData(title: "Bank Accounts", image: "bank")]
     ]
     let defaults_key = ["auto_login", "touch", "reminder", "sound"]
     weak var parent: Home?
@@ -20,8 +20,8 @@ class Settings: UIView {
         table.tableFooterView = UIView()
         table.delegate = self
         table.dataSource = self
-        table.sectionHeaderHeight = 70.0
-        table.rowHeight = 60.0
+        table.sectionHeaderHeight = 45.0
+        table.rowHeight = 50.0
         return table
     }()
     
