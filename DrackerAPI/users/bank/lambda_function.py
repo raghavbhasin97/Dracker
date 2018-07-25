@@ -2,6 +2,7 @@ import boto3
 import os
 import dwollav2
 from plaid import Client
+import json
 
 client = boto3.resource('dynamodb') #get client
 table = client.Table('DrackerUser')
@@ -12,6 +13,7 @@ def lambda_handler(event, context):
 		account_id = event['account_id']
 		token = event['token']
 		account_name = event["name"]
+		institution_name = event["institution_name"]
 		item = table.get_item(
 			Key={
 				'phone': phone
@@ -42,9 +44,15 @@ def lambda_handler(event, context):
 		app_token = dwolla_client.Auth.client()
 		funding_source = app_token.post('%s/funding-sources' % customer_url, request_body)
 		source_url = funding_source.headers['location']
-		item['funding_source'] = source_url
+		new_account = {"url": source_url, "name": account_name, "institution": institution_name}
+		if item.has_key('funding_source'):
+			data = json.loads(item['funding_source'])
+			data["list"].append(new_account)
+			item['funding_source'] = json.dumps(data)
+		else:
+			data = {"default" : new_account, "list": [new_account]}
+			item['funding_source'] = json.dumps(data)
 		table.put_item(Item=item)
 		return  {"message" : "SUCCESS"}
 	except Exception as exp:
-		print(exp)
 		return  {"message" : "ERROR"}

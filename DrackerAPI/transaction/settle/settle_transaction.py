@@ -1,6 +1,7 @@
 import boto3
 import dwollav2
 import os
+import json
 
 client = boto3.resource('dynamodb')
 bucket = 'drackerimages'
@@ -63,14 +64,16 @@ def initiate_transfer(payer_phone, payee_phone, amount):
                 }
         )
         payer_item = payer_resource['Item']
-        dest = payer_item['funding_source']
+        payer_sources = json.loads(payer_item['funding_source'])
+        dest = payer_sources['default']['url']
         payee_resource = user_table.get_item(
             Key={
                 'phone': payee_phone
                 }
         )
         payee_item = payee_resource['Item']
-        source = payee_item['funding_source']
+        payee_sources = json.loads(payee_item['funding_source'])
+        source = payee_sources['default']['url']
         client = dwollav2.Client(
             key = os.environ.get('dwolla_key'),
             secret = os.environ.get('dwolla_secret'),

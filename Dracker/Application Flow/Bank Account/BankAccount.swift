@@ -22,8 +22,8 @@ class BankAccount: UIViewController {
     
     let bank = UIImageView(image: #imageLiteral(resourceName: "bank"))
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         UIApplication.shared.statusBarStyle = .lightContent
     }
     
@@ -87,7 +87,8 @@ extension BankAccount : PLKPlaidLinkViewDelegate {
             loading(target: self, completion: { (_) in
                 let phone = UserDefaults.standard.object(forKey: "phone") as! String
                 let account = metadata?["account"] as! [String: String]
-                put_funding_source(token: publicToken, account_id: account["id"]!, phone: phone, name: account["name"]!, completion: {[unowned self] (data) in
+                let institution = metadata?["institution"] as! [String: String]
+                put_funding_source(token: publicToken, account_id: account["id"]!, phone: phone, name: account["name"]!, institution_name: institution["name"]!, completion: {[unowned self] (data) in
                     if data.isFailure {
                         return
                     }
