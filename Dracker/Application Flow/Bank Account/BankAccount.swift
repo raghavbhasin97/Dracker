@@ -50,6 +50,12 @@ class BankAccount: UIViewController {
         table.backgroundColor = .bank_back
         table.tableFooterView = UIView()
         table.rowHeight = 60.0
+        table.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0)
+        table.tableHeaderView = {
+            let line = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 1 / UIScreen.main.scale))
+            line.backgroundColor = table.separatorColor
+            return line
+        }()
         return table
     }()
     
@@ -128,7 +134,7 @@ class BankAccount: UIViewController {
         setup_graphics()
         setup_table()
         setup_container()
-        view.addConstraintsWithFormat(format: "V:|[v0][v1(110)]|", views: accounts_view, button_container)
+        view.addConstraintsWithFormat(format: "V:|-30-[v0][v1(110)]|", views: accounts_view, button_container)
     }
     
     @objc func attach_bank_account() {
@@ -197,7 +203,7 @@ extension BankAccount : PLKPlaidLinkViewDelegate {
                         let account = Account(name: account["name"]!, institution: institution["name"]!, url: url, is_default: false)
                         self.accounts_list.append(account)
                         self.accounts_view.beginUpdates()
-                        self.accounts_view.insertRows(at: [IndexPath(row: self.accounts_list.count, section: 0)], with: .automatic)
+                        self.accounts_view.insertRows(at: [IndexPath(row: self.accounts_list.count - 1, section: 0)], with: .left)
                         self.accounts_view.endUpdates()
                     } else {
                         if let code = response["code"] {
