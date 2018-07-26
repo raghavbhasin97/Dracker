@@ -9,38 +9,38 @@ An iOS app to track/manage debt. This app allows users to create transactions, a
 ## UI
 
 #### Login/Register
-<img src="img/login.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/register.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/register2.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/register3.png" width="180" height="310">
+<kbd><img src="img/login.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/register.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/register2.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/register3.png" width="180" height="310"></kbd>
 
 
 #### Dashboard
-<img src="img/home.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/wallet.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/profile.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/settings.png" width="180" height="310">
+<kbd><img src="img/home.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/wallet.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/profile.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/settings.png" width="180" height="310"></kbd>
 
 #### Existing Transactions
-<img src="img/details.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/add_note.png" width="180" height="310">
+<kbd><img src="img/details.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/add_note.png" width="180" height="310"></kbd>
 
 #### New Transactions
-<img src="img/add_transaction.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/qr_code.png" width="180" height="310">
+<kbd><img src="img/add_transaction.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/qr_code.png" width="180" height="310"></kbd>
 
 #### Summary
-<img src="img/friends.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/friends_detail.png" width="180" height="310">
+<kbd><img src="img/friends.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/friends_detail.png" width="180" height="310"></kbd>
 
 #### Profile
-<img src="img/change_password.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/change_email.png" width="180" height="310">
+<kbd><img src="img/change_password.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/change_email.png" width="180" height="310"></kbd>
 
 #### Settings
 <kbd><img src="img/change_passcode.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/set_passcode.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/set_frequency.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/bank_account.png" width="180" height="310" style="border: 1px solid black;"></kbd>
 
 #### Security
-<img src="img/authentication.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/passcode.png" width="180" height="310">
+<kbd><img src="img/authentication.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/passcode.png" width="180" height="310"></kbd>
 
 #### Miscellaneous
-<img src="img/quick_actions.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/notifications.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/no_internet.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/onboarding.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/bank.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/plaid.png" width="180" height="310">
+<kbd><img src="img/quick_actions.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/notifications.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/no_internet.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/onboarding.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/bank.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/plaid.png" width="180" height="310"></kbd>
 
 #### SMS
-<img src="img/text-messages.png" width="180" height="310">
+<kbd><img src="img/text-messages.png" width="180" height="310"></kbd>
 
 #### Email Templates
-<img src="img/welcome_email.jpg" width="200" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/verified_email.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/passwordReset_email.jpg" width="200" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/emailChange_email.jpg" width="210" height="310">
+<kbd><img src="img/welcome_email.jpg" width="200" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/verified_email.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/passwordReset_email.jpg" width="200" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/emailChange_email.jpg" width="210" height="310"></kbd>
 
 ## Features
 
