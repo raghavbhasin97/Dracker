@@ -36,7 +36,7 @@ class AccountCell: BaseTableViewCell {
         backgroundColor = .white
         addSubview(name)
         setup_image()
-        addConstraintsWithFormat(format: "H:[v0]-100-|", views: name)
+        addConstraintsWithFormat(format: "H:[v0]-40-|", views: name)
         center_Y(item: name)
         name.heightAnchor.constraint(equalToConstant: frame.height).isActive = true
     }
@@ -64,5 +64,9 @@ class AccountCell: BaseTableViewCell {
             institution_initials += String(initial)
         }
         return institution_initials
+    }
+    
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+        super.setHighlighted(false, animated: animated)
     }
 }
