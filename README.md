@@ -28,7 +28,7 @@ An iOS app to track/manage debt. This app allows users to create transactions, a
 <img src="img/change_password.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/change_email.png" width="180" height="310">
 
 #### Settings
-<img src="img/change_passcode.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/set_passcode.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/set_frequency.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/bank_account.png" width="180" height="310" style="border: 1px solid black;">
+<img src="img/change_passcode.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/set_passcode.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/set_frequency.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/bank_account.png" width="180" height="310" style="border: 1px solid black;"></kbd>
 
 #### Security
 <img src="img/authentication.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/passcode.png" width="180" height="310">
