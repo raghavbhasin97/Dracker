@@ -9,7 +9,7 @@ An iOS app to track/manage debt. This app allows users to create transactions, a
 ## UI
 
 #### Login/Register
-<img src="img/login.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/register.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/register2.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/register3.png" width="180" height="310">
+<img src="img/login.png" width="180" height="310" border="1">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/register.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/register2.png" width="180" height="310">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/register3.png" width="180" height="310">
 
 
 #### Dashboard
