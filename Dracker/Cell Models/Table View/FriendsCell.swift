@@ -14,7 +14,7 @@ class FriendsCell: BaseTableViewCell {
     }()
     let name: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "CourierNewPS-BoldMT", size: 18)!
+        label.font = UIFont(name: "Avenir-Book", size: 18)!
         label.textColor = .text_color
         return label
     }()
