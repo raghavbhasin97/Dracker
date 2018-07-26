@@ -4,7 +4,8 @@ class AccountCell: BaseTableViewCell {
     let size: CGFloat = 40
     let name: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Avenir-Book", size: 17)
+        label.font = UIFont(name: "Avenir-Book", size: 14)
+        label.numberOfLines = 3
         return label
     }()
     lazy var image_view: UIView = {
@@ -37,10 +38,11 @@ class AccountCell: BaseTableViewCell {
         setup_image()
         addConstraintsWithFormat(format: "H:[v0]-100-|", views: name)
         center_Y(item: name)
+        name.heightAnchor.constraint(equalToConstant: frame.height).isActive = true
     }
     
     func setup(account: Account) {
-        name.text = account.name
+        name.text = account.institution + " - " + account.name
         institution.text = get_initial(institution: account.institution)
         if account.is_default {
             accessoryType = .checkmark
