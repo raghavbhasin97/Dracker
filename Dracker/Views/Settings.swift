@@ -103,7 +103,7 @@ extension Settings: UITableViewDelegate, UITableViewDataSource {
         } else if indexPath.section == 2 {
             switch indexPath.row {
             case 0:
-                let controller = UpdateBankAccount()
+                let controller = BankAccount()
                 self.parent?.navigationController?.pushViewController(controller, animated: true)
             default:
                 break

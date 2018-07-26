@@ -12,7 +12,7 @@
 		3C03673620FA94E900E885EB /* Friends.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C03673520FA94E900E885EB /* Friends.swift */; };
 		3C03673B20FAAF8B00E885EB /* FriendsDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C03673A20FAAF8B00E885EB /* FriendsDetailCell.swift */; };
 		3C03F5C820F7EFE0002697BB /* Detail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C03F5C720F7EFE0002697BB /* Detail.swift */; };
-		3C450B4A21054FA30083C860 /* BankAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C450B4921054FA30083C860 /* BankAccount.swift */; };
+		3C450B4A21054FA30083C860 /* OnboardingBankAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C450B4921054FA30083C860 /* OnboardingBankAccount.swift */; };
 		3C4E2B2220F7EC330053D65E /* Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4E2B2120F7EC330053D65E /* Wallet.swift */; };
 		3C4E2B2420F7ED160053D65E /* WalletCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4E2B2320F7ED160053D65E /* WalletCell.swift */; };
 		3C81E51420F939C900693677 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C81E51320F939C900693677 /* Settings.swift */; };
@@ -34,7 +34,7 @@
 		3CA31BE020F70B61000306CF /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA31BDF20F70B61000306CF /* MenuCell.swift */; };
 		3CA31BE420F70B9F000306CF /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA31BE320F70B9F000306CF /* BaseCollectionViewCell.swift */; };
 		3CA31BE620F70F8C000306CF /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA31BE520F70F8C000306CF /* Endpoints.swift */; };
-		3CA8D75A210680CD00B8D0B8 /* UpdateBankAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA8D759210680CD00B8D0B8 /* UpdateBankAccount.swift */; };
+		3CA8D75A210680CD00B8D0B8 /* BankAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA8D759210680CD00B8D0B8 /* BankAccount.swift */; };
 		3CA9DD4A20F6EBFF000EB47F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA9DD4920F6EBFF000EB47F /* AppDelegate.swift */; };
 		3CA9DD5120F6EC00000EB47F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3CA9DD5020F6EC00000EB47F /* Assets.xcassets */; };
 		3CA9DD5420F6EC00000EB47F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CA9DD5220F6EC00000EB47F /* LaunchScreen.storyboard */; };
@@ -83,7 +83,7 @@
 		3C03673520FA94E900E885EB /* Friends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friends.swift; sourceTree = "<group>"; };
 		3C03673A20FAAF8B00E885EB /* FriendsDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsDetailCell.swift; sourceTree = "<group>"; };
 		3C03F5C720F7EFE0002697BB /* Detail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detail.swift; sourceTree = "<group>"; };
-		3C450B4921054FA30083C860 /* BankAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankAccount.swift; sourceTree = "<group>"; };
+		3C450B4921054FA30083C860 /* OnboardingBankAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingBankAccount.swift; sourceTree = "<group>"; };
 		3C4E2B2120F7EC330053D65E /* Wallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wallet.swift; sourceTree = "<group>"; };
 		3C4E2B2320F7ED160053D65E /* WalletCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletCell.swift; sourceTree = "<group>"; };
 		3C81E51320F939C900693677 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
@@ -105,7 +105,7 @@
 		3CA31BDF20F70B61000306CF /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
 		3CA31BE320F70B9F000306CF /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		3CA31BE520F70F8C000306CF /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
-		3CA8D759210680CD00B8D0B8 /* UpdateBankAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateBankAccount.swift; sourceTree = "<group>"; };
+		3CA8D759210680CD00B8D0B8 /* BankAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankAccount.swift; sourceTree = "<group>"; };
 		3CA9DD4620F6EBFF000EB47F /* Dracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CA9DD4920F6EBFF000EB47F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3CA9DD5020F6EC00000EB47F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -198,8 +198,8 @@
 		3C0FBECF210673EC00015830 /* Bank Account */ = {
 			isa = PBXGroup;
 			children = (
-				3C450B4921054FA30083C860 /* BankAccount.swift */,
-				3CA8D759210680CD00B8D0B8 /* UpdateBankAccount.swift */,
+				3C450B4921054FA30083C860 /* OnboardingBankAccount.swift */,
+				3CA8D759210680CD00B8D0B8 /* BankAccount.swift */,
 			);
 			path = "Bank Account";
 			sourceTree = "<group>";
@@ -585,7 +585,7 @@
 				3C931D3420FFBB9600C3EFEF /* Animations.swift in Sources */,
 				3CA9DD5F20F6EDAE000EB47F /* slide_backward.swift in Sources */,
 				3C03673620FA94E900E885EB /* Friends.swift in Sources */,
-				3C450B4A21054FA30083C860 /* BankAccount.swift in Sources */,
+				3C450B4A21054FA30083C860 /* OnboardingBankAccount.swift in Sources */,
 				3CEAA0F220F975E1005D7D82 /* Payer.swift in Sources */,
 				3CC67E2A20F8FD3E0020E89A /* Templates.swift in Sources */,
 				3CC67E3020F935F20020E89A /* QRCode.swift in Sources */,
@@ -602,7 +602,7 @@
 				3CEAA0F020F97541005D7D82 /* AddTransaction.swift in Sources */,
 				3CA9DD7020F6EF4F000EB47F /* Global Variables.swift in Sources */,
 				3C849DC1210443CA00025BC1 /* OptionsCell.swift in Sources */,
-				3CA8D75A210680CD00B8D0B8 /* UpdateBankAccount.swift in Sources */,
+				3CA8D75A210680CD00B8D0B8 /* BankAccount.swift in Sources */,
 				3C03673B20FAAF8B00E885EB /* FriendsDetailCell.swift in Sources */,
 				3C81E51E20F93B9C00693677 /* Change.swift in Sources */,
 				3CEAA0F420F9765F005D7D82 /* UserCell.swift in Sources */,

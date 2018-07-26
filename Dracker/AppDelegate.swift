@@ -81,7 +81,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         if let _ = UserDefaults.standard.object(forKey: "phone")  {
             if !UserDefaults.standard.bool(forKey: "bank") {
-                window?.rootViewController = BankAccount()
+                window?.rootViewController = OnboardingBankAccount()
             } else {
                 window?.rootViewController = root_navigation()
             }

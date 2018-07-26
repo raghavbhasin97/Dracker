@@ -37,6 +37,7 @@ enum error_messages: String {
     case funding_error = "There was an error connecting to your bank account"
     case cannot_settle = "This transaction can not be settled at this time."
     case success_bank_attach = "Your Bank Account was linked successfully."
+    case duplicate_bank_account = "Bank Account already linked."
 }
 
 //MARK: Create Alert

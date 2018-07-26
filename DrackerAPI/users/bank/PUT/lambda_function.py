@@ -55,5 +55,8 @@ def lambda_handler(event, context):
 		table.put_item(Item=item)
 		return  {"message" : "SUCCESS", "url" : source_url}
 	except Exception as exp:
-		print(exp)
-		return  {"message" : "ERROR"}
+		try:
+			err = exp.body
+			return  {"message" : "ERROR", "code" : err["code"] }
+		except:
+			return  {"message" : "ERROR" }

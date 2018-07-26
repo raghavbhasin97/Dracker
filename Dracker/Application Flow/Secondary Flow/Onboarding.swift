@@ -163,7 +163,7 @@ class Onboarding: UIViewController {
         var controller: UIViewController?
         if bank_account {
             UserDefaults.standard.set(false, forKey: "bank")
-            controller = BankAccount()
+            controller = OnboardingBankAccount()
         } else {
             UserDefaults.standard.set(true, forKey: "bank")
             controller = root_navigation()
