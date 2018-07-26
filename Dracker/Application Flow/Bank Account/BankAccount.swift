@@ -200,7 +200,6 @@ extension BankAccount : PLKPlaidLinkViewDelegate {
                         self.accounts_view.insertRows(at: [IndexPath(row: self.accounts_list.count, section: 0)], with: .automatic)
                         self.accounts_view.endUpdates()
                     } else {
-                        print(response)
                         if let code = response["code"] {
                             if (code as! String) == "DuplicateResource" {
                                 present_alert_error(message: .duplicate_bank_account, target: self)
