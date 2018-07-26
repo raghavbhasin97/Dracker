@@ -42,8 +42,13 @@ class AccountCell: BaseTableViewCell {
     func setup(account: Account) {
         name.text = account.name
         institution.text = get_initial(institution: account.institution)
+        if account.is_default {
+            accessoryType = .checkmark
+        } else {
+            accessoryType = .none
+        }
         if (institution.text?.count)! > 3 {
-            let size = 17.0 - (0.5 * CGFloat((institution.text?.count)!))
+            let size = 17.0 - (1.0 * CGFloat((institution.text?.count)!))
             institution.font =  UIFont(name: "Avenir-Book", size: size)
         }
     }
@@ -51,6 +56,7 @@ class AccountCell: BaseTableViewCell {
     fileprivate func get_initial(institution: String) -> String{
         var institution_initials = ""
         let comps = institution.components(separatedBy: " ")
+        if comps.count == 1 { return institution }
         for component in comps {
             let initial = component[component.startIndex]
             institution_initials += String(initial)

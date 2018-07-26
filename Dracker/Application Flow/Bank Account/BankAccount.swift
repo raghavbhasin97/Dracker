@@ -163,9 +163,6 @@ extension BankAccount : UITableViewDataSource, UITableViewDelegate {
         let cell = accounts_view.dequeueReusableCell(withIdentifier: ID, for: indexPath) as! AccountCell
         let account = accounts_list[indexPath.row]
         cell.setup(account: account)
-        if account.is_default {
-            cell.accessoryType = .checkmark
-        }
         return cell
     }
     
