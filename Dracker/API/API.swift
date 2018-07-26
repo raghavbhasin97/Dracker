@@ -66,9 +66,17 @@ func get_user_data(phone: String, completion: @escaping ((Result<Any>) -> Void))
     make_api_call(parameters: ["phone": phone], api_endpoint: Endpoints.user_data, method: .get, custom_endpoint: nil, completion: completion)
 }
 
+func set_default_account(phone: String, url: String, completion: @escaping ((Result<Any>) -> Void)) {
+    make_api_call(parameters: ["phone": phone, "url": url], api_endpoint: Endpoints.default_account, method: .put, custom_endpoint: nil, completion: completion)
+}
+
+func get_accounts(phone: String, completion: @escaping ((Result<Any>) -> Void)) {
+    make_api_call(parameters: ["phone": phone], api_endpoint: Endpoints.bank_account, method: .get, custom_endpoint: nil, completion: completion)
+}
+
 func put_funding_source(token: String, account_id: String, phone: String, name: String, institution_name: String, completion: ((Result<Any>) -> Void)? = nil) {
     let parameters = ["phone" : phone, "account_id" : account_id, "token" : token, "name": name, "institution_name": institution_name]
-    make_api_call(parameters: parameters, api_endpoint: Endpoints.attach_funding, method: .put, custom_endpoint: nil, completion: completion)
+    make_api_call(parameters: parameters, api_endpoint: Endpoints.bank_account, method: .put, custom_endpoint: nil, completion: completion)
 }
 
 func post_delete_transaction(parameters: [String: String], completion: ((Result<Any>) -> Void)? = nil) {

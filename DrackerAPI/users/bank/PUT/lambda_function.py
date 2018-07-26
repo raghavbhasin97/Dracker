@@ -53,6 +53,7 @@ def lambda_handler(event, context):
 			data = {"default" : new_account, "list": [new_account]}
 			item['funding_source'] = json.dumps(data)
 		table.put_item(Item=item)
-		return  {"message" : "SUCCESS"}
+		return  {"message" : "SUCCESS", "url" : source_url}
 	except Exception as exp:
+		print(exp)
 		return  {"message" : "ERROR"}

@@ -21,7 +21,7 @@ class Settings: UIView {
         table.delegate = self
         table.dataSource = self
         table.sectionHeaderHeight = 45.0
-        table.rowHeight = 50.0
+        table.rowHeight = 52.0
         return table
     }()
     

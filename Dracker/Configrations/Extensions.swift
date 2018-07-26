@@ -21,6 +21,7 @@ extension UIColor {
     static let credit = UIColor(r: 184, g: 15, b: 10)
     static let settle_action = debt
     static let delete_action = credit
+    static let bank_back = UIColor(r: 247, g: 247, b: 247)
 }
 
 //MARK: Visual Constraints
