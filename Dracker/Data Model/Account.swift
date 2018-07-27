@@ -4,7 +4,7 @@ struct Account: Decodable {
     let name: String
     let institution: String
     let url: String
-    let is_default: Bool
+    var is_default: Bool
     
     private enum CodingKeys: String, CodingKey {
         case name = "name"

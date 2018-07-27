@@ -3,6 +3,7 @@ import LinkKit
 
 class BankAccount: UIViewController {
     //MARK: Data Fields
+    var is_editing: Bool = false
     var accounts_list: [Account] = []
     let ID = "AccountsCell"
     let phone = UserDefaults.standard.object(forKey: "phone") as! String
@@ -102,6 +103,8 @@ class BankAccount: UIViewController {
     fileprivate func setup_graphics() {
         view.backgroundColor = .bank_back
         navigationItem.titleView = navigation_title
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "unlink").withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(toggle_edit))
+           // UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: )
     }
     
     fileprivate func setup_table() {
@@ -149,6 +152,11 @@ class BankAccount: UIViewController {
         }
         present(controller, animated: true)
     }
+    
+    @objc fileprivate func toggle_edit() {
+        is_editing = !is_editing
+        accounts_view.setEditing(is_editing, animated: true)
+    }
 
 }
 
@@ -167,16 +175,50 @@ extension BankAccount : UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let account = accounts_list[indexPath.row]
+        var account = accounts_list[indexPath.row]
+        account.is_default = false
         clear_selected()
         set_default_account(phone: phone, url: account.url)
         let cell = accounts_view.cellForRow(at: indexPath)
         cell?.accessoryType = .checkmark
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if accounts_list[indexPath.row].is_default {
+            is_editing = false
+            accounts_view.setEditing(false, animated: true)
+            present_alert_error(message: .cannot_unlink, target: self)
+            return
+        }
+        let phone = UserDefaults.standard.object(forKey: "phone") as! String
+        loading(target: self) {[unowned self] (_) in
+            remove_funding_source(phone: phone, url: self.accounts_list[indexPath.row].url) {[unowned self] (res) in
+                stop_loading()
+                if res.isFailure {
+                    present_alert_error(message: .no_internet, target: self)
+                    return
+                }
+                let result = res.value as! [String: Any]
+                let message = result["message"] as! String
+                if message == "ERROR" {
+                    present_alert_error(message: .error_unlink, target: self)
+                    return
+                } else {
+                    self.accounts_view.beginUpdates()
+                    self.accounts_list.remove(at: indexPath.row)
+                    self.accounts_view.deleteRows(at: [indexPath], with: .left)
+                    self.accounts_view.endUpdates()
+                    self.is_editing = false
+                    self.accounts_view.setEditing(false, animated: true)
+                }
+            }
+        }
+    }
+    
     fileprivate func clear_selected() {
         for row in 0..<accounts_list.count {
             let cell = accounts_view.cellForRow(at: IndexPath(row: row, section: 0))
+            accounts_list[row].is_default = false
             cell?.accessoryType = .none
         }
     }

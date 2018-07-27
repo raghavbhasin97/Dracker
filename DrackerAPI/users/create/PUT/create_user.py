@@ -118,7 +118,7 @@ def send_welcome_email(name, email, uid):
 
 def get_email_template(name, email, uid):
   file = open("welcome_email.html","r")
-  contents =file.read()
+  contents = file.read()
   return contents.replace('{name}', name).replace('{email}', email).replace('{uid}', uid)
 
 def create_dwolla_entry(first, last, email, street, city, state, zipcode, ssn, birthdate):

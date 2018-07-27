@@ -6,6 +6,7 @@ class AccountCell: BaseTableViewCell {
         let label = UILabel()
         label.font = UIFont(name: "Avenir-Book", size: 14)
         label.numberOfLines = 3
+        label.textAlignment = .left
         return label
     }()
     lazy var image_view: UIView = {
@@ -23,21 +24,20 @@ class AccountCell: BaseTableViewCell {
     }()
     
     fileprivate func setup_image() {
-        addSubview(image_view)
+        contentView.addSubview(image_view)
         image_view.addSubview(institution)
         image_view.addConstraintsWithFormat(format: "H:|[v0]|", views: institution)
         image_view.addConstraintsWithFormat(format: "V:|[v0]|", views: institution)
-        addConstraintsWithFormat(format: "H:|-10-[v0(\(size))]", views: image_view)
-        center_Y(item: image_view)
+        contentView.addConstraintsWithFormat(format: "H:|-10-[v0(\(size))]-50-[v1(120)]", views: image_view, name)
+        contentView.center_Y(item: image_view)
         image_view.heightAnchor.constraint(equalToConstant: size).isActive = true
     }
     
     override func setup() {
         backgroundColor = .white
-        addSubview(name)
+        contentView.addSubview(name)
         setup_image()
-        addConstraintsWithFormat(format: "H:[v0]-40-|", views: name)
-        center_Y(item: name)
+        contentView.center_Y(item: name)
         name.heightAnchor.constraint(equalToConstant: frame.height).isActive = true
     }
     

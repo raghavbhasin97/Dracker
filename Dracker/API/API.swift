@@ -66,6 +66,10 @@ func get_user_data(phone: String, completion: @escaping ((Result<Any>) -> Void))
     make_api_call(parameters: ["phone": phone], api_endpoint: Endpoints.user_data, method: .get, custom_endpoint: nil, completion: completion)
 }
 
+func remove_funding_source(phone: String, url: String, completion: @escaping ((Result<Any>) -> Void)) {
+    make_api_call(parameters: ["phone": phone, "url": url], api_endpoint: Endpoints.bank_account, method: .delete, custom_endpoint: nil, completion: completion)
+}
+
 func set_default_account(phone: String, url: String) {
     make_api_call(parameters: ["phone": phone, "url": url], api_endpoint: Endpoints.default_account, method: .put, custom_endpoint: nil, completion: nil)
 }
