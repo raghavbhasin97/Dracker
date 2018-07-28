@@ -175,11 +175,10 @@ extension BankAccount : UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var account = accounts_list[indexPath.row]
         clear_selected()
-        set_default_account(phone: phone, url: account.url)
+        set_default_account(phone: phone, url: accounts_list[indexPath.row].url)
         let cell = accounts_view.cellForRow(at: indexPath)
-        account.is_default = true
+        accounts_list[indexPath.row].is_default = true
         cell?.accessoryType = .checkmark
     }
     
