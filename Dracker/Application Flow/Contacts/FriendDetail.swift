@@ -229,8 +229,8 @@ extension FriendDetail {
             insert_indices.append(IndexPath(row: index, section: 0))
         }
         
-        let delete_animation = index > previous_index ? UITableViewRowAnimation.right : .left
-        let settle_antimation = index > previous_index ? UITableViewRowAnimation.left : .right
+        let delete_animation = UITableViewRowAnimation.top
+        let settle_antimation = UITableViewRowAnimation.top
         
         details.beginUpdates()
         details.deleteRows(at: delete_indices, with: delete_animation)
