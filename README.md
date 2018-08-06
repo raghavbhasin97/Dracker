@@ -73,7 +73,7 @@ An iOS app to track/manage debt. This app allows users to create transactions, a
 
 - DynamoDB is used to store all the data for user transactions and other details
 - S3 is used to store profile images and tagged images with transactions.
-- Twillo is used to send messages for payment completion.
+- Twilio is used to send messages for payment completion.
 - Firebase is used for Authentication.
 - SendGrid for emails.
 - AWS Lambda fir backend
@@ -85,7 +85,7 @@ An iOS app to track/manage debt. This app allows users to create transactions, a
 - Dwolla (ACH Transactions API and identity validation with verified customer)
 - Plaid (Connecting user's bank account to dwolla)
 - AWS (data storage)
-- Twillo (payment completion notification)
+- Twilio (payment completion notification)
 - Firebase (Authentication)
 - DZNEmptyDataSet (For nice empty cell look)
 - Alamofire (API calls)
