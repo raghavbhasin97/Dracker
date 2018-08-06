@@ -84,7 +84,7 @@ An iOS app to track/manage debt. This app allows users to create transactions, a
 ## Modules/Integrations Used
 - Dwolla (ACH Transactions API and identity validation with verified customer)
 - Plaid (Connecting user's bank account to dwolla)
-- AWS (data storage)
+- AWS (Backend)
 - Twilio (payment completion notification)
 - Firebase (Authentication)
 - DZNEmptyDataSet (For nice empty cell look)
