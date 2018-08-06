@@ -1,0 +1,6 @@
+framework module AES256CBC {
+  umbrella header "AES256CBC-umbrella.h"
+
+  export *
+  module * { export * }
+}

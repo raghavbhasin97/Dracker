@@ -4,7 +4,7 @@
 
 An iOS app to track/manage debt. This app allows users to create transactions, add descriptions, tag images, tag notes, and manage them. It features a rich and immersive user experience with 3D touch, quick actions, Actionable User Notifications, and Touch ID/Passcode capability for secure authentication.
 
-![](logo.png)
+![](img/logo.png)
 
 ## UI
 
@@ -69,7 +69,7 @@ An iOS app to track/manage debt. This app allows users to create transactions, a
 - Swift 4.1
 
 ## Architecture
-![](architecture.png)
+![](img/architecture.png)
 
 - DynamoDB is used to store all the data for user transactions and other details
 - S3 is used to store profile images and tagged images with transactions.
