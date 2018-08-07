@@ -67,6 +67,7 @@ fastlane/Preview.html
 fastlane/screenshots/**/*.png
 fastlane/test_output
 
+**/.DS_Store
 **/*.pyc
 **/Endpoints.swift
 **/Keys.swift
@@ -75,8 +76,7 @@ Pods/**
 **/Deployment Package
 **/Test Package
 Podfile.lock
-**/Test
 **/Dracker.xcdatamodeld
 **/GoogleService-Info.plist
-**/.DS_Store
 **/dracker-9443c-firebase-adminsdk-gmc2g-7d48bbd323.json
+**/keys.json
