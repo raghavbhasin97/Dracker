@@ -76,3 +76,7 @@ Podfile.lock
 **/Dracker.xcdatamodeld
 **/GoogleService-Info.plist
 **/.DS_Store
+**/dracker-9443c-firebase-adminsdk-gmc2g-7d48bbd323.json
+**/keys.json
+**/*.pyc
+.DS_Store
