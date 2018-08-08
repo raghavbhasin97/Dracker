@@ -107,12 +107,34 @@ def test_add_transaction1():
 	user2['uid'] = data['uid']
 	#Wait for DynamoDB resources to be created
 	time.sleep(5)
-	res = api_instance.create_transaction(user1, user2)
+	amount1, res = api_instance.create_transaction(user1, user2)
 	transaction_id = sanatize(res.text)
 	if validate_transaction_id(transaction_id):
-		print("Add a new transaction (Add Transaction): Test Passed!")
+		print("Add a new transaction1 (Add Transaction): Test Passed!")
 	else:
-		print("Add a new transaction (Add Transaction): Test Failed!")
+		print("Add a new transaction1 (Add Transaction): Test Failed!")
+
+	amount2, res = api_instance.create_transaction(user1, user2)
+	transaction_id2 = sanatize(res.text)
+	if validate_transaction_id(transaction_id):
+		print("Add a new transaction2 (Add Transaction): Test Passed!")
+	else:
+		print("Add a new transaction2 (Add Transaction): Test Failed!")
+
+	res = api_instance.get_user_transactions(user1['uid'])
+	data = res.json()
+	if validate_data(data, {'amount': str(float(amount1) + float(amount2)), 'transaction_id': transaction_id2}):
+		print("Get User Data1: Test Passed!")
+	else:
+		print("Get User Data1: Test Failed!")
+
+	res = api_instance.get_user_transactions(user2['uid'])
+	data = res.json()
+	if validate_data(data, {'amount': str(float(amount1) + float(amount2)), 'transaction_id': transaction_id2}):
+		print("Get User Data2: Test Passed!")
+	else:
+		print("Get User Data2: Test Failed!")
+
 
 	#Test Settle Transaction This should fail right now
 	res = api_instance.settle_transaction(user1['uid'], user2['uid'], transaction_id)
@@ -126,9 +148,18 @@ def test_add_transaction1():
 	res = api_instance.delete_transaction(user1['uid'], user2['uid'], transaction_id)
 	response_status = sanatize(res.text)
 	if response_status == "200":
-		print("Add a new transaction (Delete Transaction): Test Passed!")
+		print("Add a new transaction1 (Delete Transaction): Test Passed!")
 	else:
-		print("Add a new transaction (Delete Transaction): Test Failed!")
+		print("Add a new transaction1 (Delete Transaction): Test Failed!")
+
+	#Test delete this transaction now
+	res = api_instance.delete_transaction(user1['uid'], user2['uid'], transaction_id2)
+	response_status = sanatize(res.text)
+	if response_status == "200":
+		print("Add a new transaction2 (Delete Transaction): Test Passed!")
+	else:
+		print("Add a new transaction 2(Delete Transaction): Test Failed!")
+
 	#CleanUp
 	clean_data(user1['uid'], user1['phone'])
 	clean_data(user2['uid'], user2['phone'])
