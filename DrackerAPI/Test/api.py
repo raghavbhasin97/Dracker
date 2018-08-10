@@ -28,7 +28,7 @@ class api:
 		params['payer_uid'] = user2['uid']
 		params['time'] = current_time()
 
-		return (params['amount'], requests.put(endpoint, headers=self.headers, params=params))
+		return (params, requests.put(endpoint, headers=self.headers, params=params))
 
 	def delete_transaction(self, uid1, uid2, transaction_id):
 		endpoint = '%s/transaction/delete' % (self.base_url)
@@ -50,6 +50,19 @@ class api:
 	def get_user_transactions(self, uid):
 		endpoint = ('%s/users/' % (self.base_url)) + uid
 		return requests.get(endpoint, headers=self.headers)
+
+	def get_transaction(self, uid, transaction_id):
+		endpoint = '%s/transaction' % (self.base_url)
+		params = {}
+		params['uid'] = uid
+		params['transaction_id'] = transaction_id
+		return requests.get(endpoint, headers=self.headers, params=params)
+
+	def get_user(self, phone):
+		endpoint = '%s/users' % (self.base_url)
+		params = {}
+		params['phone'] = phone
+		return requests.get(endpoint, headers=self.headers, params=params)
 
 	def get_keys(self):
 		return self.keys

@@ -2,13 +2,28 @@ import random
 from datetime import datetime
 import json
 
-first_names = ['Malinda', 'Melodie', 'Emilee', 'Jin', 'Jasmine', 'Nobuko' 'Adrianna', 'Adam', 'Shelby', 'Ethelyn', 'Dora', 'Violet', 'Lizzie', 'Olivia', 'Noelle', 'Daphne', 'Angelica']
+first_names = ['Malinda', 'Melodie', 'Emilee', 'Jin', 'Jasmine', 'Nobuko', 'Adrianna', 'Adam', 'Shelby', 'Ethelyn', 'Dora', 'Violet', 'Lizzie', 'Olivia', 'Noelle', 'Daphne', 'Angelica']
 last_names = ['Smith', 'Johnson', 'Williams', 'Jones', 'Brown', 'Davis', 'Miller', 'Wilson', 'White', 'Jackson']
 domains = ['com', 'org', 'net', 'int', 'edu', 'mil', 'gov', 'io', 'bz', 'me']
 hosts = ['gmail', 'mail', 'outlook', 'icloud', 'opaque', 'blurme', 'inbox']
 cities = ['Huntsville', 'Anchorage', 'Phoenix', 'Little Rock', 'Sacramento', 'Los Angeles', 'Beverly Hills', 'Denver', 'Hartford', 'Dover', 'Washington', 'Pensacola', 'Miami', 'Orlando', 'Atlanta', 'Chicago']
 states = ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"]
 street = ['Abby Park Street', 'Arthur Street', 'Barn Street', 'Bay Avenue', 'California Street', 'Delaware Avenue', 'Elisabeth Street', 'French Street', 'Main Street', 'Second Street', 'Gateway Street', 'Innovation Avenue']
+
+#Create test data
+def create_data():
+	user = {}
+	user['email'] = random_email()
+	user['name'] = random_name()
+	user['password'] = random_password()
+	user['phone'] = random_phone()
+	user['street'] = random_street()
+	user['city'] = random_city()
+	user['state'] = random_state()
+	user['zip'] = random_zip()
+	user['ssn'] = random_ssn()
+	user['birthdate'] = random_birthday()
+	return user
 
 def random_string(size):
 	random_string = ""
@@ -78,3 +93,9 @@ def sanatize(data):
 def validate_data(data, expected):
 	transaction = json.loads(data['unsettled'])
 	return (str(data['debit']) == str(expected['amount']) or str(data['credit']) == str(expected['amount'])) and (transaction[0]['transaction_id'] == expected['transaction_id'])
+
+def validate_user(user, expected):
+	return user['email'] == expected['email'] and user['name'] == expected['name']
+
+def validate_transaction(transaction, expected):
+	return transaction['amount'] == expected['amount'] and transaction['description'] == expected['description'] and transaction['time'] == expected['time']

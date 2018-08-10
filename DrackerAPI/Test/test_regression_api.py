@@ -42,21 +42,6 @@ def register_user(user):
 	print("Register new user: Test Passed!")
 	return (uid,org_phone)
 
-#Create test data
-def create_data():
-	user = {}
-	user['email'] = random_email()
-	user['name'] = random_name()
-	user['password'] = random_password()
-	user['phone'] = random_phone()
-	user['street'] = random_street()
-	user['city'] = random_city()
-	user['state'] = random_state()
-	user['zip'] = random_zip()
-	user['ssn'] = random_ssn()
-	user['birthdate'] = random_birthday()
-	return user
-
 def clean_data(uid, phone):
 	auth.delete_user(uid) #Clear Firebase
 	#Clear Entry in DrackerUser
@@ -94,7 +79,7 @@ def test_register_fail():
 		return
 	print("Register new user (Case: failure): Test Passed!")
 
-def test_add_transaction1():
+def test_transaction1():
 	#Create first user
 	user1 = create_data()
 	res = api_instance.new_user(user1)
@@ -107,33 +92,49 @@ def test_add_transaction1():
 	user2['uid'] = data['uid']
 	#Wait for DynamoDB resources to be created
 	time.sleep(5)
-	amount1, res = api_instance.create_transaction(user1, user2)
+	transaction1, res = api_instance.create_transaction(user1, user2)
+	amount1 = transaction1['amount']
 	transaction_id = sanatize(res.text)
 	if validate_transaction_id(transaction_id):
 		print("Add a new transaction1 (Add Transaction): Test Passed!")
 	else:
 		print("Add a new transaction1 (Add Transaction): Test Failed!")
 
-	amount2, res = api_instance.create_transaction(user1, user2)
+	res = api_instance.get_transaction(user1['uid'], transaction_id)
+	data = res.json()
+	if validate_transaction(transaction1, data):
+		print("Test transaction data 1: Test Passed!")
+	else:
+		print("Test transaction data 1: Test Failed!")
+
+	transaction2, res = api_instance.create_transaction(user1, user2)
+	amount2 = transaction2['amount']
 	transaction_id2 = sanatize(res.text)
 	if validate_transaction_id(transaction_id):
 		print("Add a new transaction2 (Add Transaction): Test Passed!")
 	else:
 		print("Add a new transaction2 (Add Transaction): Test Failed!")
 
+	res = api_instance.get_transaction(user2['uid'], transaction_id2)
+	data = res.json()
+	if validate_transaction(transaction2, data):
+		print("Test transaction data 2: Test Passed!")
+	else:
+		print("Test transaction data 2: Test Failed!")
+
 	res = api_instance.get_user_transactions(user1['uid'])
 	data = res.json()
 	if validate_data(data, {'amount': str(float(amount1) + float(amount2)), 'transaction_id': transaction_id2}):
-		print("Get User Data1: Test Passed!")
+		print("Get User dash Data1: Test Passed!")
 	else:
-		print("Get User Data1: Test Failed!")
+		print("Get User dash Data1: Test Failed!")
 
 	res = api_instance.get_user_transactions(user2['uid'])
 	data = res.json()
 	if validate_data(data, {'amount': str(float(amount1) + float(amount2)), 'transaction_id': transaction_id2}):
-		print("Get User Data2: Test Passed!")
+		print("Get User dash Data2: Test Passed!")
 	else:
-		print("Get User Data2: Test Failed!")
+		print("Get User dash Data2: Test Failed!")
 
 
 	#Test Settle Transaction This should fail right now
@@ -164,9 +165,43 @@ def test_add_transaction1():
 	clean_data(user1['uid'], user1['phone'])
 	clean_data(user2['uid'], user2['phone'])
 
+def test_deep1():
+	#Create user
+	user = create_data()
+	res = api_instance.new_user(user)
+	data = res.json()
+	user['uid'] = data['uid']
+	#Wait for DynamoDB resources to be created
+	time.sleep(5)
+	res = api_instance.get_transaction(user['uid'], random_string(5))
+	response_status = sanatize(res.text)
+	if response_status == '400':
+		print("Test transaction data (Failure): Test Passed!")
+	else:
+		print("Test transaction data (Failure): Test Failed!")
+
+	res = api_instance.get_user(user['phone'])
+	response_status = sanatize(res.text)
+	data = res.json()
+	if validate_user(data, user):
+		print("Get User Data: Test Passed!")
+	else:
+		print("Get User Data: Test Failed!")
+
+	res = api_instance.get_user(random_phone())
+	data = res.json()
+	if data == None:
+		print("Get User Data(Failure): Test Passed!")
+	else:
+		print("Get User Data(Failure): Test Failed!")
+	
+	#CleanUp
+	clean_data(user['uid'], user['phone'])
+
 
 if __name__ == "__main__":
 	test_register()
 	test_register_fail()
-	test_add_transaction1()
+	test_transaction1()
+	test_deep1()
 	
