@@ -9,6 +9,8 @@ hosts = ['gmail', 'mail', 'outlook', 'icloud', 'opaque', 'blurme', 'inbox']
 cities = ['Huntsville', 'Anchorage', 'Phoenix', 'Little Rock', 'Sacramento', 'Los Angeles', 'Beverly Hills', 'Denver', 'Hartford', 'Dover', 'Washington', 'Pensacola', 'Miami', 'Orlando', 'Atlanta', 'Chicago']
 states = ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"]
 street = ['Abby Park Street', 'Arthur Street', 'Barn Street', 'Bay Avenue', 'California Street', 'Delaware Avenue', 'Elisabeth Street', 'French Street', 'Main Street', 'Second Street', 'Gateway Street', 'Innovation Avenue']
+account_type = ['checking', 'savings']
+currency = ['USD']
 
 #Create test data
 def create_data():
@@ -40,6 +42,9 @@ def random_number(size):
 def random_email():
 	return random_string(8) + '@' + hosts[random.randint(0,len(hosts) - 1)] + '.' + domains[random.randint(0,len(domains) - 1)]
 
+def random_currency():
+	return currency[random.randint(0,len(currency) - 1)]
+
 def random_name():
 	return first_names[random.randint(0,len(first_names) - 1)] + ' ' + last_names[random.randint(0,len(last_names) - 1)]
 
@@ -70,6 +75,14 @@ def random_birthday():
 	day = random.randint(1, 28)
 	birthdate = datetime(year, month, day)
 	return birthdate.strftime('%Y-%m-%d')
+
+def random_checking():
+	checking = {}
+	checking['name'] =  random_string(5) + ' ' + random_string(5)
+	checking['routingNumber'] = '222222226' #Has to be hardcoded for verification in sandbox
+	checking['accountNumber'] = random_number(9)
+	checking['bankAccountType'] = account_type[random.randint(0,len(account_type) - 1)]
+	return checking
 
 def random_amount():
 	return random_number(random.randint(1,3)) + '.' + random_number(2)

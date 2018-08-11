@@ -11,6 +11,8 @@ import time
 cred = credentials.Certificate("./dracker-9443c-firebase-adminsdk-gmc2g-7d48bbd323.json")
 firebase_admin.initialize_app(cred)
 api_instance = api("keys.json")
+keys = api_instance.get_keys() 
+
 
 def register_user(user):
 	# Test new User
@@ -45,7 +47,6 @@ def register_user(user):
 def clean_data(uid, phone):
 	auth.delete_user(uid) #Clear Firebase
 	#Clear Entry in DrackerUser
-	keys = api_instance.get_keys() 
 	client = boto3.resource('dynamodb', region_name='us-east-1', aws_access_key_id=keys['aws_access_key_id'], aws_secret_access_key=keys['aws_secret_access_key'])
 	table = client.Table('DrackerUser')
 	table.delete_item(
@@ -60,7 +61,6 @@ def clean_data(uid, phone):
 			break
 		except client.meta.client.exceptions.ResourceInUseException:
 			pass
-
 
 def test_register():
 	user = create_data()
@@ -141,9 +141,9 @@ def test_transaction1():
 	res = api_instance.settle_transaction(user1['uid'], user2['uid'], transaction_id)
 	response_status = sanatize(res.text)
 	if response_status == "404":
-		print("Add a new transaction (Settle Transaction): Test Passed!")
+		print("Add a new transaction (Settle Transaction: Failure): Test Passed!")
 	else:
-		print("Add a new transaction (Settle Transaction): Test Failed!")
+		print("Add a new transaction (Settle Transaction: Failure): Test Failed!")
 
 	#Test delete this transaction now
 	res = api_instance.delete_transaction(user1['uid'], user2['uid'], transaction_id)
@@ -198,10 +198,90 @@ def test_deep1():
 	#CleanUp
 	clean_data(user['uid'], user['phone'])
 
+def deep2():
+	#Create first user
+	user1 = create_data()
+	res = api_instance.new_user(user1)
+	data = res.json()
+	user1['uid'] = data['uid']
+	#Create second user
+	user2 = create_data()
+	res = api_instance.new_user(user2)
+	data = res.json()
+	user2['uid'] = data['uid']
+	#Wait for DynamoDB resources to be created
+	time.sleep(5)
+	transaction, res = api_instance.create_transaction(user1, user2)
+	transaction_id = sanatize(res.text)
+	#Attach a bank account
+	attach_funding(user1)
+	attach_funding(user2)
+	res = api_instance.settle_transaction(user1['uid'], user2['uid'], transaction_id)
+	response_status = sanatize(res.text)
+	if response_status == "200":
+		print("Settle Transaction: Test Passed!")
+	else:
+		print("Settle Transaction: Test Failed!")
+	
+	#CleanUp
+	clean_data(user1['uid'], user1['phone'])
+	clean_data(user2['uid'], user2['phone'])
+
+def attach_funding(user):
+	res = api_instance.get_user(user['phone'])
+	data = res.json()
+	customer_url = data['customer_url']
+	checking = random_checking()
+	client = dwollav2.Client(
+		key = keys['dwolla_key'],
+		secret = keys['dwolla_secret'],
+		environment = keys['dwolla_env']
+		)
+	app_token = client.Auth.client()
+	client = boto3.resource('dynamodb', region_name='us-east-1', aws_access_key_id=keys['aws_access_key_id'], aws_secret_access_key=keys['aws_secret_access_key'])
+	table = client.Table('DrackerUser')
+	item = table.get_item(
+		Key={
+			'phone': user['phone']
+		}
+	)
+	item = item['Item']
+	funding_source = app_token.post('%s/funding-sources' % customer_url, checking)
+	source_url = funding_source.headers['location']
+	app_token.post('%s/micro-deposits' % source_url)
+	#verify with micro deposits
+	currency = random_currency()
+	request_body = {
+		"amount1": {
+			"value": "0.0" + random_number(1),
+			"currency": currency
+		},
+		"amount2": {
+			"value": "0.0" + random_number(1),
+			"currency": currency
+		}
+	}
+	app_token.post('%s/micro-deposits' % source_url, request_body)
+	new_account = {"url": source_url, "name": random_string(5), "institution": random_string(5)}
+	data = {"default" : new_account, "list": [new_account]}
+	item['funding_source'] = json.dumps(data)
+	table.put_item(Item=item)
+
+def check_configrations():
+	s3 = boto3.resource('s3', region_name='us-east-1', aws_access_key_id=keys['aws_access_key_id'], aws_secret_access_key=keys['aws_secret_access_key'])
+	bucket = s3.Bucket('drackerimages')
+	key = 'noImage'
+	objs = list(bucket.objects.filter(Prefix=key))
+	if len(objs) > 0 and objs[0].key == key:
+	    print("Exit condition check: Test Passed!")
+	else:
+	    print("Exit condition check: Test Failed!")
 
 if __name__ == "__main__":
 	test_register()
 	test_register_fail()
 	test_transaction1()
 	test_deep1()
+	deep2()
+	check_configrations()
 	
