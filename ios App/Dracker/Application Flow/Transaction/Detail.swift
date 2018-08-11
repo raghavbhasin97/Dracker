@@ -320,11 +320,56 @@ extension Detail {
         let alert = UIAlertController(title: nil, message: "Do you want to save this image to Photo library?", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Save", style: .default, handler: {[unowned self] (_) in
-            UIImageWriteToSavedPhotosAlbum(self.transaction_image.image!, nil, nil, nil)
+            UIImageWriteToSavedPhotosAlbum(self.transaction_image.image!, self, #selector(self.image_saved(_:didFinishSavingWithError:contextInfo:)), nil)
         }))
         execute_on_main {[unowned self] in
             self.present(alert, animated: true, completion: nil)
         }
+    }
+    
+    @objc func image_saved(_ image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: UnsafeRawPointer) {
+        let image = UIImageView()
+        let label: UILabel = {
+            let label = UILabel()
+            label.textAlignment = .center
+            label.font = UIFont(name: "AppleSDGothicNeo-UltraLight", size: 15.0)
+            return label
+        }()
+        let save_view = generate_save_view(image: image, label: label)
+        if error == nil {
+            label.text = "Image Saved to Camera Roll"
+            image.image = #imageLiteral(resourceName: "saved")
+            view.addSubview(save_view)
+            save_view.alpha = 0.0
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                save_view.alpha = 1.0
+            }, completion: nil)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                    save_view.alpha = 0.0
+                }, completion: { (_) in
+                    save_view.removeFromSuperview()
+                })
+            }
+        }
+    }
+    
+    func generate_save_view(image: UIImageView, label: UILabel) -> UIView {
+        let image_size: CGFloat = 45.0
+        let top_height = UIApplication.shared.statusBarFrame.height + (navigationController?.navigationBar.frame.height)! + 20.0
+        let save_view = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width-125, height: view.frame.height * 0.16))
+        save_view.layer.cornerRadius = 15.0
+        save_view.clipsToBounds = true
+        let blur = UIVisualEffectView(effect: UIBlurEffect(style: .extraLight))
+        blur.frame = save_view.frame
+        save_view.addSubview(blur)
+        save_view.center = CGPoint(x: view.center.x, y: view.center.y - top_height)
+        save_view.addSubview(image)
+        image.frame = CGRect(x: (save_view.frame.width - image_size)/2, y: 5, width: image_size, height: image_size)
+        save_view.addSubview(label)
+        save_view.addConstraintsWithFormat(format: "H:|[v0]|", views: label)
+        label.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 10).isActive = true
+        return save_view
     }
     
     @objc fileprivate func add_note() {
