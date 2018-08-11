@@ -1,6 +1,7 @@
 # Dracker
 [![Swift Version][swift-image]][swift-url]
 [![Platform](https://img.shields.io/cocoapods/p/LFAlertController.svg?style=flat)](https://www.apple.com/ios/ios-11/)
+[![Build Status](https://travis-ci.org/dwyl/esta.svg?branch=master)](https://travis-ci.org/dwyl/esta)
 
 An iOS app to track/manage debt. This app allows users to create transactions, add descriptions, tag images, tag notes, and manage them. It features a rich and immersive user experience with 3D touch, quick actions, Actionable User Notifications, and Touch ID/Passcode capability for secure authentication.
 
