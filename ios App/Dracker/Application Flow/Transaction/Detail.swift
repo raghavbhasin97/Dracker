@@ -356,14 +356,13 @@ extension Detail {
     
     func generate_save_view(image: UIImageView, label: UILabel) -> UIView {
         let image_size: CGFloat = 45.0
-        let top_height = UIApplication.shared.statusBarFrame.height + (navigationController?.navigationBar.frame.height)! + 20.0
         let save_view = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width-125, height: view.frame.height * 0.16))
         save_view.layer.cornerRadius = 15.0
         save_view.clipsToBounds = true
         let blur = UIVisualEffectView(effect: UIBlurEffect(style: .extraLight))
         blur.frame = save_view.frame
         save_view.addSubview(blur)
-        save_view.center = CGPoint(x: view.center.x, y: view.center.y - top_height)
+        save_view.center = transaction_image.center
         save_view.addSubview(image)
         image.frame = CGRect(x: (save_view.frame.width - image_size)/2, y: 5, width: image_size, height: image_size)
         save_view.addSubview(label)
