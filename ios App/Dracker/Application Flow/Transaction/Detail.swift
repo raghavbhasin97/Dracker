@@ -345,7 +345,7 @@ extension Detail {
                 save_view.alpha = 1.0
             }, completion: nil)
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                UIView.animate(withDuration: 0.5, delay: 1, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                     save_view.alpha = 0.0
                 }, completion: { (_) in
                     save_view.removeFromSuperview()

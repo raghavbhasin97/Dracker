@@ -46,9 +46,26 @@ def register_user(user):
 
 def clean_data(uid, phone):
 	auth.delete_user(uid) #Clear Firebase
-	#Clear Entry in DrackerUser
 	client = boto3.resource('dynamodb', region_name='us-east-1', aws_access_key_id=keys['aws_access_key_id'], aws_secret_access_key=keys['aws_secret_access_key'])
 	table = client.Table('DrackerUser')
+	#Clear Entry in Dwolla
+	item = table.get_item(
+		Key={
+			'phone': phone
+		}
+	)
+	url = item['Item']['customer_url']
+	request_body = {
+		'status': 'deactivated'
+	}
+	dwollaclient = dwollav2.Client(
+		key = keys['dwolla_key'],
+		secret = keys['dwolla_secret'],
+		environment = keys['dwolla_env']
+		)
+	app_token = dwollaclient.Auth.client()
+	app_token.post(url, request_body)    
+    #Clear Entry in DrackerUser
 	table.delete_item(
         Key={
             'phone': phone
@@ -214,15 +231,27 @@ def deep2():
 	transaction, res = api_instance.create_transaction(user1, user2)
 	transaction_id = sanatize(res.text)
 	#Attach a bank account
-	attach_funding(user1)
-	attach_funding(user2)
+	source1 = attach_funding(user1)
+	source2 = attach_funding(user2)
 	res = api_instance.settle_transaction(user1['uid'], user2['uid'], transaction_id)
 	response_status = sanatize(res.text)
 	if response_status == "200":
 		print("Settle Transaction: Test Passed!")
 	else:
 		print("Settle Transaction: Test Failed!")
-	
+
+	#Cleanup dwolla
+	client = dwollav2.Client(
+		key = keys['dwolla_key'],
+		secret = keys['dwolla_secret'],
+		environment = keys['dwolla_env']
+		)
+	app_token = client.Auth.client()
+	request_body = {
+		'removed': True
+	}
+	app_token.post(source1, request_body)
+	app_token.post(source2, request_body)
 	#CleanUp
 	clean_data(user1['uid'], user1['phone'])
 	clean_data(user2['uid'], user2['phone'])
@@ -266,6 +295,7 @@ def attach_funding(user):
 	data = {"default" : new_account, "list": [new_account]}
 	item['funding_source'] = json.dumps(data)
 	table.put_item(Item=item)
+	return source_url
 
 def get_number():
 	client = boto3.resource('dynamodb', region_name='us-east-1', aws_access_key_id=keys['aws_access_key_id'], aws_secret_access_key=keys['aws_secret_access_key'])
