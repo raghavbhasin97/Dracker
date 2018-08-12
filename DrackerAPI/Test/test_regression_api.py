@@ -267,6 +267,11 @@ def attach_funding(user):
 	item['funding_source'] = json.dumps(data)
 	table.put_item(Item=item)
 
+def get_number():
+	client = boto3.resource('dynamodb', region_name='us-east-1', aws_access_key_id=keys['aws_access_key_id'], aws_secret_access_key=keys['aws_secret_access_key'])
+	table = client.Table('DrackerUser')
+	return table.scan()['Count']
+
 def check_configrations():
 	s3 = boto3.resource('s3', region_name='us-east-1', aws_access_key_id=keys['aws_access_key_id'], aws_secret_access_key=keys['aws_secret_access_key'])
 	bucket = s3.Bucket('drackerimages')
@@ -278,10 +283,14 @@ def check_configrations():
 	    print("Exit condition check: Test Failed!")
 
 if __name__ == "__main__":
+	before = get_number()
 	test_register()
 	test_register_fail()
 	test_transaction1()
 	test_deep1()
 	deep2()
 	check_configrations()
-	
+	after = get_number()
+	if before != after:
+		print("Testing data wasn't successfull cleaned up: try running the cleanup script")
+		print('Before:%s After:%s' % (before, after))

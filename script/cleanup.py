@@ -18,7 +18,7 @@ class Cleanup:
 		table = self.dynamodb.Table(self.keys['user_table'])
 		rows = table.scan()['Items']
 		for item in rows:
-			if item['uid'] in omit:
+			if item['uid'] in omit or item['phone'] in omit:
 				continue
 			try:
 				self.s3.Object(self.keys['profile'], item['uid']).delete()
@@ -33,7 +33,7 @@ class Cleanup:
 				for image in transactioon_images:
 					self.s3.Object(self.keys['transaction'], image).delete()
 			except Exception as err:
-				pass
+				print(err)
 
 	def get_images(self, uid):
 		images = []
@@ -47,5 +47,7 @@ class Cleanup:
 
 if __name__ == "__main__":
 	cleanup = Cleanup()
-	#Clean all, but the three testing accounts for now
-	cleanup.start({'rgYSeuGaHihLExi2bGLoh7TjwcB3', 'kJGc3Hnb2jY9HsExcZw4VOgOwDB3', 'vSS8SEcWLAQYu1HddSntntH6SnZ2'})
+	#Load users to exclude
+	preserve_users = open('preserve_users.txt', 'rb').read().split('\n')
+	cleanup.start(preserve_users)
+	print("Cleanup complete!")

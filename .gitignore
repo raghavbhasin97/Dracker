@@ -83,6 +83,7 @@ Podfile.lock
 **/dracker-9443c-firebase-adminsdk-gmc2g-7d48bbd323.json
 **/keys.json
 **/*.pyc
+**/preserve_users.txt
 .DS_Store
 =======
 **/dracker-9443c-firebase-adminsdk-gmc2g-7d48bbd323.json
