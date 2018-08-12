@@ -20,7 +20,8 @@ def lambda_handler(event, context):
       uid = user.uid
       auth.update_user(
           uid,
-          email=new_email)
+          email=new_email,
+          email_verified=False)
       phone = phone[2:]
       item = table.get_item(
             Key={
