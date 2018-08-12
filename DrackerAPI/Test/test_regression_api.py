@@ -91,10 +91,10 @@ def test_register_fail():
 	res = api_instance.new_user(user)
 	data = res.json()
 	if data['message'] != 'ERROR':
-		print("Register new user (Case: failure): Test Failed! shoul've returned ERROR but returned success")
+		print("Register new user (Failure - Invalid Birthdate): Test Failed! shoul've returned ERROR but returned success")
 		clean_data(data['uid'], user['phone'])
 		return
-	print("Register new user (Case: failure): Test Passed!")
+	print("Register new user (Failure - Invalid Birthdate): Test Passed!")
 
 def test_transaction1():
 	#Create first user
@@ -158,9 +158,9 @@ def test_transaction1():
 	res = api_instance.settle_transaction(user1['uid'], user2['uid'], transaction_id)
 	response_status = sanatize(res.text)
 	if response_status == "404":
-		print("Add a new transaction (Settle Transaction: Failure): Test Passed!")
+		print("Add a new transaction (Settle Transaction: Failure - Nonexistent Funding Source): Test Passed!")
 	else:
-		print("Add a new transaction (Settle Transaction: Failure): Test Failed!")
+		print("Add a new transaction (Settle Transaction: Failure - Nonexistent Funding Source): Test Failed!")
 
 	#Test delete this transaction now
 	res = api_instance.delete_transaction(user1['uid'], user2['uid'], transaction_id)
@@ -193,12 +193,11 @@ def test_deep1():
 	res = api_instance.get_transaction(user['uid'], random_string(5))
 	response_status = sanatize(res.text)
 	if response_status == '400':
-		print("Test transaction data (Failure): Test Passed!")
+		print("Test transaction data (Failure - Nonexistent Transaction): Test Passed!")
 	else:
-		print("Test transaction data (Failure): Test Failed!")
+		print("Test transaction data (Failure - Nonexistent Transaction): Test Failed!")
 
 	res = api_instance.get_user(user['phone'])
-	response_status = sanatize(res.text)
 	data = res.json()
 	if validate_user(data, user):
 		print("Get User Data: Test Passed!")
@@ -208,14 +207,14 @@ def test_deep1():
 	res = api_instance.get_user(random_phone())
 	data = res.json()
 	if data == None:
-		print("Get User Data(Failure): Test Passed!")
+		print("Get User Data (Failure - Nonexistent Phone): Test Passed!")
 	else:
-		print("Get User Data(Failure): Test Failed!")
+		print("Get User Data (Failure - Nonexistent Phone): Test Failed!")
 	
 	#CleanUp
 	clean_data(user['uid'], user['phone'])
 
-def deep2():
+def test_deep2():
 	#Create first user
 	user1 = create_data()
 	res = api_instance.new_user(user1)
@@ -256,6 +255,66 @@ def deep2():
 	clean_data(user1['uid'], user1['phone'])
 	clean_data(user2['uid'], user2['phone'])
 
+def test_update():
+	#Create user
+	user = create_data()
+	res = api_instance.new_user(user)
+	data = res.json()
+	user['uid'] = data['uid']
+	#Wait for DynamoDB resources to be created
+	time.sleep(5)
+	old_email = user['email']
+	new_email = random_email()
+	res = api_instance.update_email(new_email, old_email)
+	data = res.json()
+	if data['message'] == "SUCCESS":
+		print("Update Email: Test Passed!")
+	else:
+		print("Update Email: Test Failed!")
+
+	updated_user = user
+	updated_user['email'] = new_email
+	res = api_instance.get_user(updated_user['phone'])
+	data = res.json()
+	if validate_user(data, updated_user):
+		print("Update Email (Consistency): Test Passed!")
+	else:
+		print("Update Email (Consistency): Test Failed!")
+
+	res = api_instance.update_email(old_email, new_email)
+	data = res.json()
+	if data['message'] == "SUCCESS":
+		print("Update Email (Revert): Test Passed!")
+	else:
+		print("Update Email (Revert): Test Failed!")
+
+	#check Error
+	res = api_instance.update_email(new_email, new_email)
+	data = res.json()
+	if data['message'] == "ERROR":
+		print("Update Email (Failure - Nonexistent Email): Test Passed!")
+	else:
+		print("Update Email (Failure - Nonexistent Email): Test Failed!")
+
+	side_user = create_data()
+	res = api_instance.new_user(side_user)
+	data = res.json()
+	side_user['uid'] = data['uid']
+
+	res = api_instance.update_email(old_email, side_user['email'])
+	data = res.json()
+	if data['message'] == "EMAIL_EXISTS":
+		print("Update Email (Failure - Duplicate Email): Test Passed!")
+	else:
+		print("Update Email (Failure - Duplicate Email): Test Failed!")
+
+	#CleanUp
+	clean_data(user['uid'], user['phone'])
+	clean_data(side_user['uid'], side_user['phone'])
+
+
+
+
 def attach_funding(user):
 	res = api_instance.get_user(user['phone'])
 	data = res.json()
@@ -282,11 +341,11 @@ def attach_funding(user):
 	currency = random_currency()
 	request_body = {
 		"amount1": {
-			"value": "0.0" + random_number(1),
+			"value": random_deposit(),
 			"currency": currency
 		},
 		"amount2": {
-			"value": "0.0" + random_number(1),
+			"value": random_deposit(),
 			"currency": currency
 		}
 	}
@@ -318,7 +377,8 @@ if __name__ == "__main__":
 	test_register_fail()
 	test_transaction1()
 	test_deep1()
-	deep2()
+	test_deep2()
+	test_update()
 	check_configrations()
 	after = get_number()
 	if before != after:

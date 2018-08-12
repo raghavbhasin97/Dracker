@@ -5,6 +5,7 @@ from firebase_admin import credentials
 import boto3
 import sendgrid
 import os
+import dwollav2
 
 client = boto3.resource('dynamodb') #get client
 table = client.Table('DrackerUser')
@@ -19,16 +20,25 @@ def lambda_handler(event, context):
       uid = user.uid
       auth.update_user(
           uid,
-          email=new_email,
-          email_verified=False)
+          email=new_email)
       phone = phone[2:]
       item = table.get_item(
             Key={
             'phone': phone
             }
         )
-
       item = item['Item']
+      client = dwollav2.Client(
+        key = os.environ.get('dwolla_key'),
+        secret = os.environ.get('dwolla_secret'),
+        environment = os.environ.get('dwolla_env')
+      )
+      app_token = client.Auth.client()
+      request_body = {
+        'email': new_email
+      }
+      app_token.post(item['customer_url'], request_body)
+
       item['email'] = new_email
       table.put_item(Item=item)
       name = user.display_name
@@ -36,10 +46,14 @@ def lambda_handler(event, context):
       return {"message" : "SUCCESS"}
   except Exception as new_user_exception:
       print(new_user_exception)
-      error = new_user_exception.detail.response.content
-      response = json.loads(error)
-      error_code = response["error"]["message"]
-      return {"message" : error_code}
+      try:
+        error = new_user_exception.detail.response.content
+        response = json.loads(error)
+        error_code = response["error"]["message"]
+        return {"message" : error_code}
+      except Exception as err:
+        print(err)
+        return {"message" : "ERROR"}
 
 def send_verification_email(name, old_email, new_email, uid):
     api_key = os.environ.get('sg_key')

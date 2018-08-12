@@ -64,5 +64,12 @@ class api:
 		params['phone'] = phone
 		return requests.get(endpoint, headers=self.headers, params=params)
 
+	def update_email(self, new_email, old_email):
+		endpoint = '%s/users/update/email' % (self.base_url)
+		params = {}
+		params['new_email'] = new_email
+		params['old_email'] = old_email
+		return requests.put(endpoint, headers=self.headers, params=params)
+
 	def get_keys(self):
 		return self.keys

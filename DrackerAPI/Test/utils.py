@@ -11,6 +11,8 @@ states = ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID"
 street = ['Abby Park Street', 'Arthur Street', 'Barn Street', 'Bay Avenue', 'California Street', 'Delaware Avenue', 'Elisabeth Street', 'French Street', 'Main Street', 'Second Street', 'Gateway Street', 'Innovation Avenue']
 account_type = ['checking', 'savings']
 currency = ['USD']
+micro_deposit = ["0.02", "0.03", "0.04", "0.05", "0.06", "0.07", "0.08", "0.09"]
+
 
 #Create test data
 def create_data():
@@ -44,6 +46,9 @@ def random_email():
 
 def random_currency():
 	return currency[random.randint(0,len(currency) - 1)]
+
+def random_deposit():
+	return micro_deposit[random.randint(0,len(micro_deposit) - 1)]
 
 def random_name():
 	return first_names[random.randint(0,len(first_names) - 1)] + ' ' + last_names[random.randint(0,len(last_names) - 1)]
