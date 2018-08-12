@@ -18,7 +18,7 @@ class Cleanup:
 		table = self.dynamodb.Table(self.keys['user_table'])
 		rows = table.scan()['Items']
 		for item in rows:
-			if item['uid'] in omit or item['phone'] in omit:
+			if item['uid'] in omit or item['phone'] in omit or item['email'] in omit:
 				continue
 			try:
 				self.s3.Object(self.keys['profile'], item['uid']).delete()
