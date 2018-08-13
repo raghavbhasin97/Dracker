@@ -105,11 +105,15 @@ extension HomeView: UIViewControllerPreviewingDelegate {
         controller.data = unsettled_transactions[(item?.row)!]
         controller.dahsboard = self
         controller.index = item
+        controller.note.alpha = 0.0
         previewingContext.sourceRect = (tableView.cellForRow(at: item!)?.frame)!
         return controller
     }
     
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        if let controller = viewControllerToCommit as? Detail {
+            controller.note.alpha = 1.0
+        }
         parent?.navigationController?.pushViewController(viewControllerToCommit, animated: true)
     }
 }
