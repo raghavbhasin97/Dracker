@@ -57,7 +57,7 @@ class Profile: UIView {
                         }
                         let response = res.value as! [String: Any]
                         let message = response["message"] as! String
-                        if  message == "EMAIL_EXISTS" || message == "ERROR"{
+                        if  message != "SUCCESS" {
                             present_alert_error(message: .error_reset, target: target!)
                             return
                         } else {
