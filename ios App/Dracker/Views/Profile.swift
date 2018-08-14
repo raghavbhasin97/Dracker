@@ -47,7 +47,7 @@ class Profile: UIView {
                         return false
                     }
                     var parameters: [String: String] = [:]
-                    parameters["old_email"] = Auth.auth().currentUser?.email!
+                    parameters["old_email"] = (UserDefaults.standard.object(forKey: "email") as! String).decrypt()
                     parameters["new_email"] = email
                     let target = UIApplication.shared.keyWindow?.rootViewController
                     update_email(parameters: parameters, completion: { (res) in
