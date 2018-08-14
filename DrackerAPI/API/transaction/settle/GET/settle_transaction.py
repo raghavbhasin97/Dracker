@@ -123,7 +123,7 @@ def send_transaction_email(email, transaction_payload):
               "email": email
             }
           ],
-          "subject": "Verify Email"
+          "subject": "Transaction Settled"
         }
       ],
       "from": {
