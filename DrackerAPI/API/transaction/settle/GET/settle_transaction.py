@@ -2,6 +2,7 @@ import boto3
 import dwollav2
 import os
 import json
+import sendgrid
 
 client = boto3.resource('dynamodb')
 bucket = 'drackerimages'
@@ -32,6 +33,10 @@ def lambda_handler(event, context):
     transfer = initiate_transfer(payer_phone, payee_phone, amount)
     if transfer["message"] != "SUCCESS":
         return 404
+    transaction_payload = transfer["payload"]
+    transaction_payload['description'] = payee_item['description']
+    transaction_payload['name'] = payer_item['name']
+    transaction_payload['person_name'] = payee_item['name']
     #update time
     payee_item['settelement_time'] = time
     #remove unnecessary info
@@ -55,8 +60,10 @@ def lambda_handler(event, context):
         Bucket=bucket,
         Key=item_key,
         )
+    send_transaction_email(transaction_payload['email'], transaction_payload)
     return 200
 def initiate_transfer(payer_phone, payee_phone, amount):
+    transaction_payload = {}
     try:
         payer_resource = user_table.get_item(
             Key={
@@ -95,7 +102,43 @@ def initiate_transfer(payer_phone, payee_phone, amount):
             }
         }
         transfer = app_token.post('transfers', request_body)
-        return {"message" : "SUCCESS"}
+        res = transfer.headers['location'].split('/')
+        transaction_payload['transaction_id'] = res[-1]
+        transaction_payload['amount'] = amount
+        transaction_payload['email'] = payee_item['email']
+        transaction_payload['bank_account'] = payee_sources['default']['institution'] + ' - ' + payee_sources['default']['name']
+        return {"message" : "SUCCESS", "payload": transaction_payload}
     except Exception as err:
         print(err)
         return {"message" : "ERROR"}
+
+def send_transaction_email(email, transaction_payload):
+    api_key = os.environ.get('sg_key')
+    sg = sendgrid.SendGridAPIClient(apikey=api_key)
+    data = {
+      "personalizations": [
+        {
+          "to": [
+            {
+              "email": email
+            }
+          ],
+          "subject": "Verify Email"
+        }
+      ],
+      "from": {
+        "email": "no-reply@dracker.com"
+      },
+      "content": [
+        {
+          "type": "text/html",
+          "value": get_email_template(transaction_payload)
+        }
+      ]
+    }
+    sg.client.mail.send.post(request_body=data)
+
+def get_email_template(transaction_payload):
+  file = open("transaction_settled.html","r")
+  contents =file.read()
+  return contents.replace('{name}', transaction_payload['name']).replace('{person_name}', transaction_payload['person_name']).replace('{amount}', transaction_payload['amount']).replace('{description}', transaction_payload['description']).replace('{transaction_id}', transaction_payload['transaction_id']).replace('{bank_account}', transaction_payload['bank_account'])
