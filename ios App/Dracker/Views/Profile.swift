@@ -56,6 +56,10 @@ class Profile: UIView {
                             return
                         }
                         let response = res.value as! [String: Any]
+                        if response["message"] == nil {
+                            present_alert_error(message: .error_reset, target: target!)
+                            return
+                        }
                         let message = response["message"] as! String
                         if  message != "SUCCESS" {
                             present_alert_error(message: .error_reset, target: target!)
