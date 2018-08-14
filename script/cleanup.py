@@ -24,7 +24,7 @@ class Cleanup:
 		table = self.dynamodb.Table(self.keys['user_table'])
 		rows = table.scan()['Items']
 		for item in rows:
-			if item['uid'] in omit or item['phone'] in omit or item['email'] in omit:
+			if item['email'] in omit:
 				continue
 			try:
 				if 'funding_source' in item:
@@ -48,8 +48,8 @@ class Cleanup:
 					self.s3.Object(self.keys['transaction'], image).delete()
 			except Exception as err:
 				print('Some Error in cleaning up: ' + item['email'])
-				print('Item Details: ' + item)
 				print('Error: ' + err)
+				print('Item Details: ' + str(item))
 
 	def get_images(self, uid):
 		images = []
@@ -69,9 +69,27 @@ class Cleanup:
 			url = item['url']
 			self.dwolla.post(url, request_body)
 
+	def cleanup_dwolla(self, omit):
+		if (self.keys['clean_dwolla']):
+			response = self.dwolla.get('customers', limit=200, status='verified')
+			customers = response.body['_embedded']['customers']
+			for item in customers:
+				if item['email'] in omit:
+					continue
+				url = item['_links']['edit']['href']
+				request_body = {
+					'status': 'deactivated'
+				}
+				self.dwolla.post(url, request_body)
+				print('Deactivated: ' + item['email'])
+
+
 if __name__ == "__main__":
 	cleanup = Cleanup()
 	#Load users to exclude
 	preserve_users = open('preserve_users.txt', 'rb').read().split('\n')
 	cleanup.start(preserve_users)
+	cleanup.cleanup_dwolla(preserve_users)
 	print("Cleanup complete!")
+
+
