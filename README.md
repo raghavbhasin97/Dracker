@@ -41,7 +41,7 @@ An iOS app to track/manage debt. This app allows users to create transactions, a
 <kbd><img src="img/text-messages.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/settle-text.png" width="180" height="310"></kbd>
 
 #### Email Templates
-<kbd><img src="img/welcome_email.jpg" width="200" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/verified_email.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/passwordReset_email.jpg" width="200" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/emailChange_email.jpg" width="210" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/transaction_email.jpg" width="210" height="310"></kbd>
+<kbd><img src="img/welcome_email.jpg" width="200" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/passwordReset_email.jpg" width="200" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/emailChange_email.jpg" width="210" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/transaction_email.jpg" width="210" height="310"></kbd>
 
 ## Features
 
