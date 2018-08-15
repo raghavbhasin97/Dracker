@@ -92,6 +92,14 @@ An iOS app to track/manage debt. This app allows users to create transactions, a
 - Alamofire (API calls)
 - SendGrid (for emailing Welcome, Verification, Note and Email change messages)
 
+## Scripts
+
+#### Cleanup
+A configrable automation script that cleans up the AWS and Dwolla environment from test data. To be run pre-deployment in production. Script allows accounts to be preserved by adding the 'Email' in 'preserve_users.txt' file.
+
+#### ACH Processor
+A simple script that is scheduled to run once every day to check on status of pending transactions and notify users when the transactions are processed.
+
 
 ## Meta
 

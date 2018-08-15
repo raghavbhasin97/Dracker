@@ -61,6 +61,7 @@ def lambda_handler(event, context):
         Key=item_key,
         )
     send_transaction_email(transaction_payload['email'], transaction_payload)
+    track_transaction(transaction_payload)
     return 200
 def initiate_transfer(payer_phone, payee_phone, amount):
     transaction_payload = {}
@@ -106,6 +107,7 @@ def initiate_transfer(payer_phone, payee_phone, amount):
         transaction_payload['transaction_id'] = res[-1]
         transaction_payload['amount'] = amount
         transaction_payload['email'] = payee_item['email']
+        transaction_payload['phone'] = payee_item['phone']
         transaction_payload['bank_account'] = payee_sources['default']['institution'] + ' - ' + payee_sources['default']['name']
         return {"message" : "SUCCESS", "payload": transaction_payload}
     except Exception as err:
@@ -142,3 +144,22 @@ def get_email_template(transaction_payload):
   file = open("transaction_settled.html","r")
   contents =file.read()
   return contents.replace('{name}', transaction_payload['name']).replace('{person_name}', transaction_payload['person_name']).replace('{amount}', transaction_payload['amount']).replace('{description}', transaction_payload['description']).replace('{transaction_id}', transaction_payload['transaction_id']).replace('{bank_account}', transaction_payload['bank_account'])
+
+def track_transaction(transaction_payload):
+    transactions_table = client.Table('DrackerTransactions')
+    new_transaction = {'id': transaction_payload['transaction_id'], 'amount': transaction_payload['amount'], 'phone': transaction_payload['phone']}
+    try:
+        item = transactions_table.get_item(
+                Key={
+                    'email': transaction_payload['email']
+                }
+        )
+        item = item['Item']
+        item['transactions'].append(new_transaction)
+        transactions_table.put_item(Item=item)
+    except Exception as err:
+        print(err)
+        new_item = {}
+        new_item['email'] = transaction_payload['email']
+        new_item['transactions'] = [new_transaction]
+        transactions_table.put_item(Item=new_item)
