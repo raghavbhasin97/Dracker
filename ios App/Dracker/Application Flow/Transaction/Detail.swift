@@ -187,9 +187,7 @@ class Detail: UIViewController {
                         present_alert_error(message: .cannot_settle, target: self)
                         return
                     }
-                    //Send a message to the creditor about debt repayment
-                    let message = "\(name!) payed you \(amount.as_amount()) for \"\(description!)\""
-                    send_message(phone: (self.data?.phone)!, message: message)
+                    
                     //Delete pending notification
                     remove_notification(identifier: self.data?.notification_identifier)
                     let settled_transaction = Settled(is_debt: is_debt!, amount: String(amount), description: description!, name: name!)

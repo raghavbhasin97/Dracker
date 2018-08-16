@@ -3,10 +3,12 @@ import dwollav2
 import os
 import json
 import sendgrid
+from twilio.rest import Client
 
 client = boto3.resource('dynamodb')
 bucket = 'drackerimages'
 user_table = client.Table('DrackerUser')
+twillio_client = Client(os.environ.get('twillio_sid'), os.environ.get('twillio_token'))
 def lambda_handler(event, context):
     transaction_id = event['transaction_id']
     payer_uid = event['payer_uid']
@@ -62,6 +64,8 @@ def lambda_handler(event, context):
         )
     send_transaction_email(transaction_payload['email'], transaction_payload)
     track_transaction(transaction_payload)
+    message = transaction_payload['name'] + ' payed you $' + transaction_payload['amount'] + ' for\"' + transaction_payload['description'] + "\""
+    twillio_client.messages.create(to=payer_phone, from_= os.environ.get('twillio_phone'), body= message)
     return 200
 def initiate_transfer(payer_phone, payee_phone, amount):
     transaction_payload = {}
