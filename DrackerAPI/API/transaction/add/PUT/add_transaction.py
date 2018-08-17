@@ -48,5 +48,28 @@ def lambda_handler(event, context):
             'uid': payee_uid,
         }
     )
-
+    create_friend_relation(event)
     return transaction_id
+
+def create_friend_relation(event):
+    client = boto3.resource('dynamodb')
+    table = client.Table('DrackerUser')
+    payee_phone = event['payee_phone']
+    payer_phone = event['payer_phone']
+    payee_data = table.get_item(Key={'phone' : payee_phone})['Item']
+    if 'friends' in payee_data:
+        if payer_phone not in payee_data['friends']:
+            payee_data['friends'].append(payer_phone)
+    else:
+        payee_data['friends']  = [payer_phone]
+    
+    table.put_item(Item = payee_data)
+    payer_data = table.get_item(Key={'phone' : payer_phone})['Item']
+    if 'friends' in payer_data:
+        if payee_phone not in payer_data['friends']:
+            payer_data['friends'].append(payee_phone)
+    else:
+        payer_data['friends']  = [payee_phone]
+    
+    table.put_item(Item = payer_data)
+    

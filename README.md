@@ -63,6 +63,10 @@ An iOS app to track/manage debt. This app allows users to create transactions, a
 - [x] 3D touch compatibility for Quick Actions.
 - [x] 3D touch for Dashbard table cells.
 
+### Upcomming 
+
+- [] Web App (React)
+
 ## Requirements
 
 - iOS 10.0+
