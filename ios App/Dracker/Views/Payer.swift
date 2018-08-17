@@ -81,7 +81,8 @@ class Payer: UIView {
         addConstraintsWithFormat(format: "V:|[v0(\(height))]", views: status_bar)
         search_view.addSubview(search.searchBar)
         search.searchBar.sizeToFit()
-        get_users {[unowned self] (data) in
+        let phone = UserDefaults.standard.object(forKey: "phone") as! String
+        get_users_phone(phone: phone) {[unowned self] (data) in
             if data.isFailure {
                 return
             }
@@ -149,14 +150,34 @@ extension Payer: UISearchResultsUpdating, UISearchControllerDelegate {
     
     func updateSearchResults(for searchController: UISearchController) {
         let text = searchController.searchBar.text!
-        if text.isEmpty {
+        if text.isEmpty || text == "" {
             filtered_users_list = users_list
+            execute_on_main {
+                self.users.reloadData()
+            }
         } else {
-            filtered_users_list = users_list.filter({ (user) -> Bool in
-                return user.phone.contains(text)
-            })
+            get_users_search(search: text) {[unowned self] (data) in
+                if data.isFailure {
+                    return
+                }
+                let result = data.value as! String
+                let user_data = result.data(using: .utf8)!
+                //Decode settled array
+                do {
+                    
+                    self.filtered_users_list = try JSONDecoder().decode([User].self, from: user_data)
+                    self.filtered_users_list = self.filtered_users_list.filter({ (user) -> Bool in
+                        return user.uid != self.current_uid
+                    })
+                    execute_on_main {
+                        self.users.reloadData()
+                    }
+                } catch {
+                    //Should never happen
+                    self.filtered_users_list = []
+                }
+            }
         }
-        users.reloadData()
     }
     
     func didDismissSearchController(_ searchController: UISearchController) {

@@ -194,16 +194,17 @@ class AddTransaction: UIViewController {
     
     @objc fileprivate func choose_phone() {
         let main_frame = UIApplication.shared.keyWindow?.screen.bounds
+        let top = (navigationController?.navigationBar.frame.height)! + UIApplication.shared.statusBarFrame.height
         let payer = Payer()
         payer.parent = self
         payer.first_responder = get_first_responder()
-        view.addSubview(payer)
+        view.addSubview(payer)q
         view.endEditing(true)
         payer.frame = main_frame!
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         payer.layer.transform = CATransform3DMakeTranslation(0, (main_frame?.height)!, 0)
         UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            payer.layer.transform = CATransform3DMakeTranslation(0, 0, 0)
+            payer.layer.transform = CATransform3DMakeTranslation(0, -top, 0)
         }, completion: nil)
     }
     
