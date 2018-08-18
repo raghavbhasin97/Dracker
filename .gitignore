@@ -72,7 +72,7 @@ fastlane/test_output
 **/Endpoints.swift
 **/Keys.swift
 **/Templates.swift
-Pods/**
+**/Pods
 **/Deployment Package
 **/Test Package
 Podfile.lock
