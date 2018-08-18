@@ -198,7 +198,7 @@ class AddTransaction: UIViewController {
         let payer = Payer()
         payer.parent = self
         payer.first_responder = get_first_responder()
-        view.addSubview(payer)q
+        view.addSubview(payer)
         view.endEditing(true)
         payer.frame = main_frame!
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false

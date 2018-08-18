@@ -9,13 +9,24 @@ struct Options {
 
 class Profile: UIView {
     
+    lazy var info_subview: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 0.46667*info_size)
+        label.textColor = .white
+        label.text = "$"
+        label.textAlignment = .center
+        return label
+    }()
+    let info_size: CGFloat = 35.0
     let ID = "ProfileCell"
     let profile_dim: CGFloat = 200.0
     let profile_padding: CGFloat = 20.0
     let marker_dim: CGFloat = 40.0
     let multiplier: CGFloat = 1.25
     var uid: String?
+    var info_active: Bool = false
     let marker = UIImageView(image: #imageLiteral(resourceName: "marker"))
+    var info_constraint: NSLayoutConstraint?
     weak var parent: UIViewController?
     var image_url: NSURL?
     let data = [Options(title: "Change Password", image: "password_reset"),
@@ -115,6 +126,18 @@ class Profile: UIView {
         return label
     }()
     
+    lazy var info_view: UIView = {
+        let view = UIView()
+        view.backgroundColor = .theme
+        view.addSubview(info_subview)
+        view.addConstraintsWithFormat(format: "H:|[v0]|", views: info_subview)
+        view.addConstraintsWithFormat(format: "V:|[v0]|", views: info_subview)
+        view.clipsToBounds = true
+        view.layer.cornerRadius = info_size/2
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(show_info)))
+        return view
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -129,6 +152,11 @@ class Profile: UIView {
         addSubview(marker)
         addSubview(name)
         addSubview(options)
+        addSubview(info_view)
+        addConstraintsWithFormat(format: "H:[v0]-20-|", views: info_view)
+        addConstraintsWithFormat(format: "V:|-20-[v0(\(info_size))]", views: info_view)
+        info_constraint = info_view.widthAnchor.constraint(equalToConstant: info_size)
+        info_constraint?.isActive = true
         center_X(item: profile)
         addConstraintsWithFormat(format: "V:|-\(profile_padding)-[v0(\(profile_dim))]-5-[v1(20)]-20-[v2(180)]", views: profile, name, options)
         profile.widthAnchor.constraint(equalToConstant: profile_dim).isActive = true
@@ -151,6 +179,24 @@ class Profile: UIView {
         }
         let name = UserDefaults.standard.object(forKey: "name") as! String
         self.name.text = "@" + name
+    }
+    
+    @objc fileprivate func show_info() {
+        if !info_active {
+            info_constraint?.constant = (info_constraint?.constant)! * 2
+            let diff = debit - credit
+            if diff < 0 {
+                info_subview.text = "-" + diff.as_amount()
+            } else {
+                info_subview.text = diff.as_amount()
+            }
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {[unowned self] in self.layoutIfNeeded() }, completion: nil)
+        } else {
+            info_constraint?.constant = (info_constraint?.constant)! / 2
+            info_subview.text = "$"
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {[unowned self] in self.layoutIfNeeded() } , completion: nil)
+        }
+        info_active = !info_active
     }
 }
 
