@@ -24,6 +24,9 @@ def lambda_handler(event, context):
             if status == 'processed':
                 message = 'Transaction ' + item['id'] + ' for $' + item['amount'] + ' has been processed from your bank account'
                 twillio_client.messages.create(to=item['phone'], from_= os.environ.get('twillio_phone'), body= message)
+            elif status == 'failed':
+                message = 'Transaction ' + item['id'] + ' for $' + item['amount'] + ' could not be cleared'
+                twillio_client.messages.create(to=item['phone'], from_= os.environ.get('twillio_phone'), body= message)
             else:
                 new_list.append(item)
 

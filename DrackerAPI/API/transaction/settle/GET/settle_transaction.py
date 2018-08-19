@@ -64,8 +64,12 @@ def lambda_handler(event, context):
         )
     send_transaction_email(transaction_payload['email'], transaction_payload)
     track_transaction(transaction_payload)
-    message = transaction_payload['name'] + ' payed you $' + transaction_payload['amount'] + ' for\"' + transaction_payload['description'] + "\""
-    twillio_client.messages.create(to=payer_phone, from_= os.environ.get('twillio_phone'), body= message)
+    try:
+        message = transaction_payload['name'] + ' payed you $' + transaction_payload['amount'] + ' for\"' + transaction_payload['description'] + "\""
+        twillio_client.messages.create(to=payer_phone, from_= os.environ.get('twillio_phone'), body= message)
+    except Exception as err:
+        print(err)
+        return 200
     return 200
 def initiate_transfer(payer_phone, payee_phone, amount):
     transaction_payload = {}
@@ -167,3 +171,4 @@ def track_transaction(transaction_payload):
         new_item['email'] = transaction_payload['email']
         new_item['transactions'] = [new_transaction]
         transactions_table.put_item(Item=new_item)
+
