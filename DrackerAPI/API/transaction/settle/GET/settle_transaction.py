@@ -63,7 +63,7 @@ def lambda_handler(event, context):
         Key=item_key,
         )
     send_transaction_email(transaction_payload['email'], transaction_payload)
-    track_transaction(transaction_payload)
+    track_transaction(transaction_payload, payer_response['Item'], payee_response['Item'])
     try:
         message = transaction_payload['name'] + ' payed you $' + transaction_payload['amount'] + ' for\"' + transaction_payload['description'] + "\""
         twillio_client.messages.create(to=payer_phone, from_= os.environ.get('twillio_phone'), body= message)
@@ -153,9 +153,9 @@ def get_email_template(transaction_payload):
   contents =file.read()
   return contents.replace('{name}', transaction_payload['name']).replace('{person_name}', transaction_payload['person_name']).replace('{amount}', transaction_payload['amount']).replace('{description}', transaction_payload['description']).replace('{transaction_id}', transaction_payload['transaction_id']).replace('{bank_account}', transaction_payload['bank_account'])
 
-def track_transaction(transaction_payload):
+def track_transaction(transaction_payload, payer, payee):
     transactions_table = client.Table('DrackerTransactions')
-    new_transaction = {'id': transaction_payload['transaction_id'], 'amount': transaction_payload['amount'], 'phone': transaction_payload['phone']}
+    new_transaction = {'id': transaction_payload['transaction_id'], 'amount': transaction_payload['amount'], 'phone': transaction_payload['phone'], 'payer': json.dumps(payer), 'payee' : json.dumps(payee)}
     try:
         item = transactions_table.get_item(
                 Key={
