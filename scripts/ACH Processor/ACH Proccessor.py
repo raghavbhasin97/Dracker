@@ -26,7 +26,7 @@ def lambda_handler(event, context):
             for item in transactions:
                 status = check_status(item['id'])
                 if status == 'processed':
-                    message = 'Transaction ' + item['id'] + ' for $' + item['amount'] + ' has been processed from your bank account'
+                    message = 'Transaction ' + item['id'] + ' of $' + item['amount'] + ' has been processed from your bank account'
                     try:
                         twillio_client.messages.create(to=item['phone'], from_= os.environ.get('twillio_phone'), body= message)
                     except Exception as err:
@@ -35,7 +35,7 @@ def lambda_handler(event, context):
                     #Dump to SQS for furthe inquiry in matter
                     data = json.loads(item['payee'])
                     queue.send_message(MessageBody=json.dumps(item))
-                    message = 'Transaction ' + item['id'] + ' for $' + item['amount'] + 'to ' + data['name'] + ' for \"' + data['description'] + '\"'+ ' could not be cleared'
+                    message = 'Transaction ' + item['id'] + ' of $' + item['amount'] + ' to ' + data['name'] + ' for \"' + data['description'] + '\"'+ ' could not be cleared'
                     try:
                         twillio_client.messages.create(to=item['phone'], from_= os.environ.get('twillio_phone'), body= message)
                     except Exception as err:
