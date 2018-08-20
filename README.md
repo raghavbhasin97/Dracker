@@ -65,7 +65,7 @@ An iOS app to track/manage debt. This app allows users to create transactions, a
 
 ### Upcomming 
 
-- [] Web App (React)
+- Web App (React)
 
 ## Requirements
 
@@ -74,17 +74,24 @@ An iOS app to track/manage debt. This app allows users to create transactions, a
 - Swift 4.1
 
 ## Architecture
-![](img/architecture.png)
 
+#### Rest API
+![](img/API_Architecture.png)
+- API Gateway and AWS Lambda are used to deploy the REST API
 - DynamoDB is used to store all the data for user transactions and other details
-- S3 is used to store profile images and tagged images with transactions.
-- Twilio is used to send messages for payment completion.
-- Firebase is used for Authentication.
-- SendGrid for emails.
-- AWS Lambda fir backend
-- API Gateway for API calls to backend
-- Plaid for bank account integration
-- Dwolla for making ACH Transactions
+- S3 is used to store profile images and tagged images with transactions
+- Twilio is used to send messages
+- Firebase is used for Authentication
+- SendGrid for Emails
+- Plaid for Bank Account Integration
+- Dwolla for triggering ACH Transactions
+
+#### iOS Application
+![](img/iosApp_Architecture.png)
+- Dracker API for all operations (REST API calls)
+- Firebase is used for Login (Username/Password Validations)
+- Plaid for Bank Integrations (Getting an authentication token to exchange at backend)
+
 
 ## Modules/Integrations Used
 - Dwolla (ACH Transactions API and identity validation with verified customer)

@@ -75,7 +75,7 @@ fastlane/test_output
 **/Pods
 **/Deployment Package
 **/Test Package
-Podfile.lock
+**/Podfile.lock
 **/Dracker.xcdatamodeld
 **/GoogleService-Info.plist
 <<<<<<< HEAD
