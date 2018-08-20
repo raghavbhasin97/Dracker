@@ -33,8 +33,9 @@ def lambda_handler(event, context):
                         print(err)
                 elif status == 'failed':                 
                     #Dump to SQS for furthe inquiry in matter
+                    data = json.loads(item['payee'])
                     queue.send_message(MessageBody=json.dumps(item))
-                    message = 'Transaction ' + item['id'] + ' for $' + item['amount'] + ' could not be cleared'
+                    message = 'Transaction ' + item['id'] + ' for $' + item['amount'] + 'to ' + data['name'] + ' for \"' + data['description'] + '\"'+ ' could not be cleared'
                     try:
                         twillio_client.messages.create(to=item['phone'], from_= os.environ.get('twillio_phone'), body= message)
                     except Exception as err:
