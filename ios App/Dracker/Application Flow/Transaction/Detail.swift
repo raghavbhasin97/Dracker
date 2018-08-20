@@ -155,9 +155,11 @@ class Detail: UIViewController {
             amount_view.textColor = .debt
         }
         set_bar_buttons()
-        transaction_image.start_downloading()
-        transaction_image.init_from_S3(key: (data?.tagged_image)!, bucket_name: .transactionImages) {[unowned self] in
-            self.transaction_image.stop_downloading()
+        if data?.tagged_image != "noImage" {
+            transaction_image.start_downloading()
+            transaction_image.init_from_S3(key: (data?.tagged_image)!, bucket_name: .transactionImages) {[unowned self] in
+                self.transaction_image.stop_downloading()
+            }
         }
     }
     

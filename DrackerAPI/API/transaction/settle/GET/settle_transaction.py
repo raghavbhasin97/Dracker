@@ -27,6 +27,8 @@ def lambda_handler(event, context):
             'transaction_id' : transaction_id
         }
     )
+    org_payee = payee_response['Item']
+    org_payer = payer_response['Item']
     payee_item = payee_response['Item']
     payer_phone = payee_item['phone']
     payer_item = payer_response['Item']
@@ -63,7 +65,7 @@ def lambda_handler(event, context):
         Key=item_key,
         )
     send_transaction_email(transaction_payload['email'], transaction_payload)
-    track_transaction(transaction_payload, payer_response['Item'], payee_response['Item'])
+    track_transaction(transaction_payload)
     try:
         message = transaction_payload['name'] + ' payed you $' + transaction_payload['amount'] + ' for\"' + transaction_payload['description'] + "\""
         twillio_client.messages.create(to=payer_phone, from_= os.environ.get('twillio_phone'), body= message)
@@ -153,22 +155,7 @@ def get_email_template(transaction_payload):
   contents =file.read()
   return contents.replace('{name}', transaction_payload['name']).replace('{person_name}', transaction_payload['person_name']).replace('{amount}', transaction_payload['amount']).replace('{description}', transaction_payload['description']).replace('{transaction_id}', transaction_payload['transaction_id']).replace('{bank_account}', transaction_payload['bank_account'])
 
-def track_transaction(transaction_payload, payer, payee):
+def track_transaction(transaction_payload):
     transactions_table = client.Table('DrackerTransactions')
-    new_transaction = {'id': transaction_payload['transaction_id'], 'amount': transaction_payload['amount'], 'phone': transaction_payload['phone'], 'payer': json.dumps(payer), 'payee' : json.dumps(payee)}
-    try:
-        item = transactions_table.get_item(
-                Key={
-                    'email': transaction_payload['email']
-                }
-        )
-        item = item['Item']
-        item['transactions'].append(new_transaction)
-        transactions_table.put_item(Item=item)
-    except Exception as err:
-        print(err)
-        new_item = {}
-        new_item['email'] = transaction_payload['email']
-        new_item['transactions'] = [new_transaction]
-        transactions_table.put_item(Item=new_item)
-
+    new_transaction = {'id': transaction_payload['transaction_id'], 'amount': transaction_payload['amount'], 'phone': transaction_payload['phone'], 'description': transaction_payload['description'], 'name': transaction_payload['person_name']}
+    transactions_table.put_item(Item=new_transaction)
