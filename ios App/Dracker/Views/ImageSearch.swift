@@ -99,6 +99,7 @@ extension ImageSearch: UISearchResultsUpdating, UISearchControllerDelegate {
                 return
             }
             let items = result["value"] as! [[String: Any]]
+            self.list_of_images = []
             for item in items {
                 let url = item["contentUrl"] as! String
                 self.list_of_images.append(url)
@@ -131,7 +132,7 @@ extension ImageSearch: UICollectionViewDataSource, UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return list_of_images.count
+        return min(list_of_images.count, 12)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

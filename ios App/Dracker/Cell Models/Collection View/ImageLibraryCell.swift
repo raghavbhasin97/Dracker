@@ -4,6 +4,8 @@ class ImageLibraryCell: BaseCollectionViewCell {
     
     let tag_image: UIImageView = {
         let image = UIImageView()
+        image.contentMode = .scaleAspectFill
+        image.clipsToBounds = true
         image.image = #imageLiteral(resourceName: "NoImage")
         return image
     }()
