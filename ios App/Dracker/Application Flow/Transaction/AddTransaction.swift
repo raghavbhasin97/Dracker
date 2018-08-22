@@ -203,6 +203,7 @@ class AddTransaction: UIViewController {
         view.endEditing(true)
         payer.frame = main_frame!
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        self.navigationController?.navigationBar.isUserInteractionEnabled = false
         payer.layer.transform = CATransform3DMakeTranslation(0, (main_frame?.height)!, 0)
         UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {[unowned self] in
             payer.layer.transform = CATransform3DMakeTranslation(0, -top, 0)
@@ -328,6 +329,7 @@ extension AddTransaction {
             self.view.endEditing(true)
             image_search.frame = main_frame!
             self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+            self.navigationController?.navigationBar.isUserInteractionEnabled = false
             image_search.layer.transform = CATransform3DMakeTranslation(0, (main_frame?.height)!, 0)
             UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                 image_search.layer.transform = CATransform3DMakeTranslation(0, -top, 0)

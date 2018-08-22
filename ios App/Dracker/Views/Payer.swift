@@ -112,6 +112,7 @@ class Payer: UIView {
         }){[unowned self] (_) in
             self.first_responder?.becomeFirstResponder()
             self.parent?.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+            self.parent?.navigationController?.navigationBar.isUserInteractionEnabled = true
             self.removeFromSuperview()
         }
     }

@@ -1,4 +1,5 @@
 import UIKit
+import DZNEmptyDataSet
 
 class ImageSearch: UIView {
     
@@ -26,7 +27,7 @@ class ImageSearch: UIView {
         search.searchBar.placeholder = "Tag Image..."
         search.delegate = self
         search.obscuresBackgroundDuringPresentation = false
-        search.searchBar.keyboardType = .phonePad
+        search.searchBar.keyboardType = .default
         return search
     }()
     
@@ -44,6 +45,8 @@ class ImageSearch: UIView {
     lazy var imageLibrary: UICollectionView = {
         let library = UICollectionView(frame: frame, collectionViewLayout: UICollectionViewFlowLayout())
         library.dataSource = self
+        library.emptyDataSetSource = self
+        library.emptyDataSetDelegate = self
         library.delegate = self
         library.backgroundColor = .white
         library.register(ImageLibraryCell.self, forCellWithReuseIdentifier: ID)
@@ -95,13 +98,13 @@ extension ImageSearch: UISearchResultsUpdating, UISearchControllerDelegate {
                 return
             }
             let result = data.value as! [String: Any]
-            if result["mesage"] != nil  {
+            if result["message"] != nil  {
                 return
             }
             let items = result["value"] as! [[String: Any]]
             self.list_of_images = []
             for item in items {
-                let url = item["contentUrl"] as! String
+                let url = item["thumbnailUrl"] as! String
                 self.list_of_images.append(url)
             }
             execute_on_main {
@@ -117,6 +120,7 @@ extension ImageSearch: UISearchResultsUpdating, UISearchControllerDelegate {
         }){[unowned self] (_) in
             self.first_responder?.becomeFirstResponder()
             self.parent?.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+            self.parent?.navigationController?.navigationBar.isUserInteractionEnabled = true
             self.removeFromSuperview()
         }
     }
@@ -157,5 +161,25 @@ extension ImageSearch: UICollectionViewDelegateFlowLayout {
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 8
+    }
+}
+
+extension ImageSearch: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
+    func emptyDataSetShouldDisplay(_ scrollView: UIScrollView!) -> Bool {
+        return settled_transactions.count == 0
+    }
+    
+    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        let attributes = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 25)]
+        return NSAttributedString(string: "No Results!", attributes: attributes)
+    }
+    
+    func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        let attributes = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20)]
+        return NSAttributedString(string: "Search for something to see a taggable image.", attributes: attributes)
+    }
+    
+    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
+        return #imageLiteral(resourceName: "no-image")
     }
 }
