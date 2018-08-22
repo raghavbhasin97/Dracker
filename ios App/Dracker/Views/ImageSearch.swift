@@ -166,7 +166,7 @@ extension ImageSearch: UICollectionViewDelegateFlowLayout {
 
 extension ImageSearch: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     func emptyDataSetShouldDisplay(_ scrollView: UIScrollView!) -> Bool {
-        return settled_transactions.count == 0
+        return list_of_images.count == 0
     }
     
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
