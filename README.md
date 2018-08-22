@@ -46,6 +46,7 @@ An iOS app to track/manage debt. This app allows users to create transactions, a
 ## Features
 
 ### Current
+#### iOS
 - [x] Adding transactions with other people via phone number.
 - [x] Registeration of new users/ Login functionality.
 - [x] Authentication via Firebase
@@ -63,9 +64,8 @@ An iOS app to track/manage debt. This app allows users to create transactions, a
 - [x] 3D touch compatibility for Quick Actions.
 - [x] 3D touch for Dashbard table cells.
 
-### Upcomming 
-
-- Web App (React)
+#### Web App
+- [x] Retriving Transactions list.
 
 ## Requirements
 
