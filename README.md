@@ -20,7 +20,7 @@ An iOS app to track/manage debt. This app allows users to create transactions, a
 <kbd><img src="img/details.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/add_note.png" width="180" height="310"></kbd>
 
 #### New Transactions
-<kbd><img src="img/add_transaction.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/qr_code.png" width="180" height="310"></kbd><kbd><img src="img/tag_image.png" width="180" height="310"></kbd>
+<kbd><img src="img/add_transaction.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/qr_code.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/tag_image.png" width="180" height="310"></kbd>
 
 #### Summary
 <kbd><img src="img/friends.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/friends_detail.png" width="180" height="310"></kbd>
