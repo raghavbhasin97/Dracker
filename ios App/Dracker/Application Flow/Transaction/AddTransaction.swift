@@ -28,6 +28,7 @@ class AddTransaction: UIViewController {
         title.textColor = .white
         title.font = UIFont.boldSystemFont(ofSize: 20)
         title.text = "Add Transaction"
+        title.textAlignment = .center
         return title
     }()
     
@@ -203,8 +204,9 @@ class AddTransaction: UIViewController {
         payer.frame = main_frame!
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         payer.layer.transform = CATransform3DMakeTranslation(0, (main_frame?.height)!, 0)
-        UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {[unowned self] in
             payer.layer.transform = CATransform3DMakeTranslation(0, -top, 0)
+            self.navigation_title.text = "Select Phone"
         }, completion: nil)
     }
     
@@ -313,12 +315,30 @@ extension AddTransaction {
         let first_responder = get_first_responder()
         view.endEditing(true)
         let actions = image_picker_action_sheet(controller: self, picker: picker, action1: "Tag an image from Library", action2: "Snap an image", camera: .rear, first_responder: first_responder)
+        actions.addAction(UIAlertAction(title: "Tag from Web", style: .default, handler: {[unowned self] (_) in
+            self.navigation_title.text = "Tag Image"
+            let top = (self.navigationController?.navigationBar.frame.height)! + UIApplication.shared.statusBarFrame.height
+            let main_frame = UIApplication.shared.keyWindow?.screen.bounds
+            let image_search = ImageSearch()
+            image_search.initialSearch = self.description_field.text!
+            image_search.parent = self
+            image_search.first_responder = self.get_first_responder()
+            image_search.render_view()
+            self.view.addSubview(image_search)
+            self.view.endEditing(true)
+            image_search.frame = main_frame!
+            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+            image_search.layer.transform = CATransform3DMakeTranslation(0, (main_frame?.height)!, 0)
+            UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                image_search.layer.transform = CATransform3DMakeTranslation(0, -top, 0)
+            }, completion: nil)
+        }))
         execute_on_main { [unowned self] in
             self.present(actions, animated: true, completion: nil)
         }
     }
     
-    fileprivate func set_options(state: state, type: action) {
+   func set_options(state: state, type: action) {
         if state == .selected {
             if type == .a_camera {
                 camera.setImage(#imageLiteral(resourceName: "camera_green"), for: .normal)
@@ -372,8 +392,7 @@ extension AddTransaction {
      * This function allows to add the current item to Home View and push back to
      the main controller.
      */
-    fileprivate func insert_and_push_back(item: Unsettled)
-    {
+    fileprivate func insert_and_push_back(item: Unsettled) {
         stop_loading()
         //Push back to root view controller.
         navigationController?.popToRootViewController(animated: true)

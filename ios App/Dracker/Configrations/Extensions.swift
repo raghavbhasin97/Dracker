@@ -137,6 +137,23 @@ extension UIImageView {
             }
         }
     }
+    
+    func downloadImage(url: String, completion: (() -> Void)? = nil) {
+        if let image = cache.object(forKey: url as AnyObject) {
+            self.image = UIImage(data: image as! Data)
+            completion?()
+        } else {
+            let source = URL(string: url)
+            getDataFromUrl(url: source!) { data, response, error in
+                completion?()
+                guard let data = data, error == nil else { return }
+                cache.setObject(data as AnyObject, forKey: url as AnyObject )
+                DispatchQueue.main.async() {
+                    self.image = UIImage(data: data)
+                }
+            }
+        }
+    }
 }
 
 //MARK: Currency Extension

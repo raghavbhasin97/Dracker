@@ -19,8 +19,7 @@ class ActivityImageView: UIImageView {
         return background
     }()
     
-    func start_downloading()
-    {
+    func start_downloading() {
         self.addSubview(background)
         let correct_frame = superview?.frame
         self.activity.center = CGPoint(x: ((correct_frame?.width)! - 70.0)/2, y: frame.height/2)

@@ -135,6 +135,22 @@ fileprivate func make_api_call(parameters: [String: String], api_endpoint: Strin
     }
 }
 
+
+//MARK: Image Search API
+
+func search_images_call(search_term: String, completion: ((Result<Any>) -> Void)? = nil)  {
+    Alamofire.request(External_Endpoints.image_search, method: .get, parameters: ["q" : search_term], encoding:  URLEncoding.default, headers: ["Ocp-Apim-Subscription-Key" : Search_Key]).responseJSON { response in
+        completion?(response.result)
+    }
+}
+
+
+func getDataFromUrl(url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+    URLSession.shared.dataTask(with: url) { data, response, error in
+        completion(data, response, error)
+        }.resume()
+}
+
 //MARK: S3
 func upload_to_S3(key: String, data: NSURL, bucket: AWSConstants) {
     let request = AWSS3TransferManagerUploadRequest()
@@ -146,3 +162,4 @@ func upload_to_S3(key: String, data: NSURL, bucket: AWSConstants) {
     let client = AWSS3TransferManager.default()
     client.upload(request!)
 }
+

@@ -39,8 +39,7 @@ class MenuBar: UIView {
     
     var left_anchor: NSLayoutConstraint?
     
-    func setup_slider()
-    {
+    func setup_slider() {
         let slider = UIView()
         slider.backgroundColor = UIColor(white: 0.95, alpha: 1)
         slider.translatesAutoresizingMaskIntoConstraints = false

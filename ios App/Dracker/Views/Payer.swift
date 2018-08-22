@@ -141,6 +141,7 @@ extension Payer: UITableViewDelegate, UITableViewDataSource {
         parent?.phone_button.setTitle("@" + user.phone, for: .normal)
         parent?.others_name = user.name
         parent?.others_uid = user.uid
+        parent?.navigation_title.text = "Add Transaction"
         send_back()
     }
 }

@@ -12,6 +12,8 @@
 		3C03673620FA94E900E885EB /* Friends.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C03673520FA94E900E885EB /* Friends.swift */; };
 		3C03673B20FAAF8B00E885EB /* FriendsDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C03673A20FAAF8B00E885EB /* FriendsDetailCell.swift */; };
 		3C03F5C820F7EFE0002697BB /* Detail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C03F5C720F7EFE0002697BB /* Detail.swift */; };
+		3C27B35D212DDA5A00093AB7 /* ImageSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C27B35C212DDA5A00093AB7 /* ImageSearch.swift */; };
+		3C27B361212E009E00093AB7 /* ImageLibraryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C27B360212E009E00093AB7 /* ImageLibraryCell.swift */; };
 		3C450B4A21054FA30083C860 /* OnboardingBankAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C450B4921054FA30083C860 /* OnboardingBankAccount.swift */; };
 		3C4E2B2220F7EC330053D65E /* Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4E2B2120F7EC330053D65E /* Wallet.swift */; };
 		3C4E2B2420F7ED160053D65E /* WalletCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4E2B2320F7ED160053D65E /* WalletCell.swift */; };
@@ -83,6 +85,8 @@
 		3C03673520FA94E900E885EB /* Friends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friends.swift; sourceTree = "<group>"; };
 		3C03673A20FAAF8B00E885EB /* FriendsDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsDetailCell.swift; sourceTree = "<group>"; };
 		3C03F5C720F7EFE0002697BB /* Detail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detail.swift; sourceTree = "<group>"; };
+		3C27B35C212DDA5A00093AB7 /* ImageSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSearch.swift; sourceTree = "<group>"; };
+		3C27B360212E009E00093AB7 /* ImageLibraryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageLibraryCell.swift; sourceTree = "<group>"; };
 		3C450B4921054FA30083C860 /* OnboardingBankAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingBankAccount.swift; sourceTree = "<group>"; };
 		3C4E2B2120F7EC330053D65E /* Wallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wallet.swift; sourceTree = "<group>"; };
 		3C4E2B2320F7ED160053D65E /* WalletCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletCell.swift; sourceTree = "<group>"; };
@@ -232,6 +236,7 @@
 				3C81E51320F939C900693677 /* Settings.swift */,
 				3CF46E7620F9406B0061E15A /* Profile.swift */,
 				3CEAA0F120F975E1005D7D82 /* Payer.swift */,
+				3C27B35C212DDA5A00093AB7 /* ImageSearch.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -253,6 +258,7 @@
 				3C96B8D520F7CB5700DDF924 /* HomeCell.swift */,
 				3C4E2B2320F7ED160053D65E /* WalletCell.swift */,
 				3C849DC0210443CA00025BC1 /* OptionsCell.swift */,
+				3C27B360212E009E00093AB7 /* ImageLibraryCell.swift */,
 			);
 			path = "Collection View";
 			sourceTree = "<group>";
@@ -583,6 +589,7 @@
 				3C03F5C820F7EFE0002697BB /* Detail.swift in Sources */,
 				3CEAA10520F99D73005D7D82 /* PasscodeIndicator.swift in Sources */,
 				3C931D3420FFBB9600C3EFEF /* Animations.swift in Sources */,
+				3C27B35D212DDA5A00093AB7 /* ImageSearch.swift in Sources */,
 				3CA9DD5F20F6EDAE000EB47F /* slide_backward.swift in Sources */,
 				3C03673620FA94E900E885EB /* Friends.swift in Sources */,
 				3C450B4A21054FA30083C860 /* OnboardingBankAccount.swift in Sources */,
@@ -616,6 +623,7 @@
 				3CCF07C32108F70900877CB2 /* Account.swift in Sources */,
 				3CC67E2E20F921EA0020E89A /* Note.swift in Sources */,
 				3CA9DD4A20F6EBFF000EB47F /* AppDelegate.swift in Sources */,
+				3C27B361212E009E00093AB7 /* ImageLibraryCell.swift in Sources */,
 				3CA9DD5D20F6ED60000EB47F /* Login.swift in Sources */,
 				3CF46E7720F9406B0061E15A /* Profile.swift in Sources */,
 				3C96B8D420F7A69E00DDF924 /* Transactions.swift in Sources */,
