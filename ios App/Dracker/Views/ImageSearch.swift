@@ -28,6 +28,7 @@ class ImageSearch: UIView {
         search.delegate = self
         search.obscuresBackgroundDuringPresentation = false
         search.searchBar.keyboardType = .default
+        search.searchBar.delegate = self
         return search
     }()
     
@@ -84,16 +85,34 @@ class ImageSearch: UIView {
     
     func render_view() {
         search.searchBar.text = initialSearch
+        self.searchBarSearchButtonClicked(search.searchBar)
     }
+    
+    fileprivate func send_back() {
+        search.dismiss(animated: true, completion: nil)
+        UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            self.layer.transform = CATransform3DMakeTranslation(0, self.frame.height, 0)
+        }){[unowned self] (_) in
+            self.first_responder?.becomeFirstResponder()
+            self.parent?.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+            self.parent?.navigationController?.navigationBar.isUserInteractionEnabled = true
+            self.removeFromSuperview()
+        }
+    }
+    
 }
 
 //MARK: Searching Delegates
 
-extension ImageSearch: UISearchResultsUpdating, UISearchControllerDelegate {
+extension ImageSearch: UISearchResultsUpdating, UISearchControllerDelegate, UISearchBarDelegate {
     func updateSearchResults(for searchController: UISearchController) {
-        let term = searchController.searchBar.text!
-        if term == "" { return }
-        search_images_call(search_term: term) {[unowned self] (data) in
+        initialSearch = searchController.searchBar.text!
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        if initialSearch == "" { return }
+        search_images_call(search_term: initialSearch) {[unowned self] (data) in
             if data.isFailure {
                 return
             }
@@ -113,18 +132,6 @@ extension ImageSearch: UISearchResultsUpdating, UISearchControllerDelegate {
         }
     }
     
-    fileprivate func send_back() {
-        search.dismiss(animated: true, completion: nil)
-        UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            self.layer.transform = CATransform3DMakeTranslation(0, self.frame.height, 0)
-        }){[unowned self] (_) in
-            self.first_responder?.becomeFirstResponder()
-            self.parent?.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-            self.parent?.navigationController?.navigationBar.isUserInteractionEnabled = true
-            self.removeFromSuperview()
-        }
-    }
-
 }
 
 //MARK: Image Library Delegates
@@ -136,7 +143,7 @@ extension ImageSearch: UICollectionViewDataSource, UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return min(list_of_images.count, 12)
+        return min(list_of_images.count, 15)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -164,6 +171,7 @@ extension ImageSearch: UICollectionViewDelegateFlowLayout {
     }
 }
 
+//MARK: Empty Image Library Delegates
 extension ImageSearch: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     func emptyDataSetShouldDisplay(_ scrollView: UIScrollView!) -> Bool {
         return list_of_images.count == 0
