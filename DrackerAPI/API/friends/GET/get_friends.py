@@ -17,14 +17,15 @@ def lambda_handler(event, context):
         details = get_info(value)
         amount = calculate_amount(value)
         transactions_list = process_list(value)
-        friends_data[key] = json.dumps({'phone':details["phone"], 'name':details["name"],'amount':amount,'transactions': json.dumps(transactions_list)})
+        friends_data[key] = {'phone':details["phone"], 'name':details["name"],'amount':amount,'transactions': transactions_list}
         
     return generate_response(friends_data)
 
 def generate_response(response_dictionary):
     return {'statusCode' : 200,
             'headers' : {
-                "Content-Type" : "application/json"
+                "Content-Type" : "application/json",
+                "Access-Control-Allow-Origin": "*"
             },
             'body' : json.dumps(response_dictionary)
     }

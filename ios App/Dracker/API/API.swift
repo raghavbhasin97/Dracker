@@ -10,26 +10,37 @@ func fetch_data(user_id: String, completion: @escaping () -> Void) {
             return
         }
         let result = data.value as! [String: Any]
-        let settled_string = (result["settled"] as? String)?.data(using: .utf8)!
-        let unsettled_string = (result["unsettled"] as? String)?.data(using: .utf8)!
-        if settled_string != nil
-        {
-            //Decode settled array
-            do {
-                settled_transactions = try JSONDecoder().decode([Settled].self, from: settled_string!)
-            } catch {
-                //Should never happen
-            }
-        }
-        if unsettled_string != nil {
-            //Decode unsettled array
-            do {
-                unsettled_transactions = try JSONDecoder().decode([Unsettled].self, from: unsettled_string!)
-            } catch {
-                //Should never happen
-            }
+        let settled = result["settled"] as! [[String: Any]]
+        settled_transactions = []
+        for transaction in settled {
+            //Decode the parameters
+            let is_debt = transaction["is_debt"] as! Bool
+            let amount = transaction["amount"] as! String
+            let description = transaction["description"] as! String
+            let name = transaction["name"] as! String
+            
+            let new_transaction = Settled(is_debt: is_debt, amount: amount, description: description, name: name)
+            settled_transactions.append(new_transaction)
         }
 
+        let unsettled = result["unsettled"] as! [[String: Any]]
+        unsettled_transactions = []
+        for transaction in unsettled {
+            //Decode the parameters
+            let is_debt = transaction["is_debt"] as! Bool
+            let amount = transaction["amount"] as! String
+            let description = transaction["description"] as! String
+            let name = transaction["name"] as! String
+            let tagged_image = transaction["tagged_image"] as! String
+            let time = transaction["time"] as! String
+            let uid = transaction["uid"] as! String
+            let phone = transaction["phone"] as! String
+            let transaction_id = transaction["transaction_id"] as! String
+            let notification_identifier = transaction["notification_identifier"] as? String
+            
+            let new_transaction = Unsettled(is_debt: is_debt, amount: amount, description: description, name: name, tagged_image: tagged_image, time: time, uid: uid, phone: phone, notification_identifier: notification_identifier, transaction_id: transaction_id)
+            unsettled_transactions.append(new_transaction)
+        }
         credit = result["credit"] as! Double
         debit = result["debit"] as! Double
         completion()
@@ -44,18 +55,29 @@ func fetch_friends(user_id: String, completion: @escaping () -> Void) {
             return
         }
         friends = []
-        let result = data.value as! [String: Any]
-        for (uid,value) in result {
-            let data_string = (value as? String)?.data(using: .utf8)!
-            //Decode settled array
-            do {
-                var friend = try JSONDecoder().decode(Friends.self, from: data_string!)
-                friend.uid = uid
-                friends.append(friend)
-            } catch {
-                //Should never happen
+        let result = data.value as! [String: [String: Any]]
+
+        for (uid, value) in result {
+            let transactions = value["transactions"] as! [[String: Any]]
+            var transaction_list: [Friends_Data] = []
+            for transaction in transactions {
+                let is_debt = transaction["is_debt"] as! Bool
+                let amount = transaction["amount"] as! String
+                let description = transaction["description"] as! String
+                let name = transaction["name"] as! String
+                let time = transaction["time"] as? String
+                let settelement_time = transaction["settelement_time"] as? String
+                
+                let new_transaction = Friends_Data(is_debt: is_debt, amount: amount, description: description, name: name, time: time, settelement_time: settelement_time)
+                transaction_list.append(new_transaction)
             }
             
+            let phone = value["phone"] as! String
+            let amount = value["amount"] as! Double
+            let name = value["name"] as! String
+            
+            let new_friend = Friends(transactions: transaction_list, amount: amount, phone: phone, name: name, uid: uid)
+            friends.append(new_friend)
         }
         completion()
     }

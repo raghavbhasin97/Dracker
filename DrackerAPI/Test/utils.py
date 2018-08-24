@@ -1,6 +1,5 @@
 import random
 from datetime import datetime
-import json
 
 first_names = ['Malinda', 'Melodie', 'Emilee', 'Jin', 'Jasmine', 'Nobuko', 'Adrianna', 'Adam', 'Shelby', 'Ethelyn', 'Dora', 'Violet', 'Lizzie', 'Olivia', 'Noelle', 'Daphne', 'Angelica']
 last_names = ['Smith', 'Johnson', 'Williams', 'Jones', 'Brown', 'Davis', 'Miller', 'Wilson', 'White', 'Jackson']
@@ -109,7 +108,7 @@ def sanatize(data):
 	return data.replace('\"', '')
 
 def validate_data(data, expected):
-	transaction = json.loads(data['unsettled'])
+	transaction = data['unsettled']
 	return (str(data['debit']) == str(expected['amount']) or str(data['credit']) == str(expected['amount'])) and (transaction[0]['transaction_id'] == expected['transaction_id'])
 
 def validate_user(user, expected):

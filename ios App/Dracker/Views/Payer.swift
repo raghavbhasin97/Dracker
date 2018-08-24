@@ -14,10 +14,6 @@ class Payer: UIView {
         let bar = UINavigationBar()
         bar.isTranslucent = false
         bar.tintColor = .white
-        let items = UINavigationItem()
-        let back = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(send_back))
-        items.leftBarButtonItem = back
-        bar.setItems([items], animated: true)
         return bar
     }()
     
@@ -86,21 +82,20 @@ class Payer: UIView {
             if data.isFailure {
                 return
             }
-            let result = data.value as! String
-            let user_data = result.data(using: .utf8)!
-            //Decode settled array
-            do {
-                
-                self.users_list = try JSONDecoder().decode([User].self, from: user_data)
-                self.users_list = self.users_list.filter({ (user) -> Bool in
-                    return user.uid != self.current_uid
-                })
-                execute_on_main {
-                    self.users.reloadData()
+            self.users_list = []
+            let users = data.value as! [[String: Any]]
+            for user in users {
+                let name = user["name"] as! String
+                let phone = user["phone"] as! String
+                let uid = user["uid"] as! String
+                if uid == self.current_uid {
+                    continue
                 }
-            } catch {
-                //Should never happen
-                self.users_list = []
+                let new_user = User(phone: phone, name: name, uid: uid)
+                self.users_list.append(new_user)
+            }
+            execute_on_main {
+                self.users.reloadData()
             }
         }
     }
@@ -113,6 +108,8 @@ class Payer: UIView {
             self.first_responder?.becomeFirstResponder()
             self.parent?.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
             self.parent?.navigationController?.navigationBar.isUserInteractionEnabled = true
+            self.parent?.navigationItem.setHidesBackButton(false, animated: true)
+            self.parent?.add_button.isEnabled = true
             self.removeFromSuperview()
         }
     }
@@ -162,21 +159,21 @@ extension Payer: UISearchResultsUpdating, UISearchControllerDelegate {
                 if data.isFailure {
                     return
                 }
-                let result = data.value as! String
-                let user_data = result.data(using: .utf8)!
-                //Decode settled array
-                do {
-                    
-                    self.filtered_users_list = try JSONDecoder().decode([User].self, from: user_data)
-                    self.filtered_users_list = self.filtered_users_list.filter({ (user) -> Bool in
-                        return user.uid != self.current_uid
-                    })
-                    execute_on_main {
-                        self.users.reloadData()
+                
+                self.filtered_users_list = []
+                let users = data.value as! [[String: Any]]
+                for user in users {
+                    let name = user["name"] as! String
+                    let phone = user["phone"] as! String
+                    let uid = user["uid"] as! String
+                    if uid == self.current_uid {
+                        continue
                     }
-                } catch {
-                    //Should never happen
-                    self.filtered_users_list = []
+                    let new_user = User(phone: phone, name: name, uid: uid)
+                    self.filtered_users_list.append(new_user)
+                }
+                execute_on_main {
+                    self.users.reloadData()
                 }
             }
         }

@@ -1,5 +1,4 @@
 import boto3
-import json
 from boto3.dynamodb.conditions import  Attr
 
 client = boto3.resource('dynamodb')
@@ -12,7 +11,7 @@ def lambda_handler(event, context):
             friends = []
             for key in item['friends']:
                 friends.append(get_item_for_key(key))
-            return json.dumps(friends)
+            return friends
         else:
             return get_all_users()
             
@@ -21,7 +20,7 @@ def lambda_handler(event, context):
         result = []
         for item in response:
             result.append(process_item(item))
-        return json.dumps(result)
+        return result
     else:
         return get_all_users()
     #Should Never happen
@@ -33,7 +32,7 @@ def get_all_users():
     response = []
     for item in data:
         response.append(process_item(item))
-    return json.dumps(response)
+    return response
 
 def get_item_for_key(key):
     item = table.get_item(Key={'phone' : key})['Item']
@@ -45,4 +44,3 @@ def process_item(item):
     item.pop('funding_source', None)
     item.pop('friends', None)
     return item
-    

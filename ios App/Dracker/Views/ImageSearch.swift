@@ -96,6 +96,8 @@ class ImageSearch: UIView {
             self.first_responder?.becomeFirstResponder()
             self.parent?.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
             self.parent?.navigationController?.navigationBar.isUserInteractionEnabled = true
+            self.parent?.navigationItem.setHidesBackButton(false, animated: true)
+            self.parent?.add_button.isEnabled = true
             self.removeFromSuperview()
         }
     }

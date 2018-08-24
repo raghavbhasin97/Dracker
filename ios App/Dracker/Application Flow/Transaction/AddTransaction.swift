@@ -204,6 +204,8 @@ class AddTransaction: UIViewController {
         payer.frame = main_frame!
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         self.navigationController?.navigationBar.isUserInteractionEnabled = false
+        self.navigationItem.setHidesBackButton(true, animated: true)
+        self.add_button.isEnabled = false
         payer.layer.transform = CATransform3DMakeTranslation(0, (main_frame?.height)!, 0)
         UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {[unowned self] in
             payer.layer.transform = CATransform3DMakeTranslation(0, -top, 0)
@@ -289,7 +291,7 @@ class AddTransaction: UIViewController {
         }
     }
     
-    fileprivate func validate() -> Bool{
+    fileprivate func validate() -> Bool {
         let amount = amount_field.text!
         let description = (description_field.text!).trimmingCharacters(in: .whitespaces)
         if !valid_amount(amount: amount) {
@@ -311,8 +313,7 @@ class AddTransaction: UIViewController {
 
 //MARK: Extra Actions
 extension AddTransaction {
-    @objc fileprivate func add_photo()
-    {
+    @objc fileprivate func add_photo() {
         let first_responder = get_first_responder()
         view.endEditing(true)
         let actions = image_picker_action_sheet(controller: self, picker: picker, action1: "Tag an image from Library", action2: "Snap an image", camera: .rear, first_responder: first_responder)
@@ -330,6 +331,8 @@ extension AddTransaction {
             image_search.frame = main_frame!
             self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
             self.navigationController?.navigationBar.isUserInteractionEnabled = false
+            self.navigationItem.setHidesBackButton(true, animated: true)
+            self.add_button.isEnabled = false
             image_search.layer.transform = CATransform3DMakeTranslation(0, (main_frame?.height)!, 0)
             UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                 image_search.layer.transform = CATransform3DMakeTranslation(0, -top, 0)

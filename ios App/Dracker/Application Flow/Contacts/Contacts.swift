@@ -87,18 +87,11 @@ extension Contacts: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let friend = friends[indexPath.row]
         let controller = FriendDetail()
-        let transaction_string = friend.transactions.data(using: .utf8)
-        var transactions: [Friends_Data] = []
-        do {
-            transactions = try JSONDecoder().decode([Friends_Data].self, from: transaction_string!)
-        } catch {
-            //Should never happen If does API problem
-        }
         controller.uid = friend.uid
         controller.name = friend.name
         controller.amount = friend.amount
         controller.phone = friend.phone
-        controller.transactions_list = transactions
+        controller.transactions_list = friend.transactions
         controller.setup_data()
         navigationController?.pushViewController(controller, animated: true)
     }
