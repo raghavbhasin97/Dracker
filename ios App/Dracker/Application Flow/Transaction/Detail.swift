@@ -7,6 +7,7 @@ class Detail: UIViewController {
     var data: Unsettled?
     weak var dahsboard: HomeView?
     var index: IndexPath?
+    var is_peeking: Bool = false
     
     //MARK: View Components
     lazy var transaction_image: ActivityImageView = {
@@ -374,7 +375,13 @@ extension Detail {
     @objc fileprivate func add_note() {
         let controller = Note()
         controller.data = data
-        navigationController?.pushViewController(controller, animated: true)
+        if is_peeking {
+            if let root = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController? {
+                    root?.pushViewController(controller, animated: true)
+            }
+        } else {
+            navigationController?.pushViewController(controller, animated: true)
+        }
     }
 }
 
@@ -393,5 +400,17 @@ extension Detail {
         setup()
         setup_components()
         remove_interactions()
+    }
+}
+
+extension Detail {
+    override var previewActionItems: [UIPreviewActionItem] {
+        let add_note_action = UIPreviewAction(title: "Add Note",
+                                      style: .default,
+                                      handler: {[unowned self] _, _ in
+                                        self.is_peeking = true
+                                        self.add_note()
+        })
+        return [add_note_action]
     }
 }
