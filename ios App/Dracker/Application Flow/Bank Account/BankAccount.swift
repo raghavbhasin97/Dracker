@@ -89,13 +89,20 @@ class BankAccount: UIViewController {
             if message == "ERROR" {
                 return
             } else {
-                let accounts_string = (data["list"] as? String)?.data(using: .utf8)!
-                do {
-                    self.accounts_list = try JSONDecoder().decode([Account].self, from: accounts_string!)
-                } catch {
-                    //Should never happen
+                let accounts = data["list"] as! [[String: Any]]
+                self.accounts_list = []
+                for account in accounts {
+                    let name = account["name"] as! String
+                    let institution = account["institution"] as! String
+                    let url = account["url"] as! String
+                    let is_default = account["is_default"] as! Bool
+                    
+                    let new_account = Account(name: name, institution: institution, url: url, is_default: is_default)
+                    self.accounts_list.append(new_account)
                 }
-                self.accounts_view.reloadData()
+                execute_on_main {
+                    self.accounts_view.reloadData()
+                }
             }
         }
     }

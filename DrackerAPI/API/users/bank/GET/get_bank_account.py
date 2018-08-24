@@ -22,6 +22,6 @@ def lambda_handler(event, context):
             else:
                 item["is_default"] = False
             sources.append(item)
-        return {"message" : "SUCCESS", "list" : json.dumps(sources)}
+        return {"message" : "SUCCESS", "list" : sources}
     except:
         return {"message" : "ERROR"}

@@ -1,7 +1,7 @@
 import UIKit
 
 /**
- * A Struct to hold the information for Settled Transactions. A Settled Transaction contains the minimal information about it, since it has been payed off.
+ * A struct to hold the information for Settled Transactions. A Settled Transaction contains the minimal information about it, since it has been payed off.
  - is_debt: If the transaction was a debt or not
  - amount: Amount for this transaction
  - description:  Description for this transaction
@@ -15,7 +15,7 @@ struct Settled {
 }
 
 /**
- * A Struct to hold the information for Unsettled Transactions. An Unsettled Transaction contains all the information about it that would be necessary to settle it.
+ * A struct to hold the information for Unsettled Transactions. An Unsettled Transaction contains all the information about it that would be necessary to settle it.
  - is_debt: If the transaction was a debt or not
  - amount: Amount for this transaction
  - description:  Description for this transaction

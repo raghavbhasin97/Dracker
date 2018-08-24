@@ -1,5 +1,15 @@
 import UIKit
 
+/**
+ * A simple reusable view controller that is fully customizable based on the Configurations entry. This creates a generic change page with a title, an image, a single text field, and a button. All is customizable and is reused for:
+ - Change Password
+ - Change Email
+ - Set Reminder Frequency
+ - Set Passcode
+ - Change Passcode
+ 
+ The view perfoms the action and then switches back to the parent if successful else stays on with the error message.
+ **/
 class Change: UIViewController {
     let label: UILabel = {
         let label = UILabel()

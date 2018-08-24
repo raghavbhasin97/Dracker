@@ -209,7 +209,7 @@ class AddTransaction: UIViewController {
         payer.layer.transform = CATransform3DMakeTranslation(0, (main_frame?.height)!, 0)
         UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {[unowned self] in
             payer.layer.transform = CATransform3DMakeTranslation(0, -top, 0)
-            self.navigation_title.text = "Select Phone"
+            self.navigation_title.text = "Phone Number"
         }, completion: nil)
     }
     
@@ -318,7 +318,7 @@ extension AddTransaction {
         view.endEditing(true)
         let actions = image_picker_action_sheet(controller: self, picker: picker, action1: "Tag an image from Library", action2: "Snap an image", camera: .rear, first_responder: first_responder)
         actions.addAction(UIAlertAction(title: "Tag from Web", style: .default, handler: {[unowned self] (_) in
-            self.navigation_title.text = "Tag Image"
+            self.navigation_title.text = "Tag an Image"
             let top = (self.navigationController?.navigationBar.frame.height)! + UIApplication.shared.statusBarFrame.height
             let main_frame = UIApplication.shared.keyWindow?.screen.bounds
             let image_search = ImageSearch()

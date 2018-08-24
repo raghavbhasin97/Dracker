@@ -1,7 +1,7 @@
 import Foundation
 
 /**
- * A Struct to hold the information for a User. A User consists:
+ * A struct to hold the information for a User. A User consists:
  - phone: Phone of the User.
  - uid:  uid for the User.
  - name: Name of the User.

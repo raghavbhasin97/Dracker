@@ -1,7 +1,7 @@
 import Foundation
 
 /**
- * A Struct to hold the information for a Friend.
+ * A struct to hold the information for a Friend.
  - amount: Amount of for this friend.
  - phone: Phone of this friend.
  - name: Name of this friend.
@@ -17,7 +17,7 @@ struct Friends {
 }
 
 /**
- * A Struct to hold the information for a transactions. Could be settled of unsettled.
+ * A struct to hold the information for a transactions. Could be settled of unsettled.
  - is_debt: If the transaction was a debt or not
  - amount: Amount for this transaction
  - description:  Description for this transaction
