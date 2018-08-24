@@ -373,12 +373,12 @@ def check_configrations():
 
 if __name__ == "__main__":
 	before = get_number()
-	#test_register()
-	#test_register_fail()
-	#test_transaction1()
+	test_register()
+	test_register_fail()
+	test_transaction1()
 	test_deep1()
-	#test_deep2()
-	#test_update()
+	test_deep2()
+	test_update()
 	check_configrations()
 	after = get_number()
 	if before != after:
