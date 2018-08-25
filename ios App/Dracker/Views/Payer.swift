@@ -135,7 +135,24 @@ extension Payer: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let user = users_list[indexPath.row]
+        var user: User
+        if search.isActive {
+            user = filtered_users_list[indexPath.row]
+        } else {
+            user = users_list[indexPath.row]
+        }
+        if user.uid == "" {
+            search.dismiss(animated: true) {[unowned self] in
+                self.search.searchBar.text = ""
+                let share_text = "Hey! Thought you would enjoy Dracker. It's an easy to use app to send/receive money and track debt. "
+                let share_url = URL(string: "https://github.com/raghavbhasin97/Dracker")!
+                let share_activity = UIActivityViewController(activityItems: [share_text, share_url], applicationActivities: [])
+                share_activity.excludedActivityTypes = [.addToReadingList, .assignToContact, .print, .saveToCameraRoll]
+                let parent = UIApplication.shared.keyWindow?.rootViewController
+                parent?.present(share_activity, animated: true, completion: nil)
+            }
+            return
+        }
         parent?.phone_button.setTitle("@" + user.phone, for: .normal)
         parent?.others_name = user.name
         parent?.others_uid = user.uid
@@ -162,6 +179,11 @@ extension Payer: UISearchResultsUpdating, UISearchControllerDelegate {
                 
                 self.filtered_users_list = []
                 let users = data.value as! [[String: Any]]
+                if users.isEmpty && text.count == 10 {
+                    let new_user = User(phone: text, name: "Invite " + text + " to Dracker", uid: "")
+                    self.filtered_users_list = [new_user]
+                }
+                
                 for user in users {
                     let name = user["name"] as! String
                     let phone = user["phone"] as! String

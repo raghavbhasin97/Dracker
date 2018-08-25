@@ -28,7 +28,11 @@ class UserCell: BaseTableViewCell {
     }
     
     func load_cell(data: User) {
-        profile.init_from_S3(key: data.uid, bucket_name: .profiles)
+        if data.uid == "" {
+            profile.image = #imageLiteral(resourceName: "invite")
+        } else {
+            profile.init_from_S3(key: data.uid, bucket_name: .profiles)
+        }
         name.text = data.name
     }
 }
