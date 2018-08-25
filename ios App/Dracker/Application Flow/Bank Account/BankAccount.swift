@@ -228,6 +228,7 @@ extension BankAccount : UITableViewDataSource, UITableViewDelegate {
             cell?.accessoryType = .none
         }
     }
+    
 }
 
 extension BankAccount : PLKPlaidLinkViewDelegate {

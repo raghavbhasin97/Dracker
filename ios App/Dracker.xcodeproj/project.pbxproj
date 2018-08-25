@@ -63,6 +63,7 @@
 		3CC67E3020F935F20020E89A /* QRCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC67E2F20F935F20020E89A /* QRCode.swift */; };
 		3CCF07C32108F70900877CB2 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CCF07C22108F70900877CB2 /* Account.swift */; };
 		3CCF07C52109154800877CB2 /* AccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CCF07C42109154800877CB2 /* AccountCell.swift */; };
+		3CE32CA32130F92400071891 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE32CA22130F92400071891 /* MessageView.swift */; };
 		3CEAA0F020F97541005D7D82 /* AddTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CEAA0EF20F97541005D7D82 /* AddTransaction.swift */; };
 		3CEAA0F220F975E1005D7D82 /* Payer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CEAA0F120F975E1005D7D82 /* Payer.swift */; };
 		3CEAA0F420F9765F005D7D82 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CEAA0F320F9765F005D7D82 /* UserCell.swift */; };
@@ -138,6 +139,7 @@
 		3CC67E2F20F935F20020E89A /* QRCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCode.swift; sourceTree = "<group>"; };
 		3CCF07C22108F70900877CB2 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		3CCF07C42109154800877CB2 /* AccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCell.swift; sourceTree = "<group>"; };
+		3CE32CA22130F92400071891 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		3CEAA0EF20F97541005D7D82 /* AddTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransaction.swift; sourceTree = "<group>"; };
 		3CEAA0F120F975E1005D7D82 /* Payer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payer.swift; sourceTree = "<group>"; };
 		3CEAA0F320F9765F005D7D82 /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
@@ -400,6 +402,7 @@
 				3C81E51D20F93B9C00693677 /* Change.swift */,
 				3CEAA10220F99D61005D7D82 /* PasscodeButton.swift */,
 				3CEAA10420F99D73005D7D82 /* PasscodeIndicator.swift */,
+				3CE32CA22130F92400071891 /* MessageView.swift */,
 			);
 			path = "Custom Components";
 			sourceTree = "<group>";
@@ -626,6 +629,7 @@
 				3C27B361212E009E00093AB7 /* ImageLibraryCell.swift in Sources */,
 				3CA9DD5D20F6ED60000EB47F /* Login.swift in Sources */,
 				3CF46E7720F9406B0061E15A /* Profile.swift in Sources */,
+				3CE32CA32130F92400071891 /* MessageView.swift in Sources */,
 				3C96B8D420F7A69E00DDF924 /* Transactions.swift in Sources */,
 				3CB1B07C20FADB8F004EB7CF /* FriendDetail.swift in Sources */,
 				3CA9DD6120F6EDE2000EB47F /* slide_forward.swift in Sources */,
