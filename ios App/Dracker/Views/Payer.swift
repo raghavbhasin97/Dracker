@@ -179,7 +179,7 @@ extension Payer: UISearchResultsUpdating, UISearchControllerDelegate {
                 
                 self.filtered_users_list = []
                 let users = data.value as! [[String: Any]]
-                if users.isEmpty && text.count == 10 {
+                if users.isEmpty && valid_phone(phone: text) {
                     let new_user = User(phone: text, name: "Invite " + text + " to Dracker", uid: "")
                     self.filtered_users_list = [new_user]
                 }

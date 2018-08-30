@@ -186,9 +186,9 @@ class Profile: UIView {
             info_constraint?.constant = (info_constraint?.constant)! * 2
             let diff = debit - credit
             if diff < 0 {
-                info_subview.text = "-" + diff.as_amount()
-            } else {
                 info_subview.text = diff.as_amount()
+            } else {
+                info_subview.text = "-" + diff.as_amount()
             }
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {[unowned self] in self.layoutIfNeeded() }, completion: nil)
         } else {

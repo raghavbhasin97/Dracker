@@ -22,6 +22,9 @@ extension UIColor {
     static let settle_action = debt
     static let delete_action = credit
     static let bank_back = UIColor(r: 247, g: 247, b: 247)
+    static let qr_back = UIColor(r: 226, g: 233, b: 237)
+    static let share_button_highlighted_light = UIColor(r: 222, g: 227, b: 231)
+    static let share_button_highlighted_dark = UIColor(r: 84, g: 81, b: 71).withAlphaComponent(0.30)
 }
 
 //MARK: Visual Constraints

@@ -143,7 +143,7 @@ class Detail: UIViewController {
     
     fileprivate func setup_components() {
         navigation_title.text = data?.name
-        description_view.text = data?.description
+        description_view.text = "\"" + (data?.description)! + "\""
         let time = (data?.time.as_date(format: .full))!
         let amount = (Double((data?.amount)!))!
         
@@ -330,7 +330,7 @@ extension Detail {
     
     @objc func image_saved(_ image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: UnsafeRawPointer) {
         if error == nil {
-            let message = MessageView(superView_frame: view.frame, center: transaction_image.center, text: "Image Saved to Camera Roll", image: #imageLiteral(resourceName: "saved"))
+            let message = MessageView(superView_frame: view.frame, center: transaction_image.center, text: "Image saved to Camera roll", image: #imageLiteral(resourceName: "saved"))
             view.addSubview(message)
             message.alpha = 0.0
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {

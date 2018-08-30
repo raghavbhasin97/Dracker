@@ -131,7 +131,7 @@ extension Settings {
             case 1:
                 let controller = Change()
                 controller.keyboard_type = .numberPad
-                controller.create(from: Configuration(title: "Enter the new passcode", image: data[0][accessory.itemIndex].image, button: "Set Passcode", placeholder: "Enter 4 digit passcode", isSecure: true, action: {[unowned self] (passcode) -> Bool in
+                controller.create(from: Configuration(title: "Enter the passcode", image: data[0][accessory.itemIndex].image, button: "Set Passcode", placeholder: "Enter 4 digit passcode", isSecure: true, action: {[unowned self] (passcode) -> Bool in
                     if !valid_pin(pin: passcode) {
                         let target = UIApplication.shared.keyWindow?.rootViewController
                         present_alert_error(message: .incorrect_passcode, target: target!)
@@ -150,7 +150,7 @@ extension Settings {
             case 2:
                 let controller = Change()
                 controller.keyboard_type = .numberPad
-                controller.create(from: Configuration(title: "Enter frequency of Reminder", image: data[0][accessory.itemIndex].image, button: "Set Frequency", placeholder: "Number of days", isSecure: false, action: {[unowned self] (frequency) -> Bool in
+                controller.create(from: Configuration(title: "Enter frequency of Reminders", image: data[0][accessory.itemIndex].image, button: "Set Frequency", placeholder: "Number of days", isSecure: false, action: {[unowned self] (frequency) -> Bool in
                     if !valid_frequency(frequency: frequency){
                         let target = UIApplication.shared.keyWindow?.rootViewController
                         present_alert_error(message: .incorrect_frequency, target: target!)

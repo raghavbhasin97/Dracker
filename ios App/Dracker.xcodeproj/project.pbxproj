@@ -49,6 +49,7 @@
 		3CA9DD6C20F6EF04000EB47F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA9DD6B20F6EF04000EB47F /* Extensions.swift */; };
 		3CA9DD6E20F6EF2D000EB47F /* Global Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA9DD6D20F6EF2D000EB47F /* Global Functions.swift */; };
 		3CA9DD7020F6EF4F000EB47F /* Global Variables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA9DD6F20F6EF4F000EB47F /* Global Variables.swift */; };
+		3CABE2E32137A04F00F46100 /* ShareButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CABE2E22137A04F00F46100 /* ShareButton.swift */; };
 		3CB1B07C20FADB8F004EB7CF /* FriendDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB1B07B20FADB8F004EB7CF /* FriendDetail.swift */; };
 		3CB48E9320F6EFD000019DC9 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB48E9220F6EFD000019DC9 /* Keys.swift */; };
 		3CB48E9620F6F02100019DC9 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB48E9520F6F02100019DC9 /* API.swift */; };
@@ -125,6 +126,7 @@
 		3CA9DD6B20F6EF04000EB47F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		3CA9DD6D20F6EF2D000EB47F /* Global Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Global Functions.swift"; sourceTree = "<group>"; };
 		3CA9DD6F20F6EF4F000EB47F /* Global Variables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Global Variables.swift"; sourceTree = "<group>"; };
+		3CABE2E22137A04F00F46100 /* ShareButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareButton.swift; sourceTree = "<group>"; };
 		3CB1B07B20FADB8F004EB7CF /* FriendDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendDetail.swift; sourceTree = "<group>"; };
 		3CB48E9220F6EFD000019DC9 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		3CB48E9520F6F02100019DC9 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
@@ -403,6 +405,7 @@
 				3CEAA10220F99D61005D7D82 /* PasscodeButton.swift */,
 				3CEAA10420F99D73005D7D82 /* PasscodeIndicator.swift */,
 				3CE32CA22130F92400071891 /* MessageView.swift */,
+				3CABE2E22137A04F00F46100 /* ShareButton.swift */,
 			);
 			path = "Custom Components";
 			sourceTree = "<group>";
@@ -588,6 +591,7 @@
 				3CB48E9620F6F02100019DC9 /* API.swift in Sources */,
 				3C96B8D620F7CB5700DDF924 /* HomeCell.swift in Sources */,
 				3C81E51A20F93AF200693677 /* SettingsCell.swift in Sources */,
+				3CABE2E32137A04F00F46100 /* ShareButton.swift in Sources */,
 				3CEAA0F820F99336005D7D82 /* QRScanner.swift in Sources */,
 				3C03F5C820F7EFE0002697BB /* Detail.swift in Sources */,
 				3CEAA10520F99D73005D7D82 /* PasscodeIndicator.swift in Sources */,

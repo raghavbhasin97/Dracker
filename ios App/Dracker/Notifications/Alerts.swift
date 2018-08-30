@@ -32,6 +32,7 @@ enum error_messages: String {
     case incorrect_frequency = "Frequency entered is invalid."
     case invalid_qr = "Invalid QR Code."
     case device_not_supported = "Your device does not support scanning QR code."
+    case self_qr = "Cannot scan your own QR Code."
     case touchid_not_enabled = "Touch ID must be enabled to set a passcode."
     case phone_not_match = "Phone number does not match with the one in records."
     case funding_error = "There was an error connecting to your bank account"

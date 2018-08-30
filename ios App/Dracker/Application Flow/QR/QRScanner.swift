@@ -7,12 +7,25 @@ class QRScanner: UIViewController {
     var preview: AVCaptureVideoPreviewLayer!
     let kSoundCode_Tink = 1057
     
+    lazy var picker: UIImagePickerController = {
+        let image_picker = UIImagePickerController()
+        image_picker.delegate = self
+        image_picker.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
+        return image_picker
+    }()
+    
     let navigation_title: UILabel = {
         let title = UILabel()
         title.textColor = .white
         title.font = UIFont.boldSystemFont(ofSize: 20)
         title.text = "Scan Code"
         return title
+    }()
+    
+    lazy var scan_photo_button: ShareButton = {
+        let button = ShareButton(image:#imageLiteral(resourceName: "no-image.png") , text: "Scan from photos", selected_color: .white, unselected_color: .white, bacground_selected: .share_button_highlighted_dark)
+        button.addTarget(self, action: #selector(select_qr_image), for: .touchUpInside)
+        return button
     }()
     
     let box: UIView = {
@@ -77,6 +90,12 @@ class QRScanner: UIViewController {
         box.frame = CGRect(x: padding, y: y_axis, width: width, height: width)
         view.bringSubview(toFront: box)
         box.alpha = 0.5
+        
+        //Setup Button
+        view.addSubview(scan_photo_button)
+        view.center_X(item: scan_photo_button)
+        scan_photo_button.widthAnchor.constraint(equalToConstant: 190).isActive = true
+        view.addConstraintsWithFormat(format: "V:[v0(30)]-40-|", views: scan_photo_button)
     }
     
     fileprivate func convert_to_dictionary(result: String) -> [String : Any]? {
@@ -129,6 +148,11 @@ extension QRScanner: AVCaptureMetadataOutputObjectsDelegate {
         }
         let data = convert_to_dictionary(result: decrypted!)
         if data == nil { return }
+        if (data!["uid"] as? String) ==
+            (UserDefaults.standard.object(forKey: "uid") as? String) {
+            present_alert_error(message: .self_qr, target: self)
+            return
+        }
         //Setup Controller to transition to and the values
         let controller = AddTransaction()
         controller.dahsboard = home?.Homecomponent
@@ -137,5 +161,32 @@ extension QRScanner: AVCaptureMetadataOutputObjectsDelegate {
         let phone = data?["phone"] as? String
         controller.phone_button.setTitle("@" + phone!, for: .normal)
         navigationController?.pushViewController(controller, animated: true)
+    }
+}
+
+//MARK: Library photo selection Delegates
+extension QRScanner: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            let detector:CIDetector=CIDetector(ofType: CIDetectorTypeQRCode, context: nil, options: [CIDetectorAccuracy:CIDetectorAccuracyHigh])!
+            let reconstructed_image:CIImage=CIImage(image:image)!
+            var data=""
+            let features = detector.features(in: reconstructed_image)
+            for feature in features as! [CIQRCodeFeature] {
+                data += feature.messageString!
+            }
+            scan_succeeded(code: data)
+        } else { return }
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @objc fileprivate func select_qr_image() {
+        picker.allowsEditing = false
+        picker.sourceType = .photoLibrary
+        present(picker, animated: true, completion: nil)
     }
 }
