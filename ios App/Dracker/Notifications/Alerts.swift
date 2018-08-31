@@ -52,7 +52,7 @@ fileprivate func create_alert(message: String, title: String, handler: ((UIAlert
 }
 
 //MARK: Image Picker
-func image_picker_action_sheet(controller: UIViewController, picker: UIImagePickerController, action1: String, action2: String, camera: UIImagePickerControllerCameraDevice, first_responder: UITextField? = nil)  -> UIAlertController {
+func image_picker_action_sheet(controller: UIViewController, picker: UIImagePickerController, action1: String, action2: String, camera: UIImagePickerController.CameraDevice, first_responder: UITextField? = nil)  -> UIAlertController {
     let actions = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
     actions.addAction(UIAlertAction(title: action1, style: .default, handler: { (_) in
         picker.allowsEditing = true

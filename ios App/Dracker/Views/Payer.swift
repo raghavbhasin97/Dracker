@@ -213,12 +213,12 @@ extension Payer: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     }
     
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let attributes = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 25)]
+        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 25)]
         return NSAttributedString(string: "Network Issue!", attributes: attributes)
     }
     
     func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let attributes = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20)]
+        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20)]
         return NSAttributedString(string: "There was an error fetching users. Please check your network connection.", attributes: attributes)
     }
     

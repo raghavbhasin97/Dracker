@@ -5,7 +5,7 @@ import UIKit
 class ActivityImageView: UIImageView {
     
     lazy var activity: UIActivityIndicatorView = {
-        let activity = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        let activity = UIActivityIndicatorView(style: .whiteLarge)
         activity.color = UIColor.black
         activity.hidesWhenStopped = true
         activity.frame = CGRect(x: 0, y: 0, width: 40, height: 40)

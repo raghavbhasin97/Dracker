@@ -105,7 +105,7 @@ class Register: UIViewController {
         field.autocapitalizationType = .none
         field.font = UIFont(name: "AppleSDGothicNeo-UltraLight", size: 16.5)
         field.returnKeyType = .next
-        field.attributedPlaceholder =   NSAttributedString(string: "Email", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+        field.attributedPlaceholder =   NSAttributedString(string: "Email", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
         field.textColor = .white
         field.autocorrectionType = .no
         field.addTarget(self, action: #selector(valueChange), for: .allEditingEvents)
@@ -148,7 +148,7 @@ class Register: UIViewController {
         field.autocorrectionType = .no
         field.font = UIFont(name: "AppleSDGothicNeo-UltraLight", size: 16.5)
         field.returnKeyType = .next
-        field.attributedPlaceholder =   NSAttributedString(string: "Name (First & Last)", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+        field.attributedPlaceholder =   NSAttributedString(string: "Name (First & Last)", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
         field.textColor = .white
         field.addTarget(self, action: #selector(valueChange), for: .allEditingEvents)
         return field
@@ -187,7 +187,7 @@ class Register: UIViewController {
         field.delegate = self
         field.font = UIFont(name: "AppleSDGothicNeo-UltraLight", size: 16.5)
         field.returnKeyType = .next
-        field.attributedPlaceholder =   NSAttributedString(string: "Phone", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+        field.attributedPlaceholder =   NSAttributedString(string: "Phone", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
         field.textColor = .white
         field.addTarget(self, action: #selector(valueChange), for: .allEditingEvents)
         return field
@@ -249,7 +249,7 @@ class Register: UIViewController {
         field.autocorrectionType = .no
         field.font = UIFont(name: "AppleSDGothicNeo-UltraLight", size: 16.5)
         field.returnKeyType = .next
-        field.attributedPlaceholder =   NSAttributedString(string: "123 Main Street", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+        field.attributedPlaceholder =   NSAttributedString(string: "123 Main Street", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
         field.textColor = .white
         field.addTarget(self, action: #selector(valueChange), for: .allEditingEvents)
         return field
@@ -296,7 +296,7 @@ class Register: UIViewController {
         field.autocorrectionType = .no
         field.font = UIFont(name: "AppleSDGothicNeo-UltraLight", size: 16.5)
         field.returnKeyType = .next
-        field.attributedPlaceholder =   NSAttributedString(string: "City", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+        field.attributedPlaceholder =   NSAttributedString(string: "City", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
         field.textColor = .white
         field.addTarget(self, action: #selector(valueChange), for: .allEditingEvents)
         return field
@@ -338,7 +338,7 @@ class Register: UIViewController {
         field.autocorrectionType = .no
         field.font = UIFont(name: "AppleSDGothicNeo-UltraLight", size: 16.5)
         field.returnKeyType = .next
-        field.attributedPlaceholder =   NSAttributedString(string: "11001", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+        field.attributedPlaceholder =   NSAttributedString(string: "11001", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
         field.textColor = .white
         field.addTarget(self, action: #selector(valueChange), for: .allEditingEvents)
         return field
@@ -388,7 +388,7 @@ class Register: UIViewController {
         field.delegate = self
         field.font = UIFont(name: "AppleSDGothicNeo-UltraLight", size: 16.5)
         field.returnKeyType = .done
-        field.attributedPlaceholder =   NSAttributedString(string: "CA", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+        field.attributedPlaceholder =   NSAttributedString(string: "CA", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
         field.textColor = .white
         field.addTarget(self, action: #selector(valueChange), for: .allEditingEvents)
         return field
@@ -476,7 +476,7 @@ class Register: UIViewController {
         field.autocapitalizationType = .none
         field.font = UIFont(name: "AppleSDGothicNeo-UltraLight", size: 16.5)
         field.returnKeyType = .next
-        field.attributedPlaceholder =   NSAttributedString(string: "SSN (Last 4)", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+        field.attributedPlaceholder =   NSAttributedString(string: "SSN (Last 4)", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
         field.textColor = .white
         field.autocorrectionType = .no
         field.addTarget(self, action: #selector(valueChange), for: .allEditingEvents)
@@ -519,7 +519,7 @@ class Register: UIViewController {
         field.delegate = self
         field.returnKeyType = .next
         field.font = UIFont(name: "AppleSDGothicNeo-UltraLight", size: 16.5)
-        field.attributedPlaceholder =   NSAttributedString(string: "Password", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+        field.attributedPlaceholder =   NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
         field.textColor = .white
         field.addTarget(self, action: #selector(valueChange), for: .allEditingEvents)
         return field
@@ -768,8 +768,11 @@ extension Register: UITextFieldDelegate{
 
 //MARK: Image Picker Options
 extension Register: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+// Local variable inserted by Swift 4.2 migrator.
+let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+
+        if let image = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.originalImage)] as? UIImage {
             profile_image.image = image
             image_url = image.get_temporary_path(quality: 0.50)
         } else { return }
@@ -812,4 +815,14 @@ extension Register: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
         let path = IndexPath(item: Int(index), section: 0)
         options.Menu.selectItem(at: path, animated: true, scrollPosition: .left)
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
+	return input.rawValue
 }

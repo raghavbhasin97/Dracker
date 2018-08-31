@@ -10,7 +10,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         //Setup services
         UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert, .sound]) {(_,_) in }
         UINavigationBar.appearance().barTintColor = .theme
@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setup_Firebase()
         setup_plaid()
         secure_entry()
-        if let shortcutItem = launchOptions?[UIApplicationLaunchOptionsKey.shortcutItem] as? UIApplicationShortcutItem {
+        if let shortcutItem = launchOptions?[UIApplication.LaunchOptionsKey.shortcutItem] as? UIApplicationShortcutItem {
             if shortcutItem.type == "com.drackerapp.dracker.add_transaction" {
                 let controller = AddTransaction()
                 if let root = window?.rootViewController as? UINavigationController? {

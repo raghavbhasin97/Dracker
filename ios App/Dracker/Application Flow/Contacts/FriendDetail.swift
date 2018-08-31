@@ -121,7 +121,7 @@ class FriendDetail: UIViewController {
         let image_height: CGFloat = header_height - (profile_height*0.45)
         let view_height: CGFloat = profile_height + 1.5*padding
         view.addConstraintsWithFormat(format: "V:|-\(image_height)-[v0(\(view_height))]", views: image_view)
-        view.bringSubview(toFront: image_view)
+        view.bringSubviewToFront(image_view)
     }
     
     fileprivate func setup_header_view() {
@@ -193,7 +193,7 @@ class FriendDetail: UIViewController {
     @objc fileprivate func call() {
         let phone_string = "tel://\(phone!)"
         let url: NSURL = URL(string: phone_string)! as NSURL
-        UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
+        UIApplication.shared.open(url as URL, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
     }
 }
 
@@ -229,8 +229,8 @@ extension FriendDetail {
             insert_indices.append(IndexPath(row: index, section: 0))
         }
         
-        let delete_animation = UITableViewRowAnimation.top
-        let settle_antimation = UITableViewRowAnimation.top
+        let delete_animation = UITableView.RowAnimation.top
+        let settle_antimation = UITableView.RowAnimation.top
         
         details.beginUpdates()
         details.deleteRows(at: delete_indices, with: delete_animation)
@@ -265,16 +265,21 @@ extension FriendDetail: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     }
     
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let attributes = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 25)]
+        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 25)]
         return NSAttributedString(string: empty_titles[selector.selectedSegmentIndex], attributes: attributes)
     }
     
     func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let attributes = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20)]
+        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20)]
         return NSAttributedString(string: "", attributes: attributes)
     }
     
     func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
         return empty_icons[selector.selectedSegmentIndex]
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }

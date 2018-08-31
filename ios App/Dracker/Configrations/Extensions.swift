@@ -37,7 +37,7 @@ extension UIView {
             viewsDictionary[key] = view
         }
         
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: format, options: NSLayoutFormatOptions(), metrics: nil, views: viewsDictionary))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: format, options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: viewsDictionary))
     }
     
     func center_X(item: UIView) {
@@ -174,7 +174,7 @@ extension UIImage {
         let document = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first! as String
         // Get local path
         let local = (document as NSString).appendingPathComponent(image_name)
-        let data = UIImageJPEGRepresentation(self,  quality)
+        let data = self.jpegData(compressionQuality: quality)
         do {
             try data?.write(to: URL(fileURLWithPath: local))
         } catch {

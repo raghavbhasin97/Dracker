@@ -35,7 +35,7 @@ class Change: UIViewController {
     let top = UIImageView(image: #imageLiteral(resourceName: "Line"))
     let bottom = UIImageView(image: #imageLiteral(resourceName: "Line"))
     let button: UIButton = {
-        let button = UIButton(type: UIButtonType.roundedRect)
+        let button = UIButton(type: UIButton.ButtonType.roundedRect)
         button.backgroundColor = .theme
         button.setTitleColor(.white, for: .normal)
         button.setTitleColor(UIColor.white.withAlphaComponent(0.65), for: .normal)

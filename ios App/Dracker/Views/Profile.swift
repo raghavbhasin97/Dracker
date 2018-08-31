@@ -214,12 +214,15 @@ extension Profile: UIImagePickerControllerDelegate, UINavigationControllerDelega
         }
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+// Local variable inserted by Swift 4.2 migrator.
+let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+
+        if let image = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.originalImage)] as? UIImage {
             profile.image = image
             image_url = image.get_temporary_path(quality: 0.50)
             upload_to_S3(key: self.uid!, data: image_url!, bucket: .profiles)
-            cache.setObject(UIImagePNGRepresentation(image) as AnyObject, forKey: self.uid! as AnyObject )
+            cache.setObject(image.pngData() as AnyObject, forKey: self.uid! as AnyObject )
         } else { return }
         parent?.dismiss(animated: true, completion: nil)
     }
@@ -262,4 +265,14 @@ extension Profile: UITableViewDelegate, UITableViewDataSource {
             self.parent?.present(Login(), animated: true, completion: nil)
         }
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
+	return input.rawValue
 }

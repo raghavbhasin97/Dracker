@@ -7,7 +7,7 @@ class Home: UIViewController {
     let walletcomponent = Wallet()
     let background_blur = UIVisualEffectView(effect: UIBlurEffect(style: .extraLight))
     var activty: UIActivityIndicatorView? = {
-        let activity = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        let activity = UIActivityIndicatorView(style: .whiteLarge)
         activity.color = .red
         return activity
     }()

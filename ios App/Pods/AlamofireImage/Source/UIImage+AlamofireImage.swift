@@ -298,12 +298,12 @@ extension UIImage {
 
         guard let coreImage = image else { return nil }
 
-        let context = CIContext(options: [kCIContextPriorityRequestLow: true])
+        let context = CIContext(options: convertToOptionalCIContextOptionDictionary([convertFromCIContextOption(CIContextOption.priorityRequestLow): true]))
 
         var parameters: [String: Any] = parameters ?? [:]
         parameters[kCIInputImageKey] = coreImage
 
-        guard let filter = CIFilter(name: name, withInputParameters: parameters) else { return nil }
+        guard let filter = CIFilter(name: name, parameters: parameters) else { return nil }
         guard let outputImage = filter.outputImage else { return nil }
 
         let cgImageRef = context.createCGImage(outputImage, from: outputImage.extent)
@@ -313,3 +313,14 @@ extension UIImage {
 }
 
 #endif
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalCIContextOptionDictionary(_ input: [String: Any]?) -> [CIContextOption: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (CIContextOption(rawValue: key), value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromCIContextOption(_ input: CIContextOption) -> String {
+	return input.rawValue
+}

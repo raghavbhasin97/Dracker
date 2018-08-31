@@ -180,12 +180,12 @@ extension ImageSearch: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     }
     
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let attributes = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 25)]
+        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 25)]
         return NSAttributedString(string: "No Results!", attributes: attributes)
     }
     
     func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let attributes = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20)]
+        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20)]
         return NSAttributedString(string: "Search for something to see a taggable image.", attributes: attributes)
     }
     

@@ -73,7 +73,7 @@ class Login: UIViewController {
         field.autocapitalizationType = .none
         field.font = UIFont(name: "AppleSDGothicNeo-UltraLight", size: 16.5)
         field.returnKeyType = .next
-        field.attributedPlaceholder =   NSAttributedString(string: "Email", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+        field.attributedPlaceholder =   NSAttributedString(string: "Email", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
         field.textColor = .white
         field.addTarget(self, action: #selector(textfieldDidChange), for: .allEditingEvents)
         return field
@@ -89,7 +89,7 @@ class Login: UIViewController {
         field.delegate = self
         field.returnKeyType = .done
         field.font = UIFont(name: "AppleSDGothicNeo-UltraLight", size: 16.5)
-        field.attributedPlaceholder =   NSAttributedString(string: "Password", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+        field.attributedPlaceholder =   NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
         field.textColor = .white
         field.addTarget(self, action: #selector(textfieldDidChange), for: .allEditingEvents)
         return field

@@ -5,7 +5,7 @@ class Contacts: UIViewController {
     let ID = "ContactsCell"
     let background_blur = UIVisualEffectView(effect: UIBlurEffect(style: .extraLight))
     var activty: UIActivityIndicatorView? = {
-        let activity = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        let activity = UIActivityIndicatorView(style: .whiteLarge)
         activity.color = .red
         return activity
     }()
@@ -104,12 +104,12 @@ extension Contacts: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     }
     
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let attributes = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 25)]
+        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 25)]
         return NSAttributedString(string: "No Summary!", attributes: attributes)
     }
     
     func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let attributes = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20)]
+        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20)]
         return NSAttributedString(string: "Nothing to see here. Start dracking to see a summary... ", attributes: attributes)
     }
     

@@ -14,7 +14,7 @@ class BankAccount: UIViewController {
         return view
     }()
     var activty: UIActivityIndicatorView? = {
-        let activity = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        let activity = UIActivityIndicatorView(style: .whiteLarge)
         activity.color = .red
         return activity
     }()
@@ -51,7 +51,7 @@ class BankAccount: UIViewController {
         table.backgroundColor = .bank_back
         table.tableFooterView = UIView()
         table.rowHeight = 60.0
-        table.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0)
+        table.separatorInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0)
         table.tableHeaderView = {
             let line = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 1 / UIScreen.main.scale))
             line.backgroundColor = table.separatorColor
@@ -189,7 +189,7 @@ extension BankAccount : UITableViewDataSource, UITableViewDelegate {
         cell?.accessoryType = .checkmark
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if accounts_list[indexPath.row].is_default {
             is_editing = false
             accounts_view.setEditing(false, animated: true)

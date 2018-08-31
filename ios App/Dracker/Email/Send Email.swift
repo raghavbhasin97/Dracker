@@ -12,7 +12,7 @@ func send_note_email(email: String, name: String, photo: String, title: String, 
 func send_email(email: String, text: String, subject: String) {
     let sendGrid = SendGrid(withAPIKey: SendGridAPI_key)
     let content = SGContent(type: .html, value: text)
-    let from = SGAddress(email: "Dracker@em.transactional.firebaseapp.com")
+    let from = SGAddress(email: "no-reply@dracker.com")
     let personalization = SGPersonalization(to: [ SGAddress(email: email)])
     let subject = subject
     let email = SendGridEmail(personalizations: [personalization], from: from, subject: subject, content: [content])

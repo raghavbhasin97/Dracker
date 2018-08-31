@@ -151,20 +151,20 @@ class AddTransaction: UIViewController {
     }
     
     fileprivate func add_observers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboard_shows), name: .UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboard_hides), name: .UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboard_shows), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboard_hides), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     @objc fileprivate func keyboard_shows(notification: NSNotification) {
-        let keyboard = (notification.userInfo![UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
-        let duration = notification.userInfo![UIKeyboardAnimationDurationUserInfoKey] as! TimeInterval
+        let keyboard = (notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+        let duration = notification.userInfo![UIResponder.keyboardAnimationDurationUserInfoKey] as! TimeInterval
         bottom_anchor?.constant = -keyboard!.height
         UIView.animate(withDuration: duration) {[unowned self] in
             self.view.layoutIfNeeded()
         }
     }
     @objc fileprivate func keyboard_hides(notification: NSNotification) {
-        let duration = notification.userInfo![UIKeyboardAnimationDurationUserInfoKey] as! TimeInterval
+        let duration = notification.userInfo![UIResponder.keyboardAnimationDurationUserInfoKey] as! TimeInterval
         bottom_anchor?.constant = 0
         UIView.animate(withDuration: duration) {[unowned self] in
             self.view.layoutIfNeeded()
@@ -411,8 +411,11 @@ extension AddTransaction {
 }
 
 extension AddTransaction: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+// Local variable inserted by Swift 4.2 migrator.
+let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+
+        if let image = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.originalImage)] as? UIImage {
             set_options(state: .selected, type: .a_camera)
             image_url = image.get_temporary_path(quality: 0.50)
         } else { return }
@@ -432,4 +435,14 @@ extension AddTransaction: UIImagePickerControllerDelegate, UINavigationControlle
             return description_field
         }
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
+	return input.rawValue
 }

@@ -29,7 +29,7 @@ class ProfileOptions: UIView {
         addConstraintsWithFormat(format: "H:|[v0]|", views: Menu)
         addConstraintsWithFormat(format: "V:|[v0]|", views: Menu)
         
-        Menu.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: UICollectionViewScrollPosition.bottom)
+        Menu.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: UICollectionView.ScrollPosition.bottom)
         
     }
     

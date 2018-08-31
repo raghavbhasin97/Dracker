@@ -260,7 +260,7 @@ class Detail: UIViewController {
 
         if index != nil {
             dahsboard?.tableView.beginUpdates()
-            dahsboard?.tableView.deleteRows(at: [index!], with: UITableViewRowAnimation.automatic)
+            dahsboard?.tableView.deleteRows(at: [index!], with: UITableView.RowAnimation.automatic)
             dahsboard?.tableView.endUpdates()
         } else {
             dahsboard?.refetch_data()

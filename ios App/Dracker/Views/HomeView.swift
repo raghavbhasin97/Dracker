@@ -83,12 +83,12 @@ extension HomeView: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     }
     
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let attributes = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 25)]
+        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 25)]
         return NSAttributedString(string: "Nothing to see!", attributes: attributes)
     }
     
     func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let attributes = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20)]
+        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20)]
         return NSAttributedString(string: "Your transactions' history is empty. Add transactions to get started.", attributes: attributes)
     }
     

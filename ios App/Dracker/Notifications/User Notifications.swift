@@ -7,7 +7,7 @@ func create_notification(title: String, body: String, identifier: String, info: 
     notification.title = title
     notification.badge = UIApplication.shared.applicationIconBadgeNumber + 1 as NSNumber
     notification.body = body
-    notification.sound = .default()
+    notification.sound = .default
     notification.userInfo = info
     notification.categoryIdentifier = "dracker.drackerapps.notifications"
     let freq = Double(UserDefaults.standard.object(forKey: "frequency") as! String)

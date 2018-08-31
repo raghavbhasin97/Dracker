@@ -7,9 +7,9 @@ class TextActivity: UIVisualEffectView {
             label.text = text
         }
     }
-    var activityIndictor: UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.white)
+    var activityIndictor: UIActivityIndicatorView = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.white)
     var label: UILabel = UILabel()
-    let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
+    let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
     let vibrancyView: UIVisualEffectView
     
     init(text: String) {

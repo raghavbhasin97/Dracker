@@ -88,7 +88,7 @@ class QRScanner: UIViewController {
         let width = view.frame.width - (2*padding)
         let y_axis = (view.frame.height - width)/2 - (navigationController?.navigationBar.frame.height)!
         box.frame = CGRect(x: padding, y: y_axis, width: width, height: width)
-        view.bringSubview(toFront: box)
+        view.bringSubviewToFront(box)
         box.alpha = 0.5
         
         //Setup Button
@@ -166,8 +166,11 @@ extension QRScanner: AVCaptureMetadataOutputObjectsDelegate {
 
 //MARK: Library photo selection Delegates
 extension QRScanner: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+// Local variable inserted by Swift 4.2 migrator.
+let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+
+        if let image = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.originalImage)] as? UIImage {
             let detector:CIDetector=CIDetector(ofType: CIDetectorTypeQRCode, context: nil, options: [CIDetectorAccuracy:CIDetectorAccuracyHigh])!
             let reconstructed_image:CIImage=CIImage(image:image)!
             var data=""
@@ -189,4 +192,14 @@ extension QRScanner: UIImagePickerControllerDelegate, UINavigationControllerDele
         picker.sourceType = .photoLibrary
         present(picker, animated: true, completion: nil)
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
+	return input.rawValue
 }
