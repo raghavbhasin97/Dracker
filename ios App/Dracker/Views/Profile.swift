@@ -39,16 +39,19 @@ class Profile: UIView {
                     present_alert_error(message: .incorrect_password, target: target!)
                     return false
                 }
-                Auth.auth().currentUser?.updatePassword(to: password, completion: { (err) in
-                    if err == nil {
-                        UserDefaults.standard.set(password.encrypt(), forKey: "password")
-                        let target = UIApplication.shared.keyWindow?.rootViewController
-                        present_alert_success(message: .password_reset_successful, target: target!)
-                    } else {
-                        let target = UIApplication.shared.keyWindow?.rootViewController
-                        present_alert_error(message: .error_reset, target: target!)
-                    }
-                })
+        
+                authorize_no_fallback {
+                    Auth.auth().currentUser?.updatePassword(to: password, completion: { (err) in
+                        if err == nil {
+                            UserDefaults.standard.set(password.encrypt(), forKey: "password")
+                            let target = UIApplication.shared.keyWindow?.rootViewController
+                            present_alert_success(message: .password_reset_successful, target: target!)
+                        } else {
+                            let target = UIApplication.shared.keyWindow?.rootViewController
+                            present_alert_error(message: .error_reset, target: target!)
+                        }
+                    })
+                }
                     return true
         }),
         Configuration(title: "Enter the new email below.", image: "email_change", button: "Change Email", placeholder: "Email", isSecure: false, action: { (email) -> Bool in
@@ -57,30 +60,32 @@ class Profile: UIView {
                         present_alert_error(message: .incorrect_email, target: target!)
                         return false
                     }
-                    var parameters: [String: String] = [:]
-                    parameters["old_email"] = (UserDefaults.standard.object(forKey: "email") as! String).decrypt()
-                    parameters["new_email"] = email
-                    let target = UIApplication.shared.keyWindow?.rootViewController
-                    update_email(parameters: parameters, completion: { (res) in
-                        if res.isFailure {
-                            present_alert_error(message: .no_internet, target: target!)
-                            return
-                        }
-                        let response = res.value as! [String: Any]
-                        if response["message"] == nil {
-                            present_alert_error(message: .error_reset, target: target!)
-                            return
-                        }
-                        let message = response["message"] as! String
-                        if  message != "SUCCESS" {
-                            present_alert_error(message: .error_reset, target: target!)
-                            return
-                        } else {
-                            UserDefaults.standard.set(email.encrypt(), forKey: "email")
-                            UserDefaults.standard.set(false, forKey: "auto_login")
-                            present_alert_success(message: .email_reset_successful, target: target!)
-                        }
-                    })
+                    authorize_no_fallback {
+                        var parameters: [String: String] = [:]
+                        parameters["old_email"] = (UserDefaults.standard.object(forKey: "email") as! String).decrypt()
+                        parameters["new_email"] = email
+                        let target = UIApplication.shared.keyWindow?.rootViewController
+                        update_email(parameters: parameters, completion: { (res) in
+                            if res.isFailure {
+                                present_alert_error(message: .no_internet, target: target!)
+                                return
+                            }
+                            let response = res.value as! [String: Any]
+                            if response["message"] == nil {
+                                present_alert_error(message: .error_reset, target: target!)
+                                return
+                            }
+                            let message = response["message"] as! String
+                            if  message != "SUCCESS" {
+                                present_alert_error(message: .error_reset, target: target!)
+                                return
+                            } else {
+                                UserDefaults.standard.set(email.encrypt(), forKey: "email")
+                                UserDefaults.standard.set(false, forKey: "auto_login")
+                                present_alert_success(message: .email_reset_successful, target: target!)
+                            }
+                        })
+                    }
                     return true
         })
     ]
@@ -97,7 +102,6 @@ class Profile: UIView {
         table.dataSource = self
         table.rowHeight = 60
         table.showsVerticalScrollIndicator = false
-        table.isScrollEnabled = false
         let footer = UIView()
         footer.backgroundColor = .profile_background
         table.tableFooterView = footer

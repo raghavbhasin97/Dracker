@@ -9,6 +9,7 @@ class Passcode: UIViewController {
     var current_passcode: String = ""
     let passcode_size: CGFloat = 15.0
     let passcode_length:CGFloat = 4.0
+    var is_animating: Bool = false
     var completion: (() -> Void)?
     
     override func viewDidLoad() {
@@ -132,20 +133,24 @@ class Passcode: UIViewController {
         current_length = 0
         passcode_view.highlighted = 0
         current_passcode = ""
+        is_animating = false
     }
     @objc func button_pressed(_ sender: PasscodeButton) {
+        if is_animating { return }
         let current_pressed = sender.titleLabel?.text!
         current_passcode += current_pressed!
         current_length += 1
         passcode_view.highlighted = current_length
         if current_length == passcode?.count {
             if current_passcode == passcode {
+                is_animating = true
                 execute_on_main_delay(delay: 0.7) {[unowned self] in
                     UserDefaults.standard.set(true, forKey: "auth")
                     self.dismiss(animated: true, completion: nil)
                     self.completion?()
                 }
             } else {
+                is_animating = true
                 animate_cycle(view: passcode_view) {[unowned self] (_) in
                     self.reset()
                 }

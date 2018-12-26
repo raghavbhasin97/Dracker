@@ -107,7 +107,7 @@ class QRCode: UIViewController {
         setup_name()
         setup_code()
         setup_profile()
-        self.name.text = "@" +  (UserDefaults.standard.object(forKey: "name") as! String)
+        self.name.text = "@" +  (UserDefaults.standard.object(forKey: "name") as! String).replacingOccurrences(of: " ", with: "-")
         let json = get_data().encrypt()
         image.image = generate_QRCode(from: json!)
         setup_buttons()

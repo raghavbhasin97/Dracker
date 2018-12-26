@@ -1,6 +1,7 @@
 import UIKit
 import AWSS3
 import AES256CBC
+import Alamofire
 
 //MARK: Colors Used
 extension UIColor {
@@ -182,4 +183,15 @@ extension UIImage {
         }
         return NSURL(fileURLWithPath: local)
     }
+}
+
+
+extension String: ParameterEncoding {
+    
+    public func encode(_ urlRequest: URLRequestConvertible, with parameters: Parameters?) throws -> URLRequest {
+        var request = try urlRequest.asURLRequest()
+        request.httpBody = data(using: .utf8, allowLossyConversion: false)
+        return request
+    }
+    
 }

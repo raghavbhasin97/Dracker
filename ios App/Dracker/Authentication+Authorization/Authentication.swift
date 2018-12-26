@@ -103,20 +103,16 @@ func authorize(completion: @escaping () -> Void) {
     }
 }
 
-func authorize_unconditional(completion: @escaping () -> Void) {
+func authorize_no_fallback(completion: @escaping () -> Void) {
     let context = LAContext()
-    context.localizedFallbackTitle = "Enter Passcode"
-    context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "Please Authenticate") { (success, err) in
+    context.localizedFallbackTitle = nil
+    context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "Please confirm profile change") { (success, err) in
         if success {
-            UserDefaults.standard.set(true, forKey: "auth")
             execute_on_main { completion() }
         } else {
             execute_on_main {
-                let controller = Passcode()
-                controller.completion = completion
-                if let main = UIApplication.shared.keyWindow?.rootViewController {
-                    main.present(controller, animated: true, completion: nil)
-                }
+                let target = UIApplication.shared.keyWindow?.rootViewController
+                present_alert_error(message: .error_reset, target: target!)
             }
         }
     }
