@@ -1,0 +1,81 @@
+.Transaction {
+	width: 100%;
+	padding: 25px 5%;
+	box-sizing: border-box;
+	margin: auto;
+	font-family: sailec,-apple-system,BlinkMacSystemFont,avenir next,avenir,helvetica neue,helvetica,ubuntu,roboto,noto,segoe ui,arial,sans-serif;
+}
+
+.Container {
+	background: white;
+	box-sizing: border-box;
+	padding: 17.5px;
+	margin: 0;
+	box-shadow: 0 8px 32px 0 rgba(0,0,0,.1);
+}
+
+.Details {
+	display: flex;
+	margin: 0;
+	padding: 0;
+}
+
+.HalfScreen {
+	width: 50%;
+	padding: 10px;
+}
+
+.Image {
+	width: 100%;
+	height: auto;
+	border-radius: 10px;
+}
+
+.Right {
+	margin: auto;
+	margin-top: 20px;
+}
+
+.RightAuto {
+	margin-top: 20px;
+	line-height: 1.5em;
+}
+
+.Description {
+	margin: auto;
+	text-align: center;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 400;
+	font-size: 20px;
+	color: #545d66;
+}
+
+
+.Charge {
+	color: #058905;
+}
+
+.Payed {
+	color: #9e0d00;
+}
+
+.Back {
+	margin-left: 10px;
+  	color: #6a757f;
+  	font-size: 50px;
+  	background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s ease-out;
+}
+
+.Back:hover {
+  	color: black;
+	-webkit-transform: translateX(-5px);
+	-moz-transform: translateX(-5px);
+	-ms-transform: translateX(-5px);
+	-o-transform: translateX(-5px);
+	transform: translateX(-5px);
+	font-weight: 500;
+}

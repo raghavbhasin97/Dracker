@@ -1,0 +1,8 @@
+.Logo {
+	font-family: 'Asap', sans-serif;
+	font-size: 24px;
+	background: -webkit-linear-gradient(#0c0466, #8e0002);
+  	-webkit-background-clip: text;
+  	-webkit-text-fill-color: transparent;
+  	font-weight: 600;
+}

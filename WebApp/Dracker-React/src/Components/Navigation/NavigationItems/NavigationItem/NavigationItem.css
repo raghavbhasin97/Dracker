@@ -1,0 +1,17 @@
+.NavigationItem {
+	margin: 0 10px;
+	box-sizing: border-box;
+	display: block;
+	width: 100%;
+	color: #5b5f66;
+	font-family: 'Asap', sans-serif;
+	font-size: 15px;
+}
+
+.NavigationItem a {
+	color: #5b5f66;
+	text-decoration: none;
+}
+.NavigationItem a:hover {
+	color: #0091ff;
+}

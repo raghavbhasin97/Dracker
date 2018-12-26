@@ -1,0 +1,54 @@
+.RestingSite {
+	box-sizing: border-box;
+	background: white;
+	margin-top: calc(56px + 0px);
+	padding: 10px;
+}
+
+.Container {
+	display: flex;
+	display: row;
+}
+
+.Image {
+	padding: 20px;
+	width:auto;
+	height: 550px;
+	margin-left: 100px;
+}
+
+.Content {
+	margin: auto;
+}
+
+.CHeader {
+	font-size: 50px;
+    line-height: 50px;
+    margin-bottom: 22px;
+    text-align: center;
+    font-weight: 240;
+    letter-spacing: -.015em;
+    color: #404345;
+    font-family: sailec,-apple-system,BlinkMacSystemFont,avenir next,avenir,helvetica neue,helvetica,ubuntu,roboto,noto,segoe ui,arial,sans-serif;
+}
+
+.ButtonsContainer {
+	display: flex;
+	margin-top: 20px;
+}
+
+.Button {
+	background: #0c0466;
+	color: white;
+	font-family: 'Open Sans', sans-serif;
+	padding: 0px 50px;
+	margin: 10px;
+	font-size: 18px;
+	font-weight: 400;
+	border-radius: 5px;
+}
+
+.Button:hover {
+	background: #534f82;
+	cursor: pointer;
+}

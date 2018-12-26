@@ -1,0 +1,56 @@
+.Card {
+  width: 220px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: center;
+  display: flex;
+  flex-flow: column;
+  margin: 0 10px;
+  height: 230px;
+  background: white;
+}
+
+.Header {
+  color: white;
+  padding: 10px;
+  font-size: 25px;
+  font-family: 'Montserrat', sans-serif;
+  background-color: white;
+}
+
+.Container {
+  background: white;
+  padding: 20px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 20px;
+}
+
+.Rounded {
+   border-radius: 5px;
+}
+
+.RoundedTop {
+   border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.Total {
+  background: linear-gradient(#083c8e,#0c0466);
+}
+
+.Credit {
+  background: linear-gradient(#0a6b31,#1cd867);
+}
+
+.Debit {
+  background: linear-gradient(#d32626,#600404);
+}
+
+.Bigger {
+  width: 245px;
+  height: 256px;
+}
+
+.BiggerContainer {
+  padding: 20px;
+  font-size: 22px;
+}

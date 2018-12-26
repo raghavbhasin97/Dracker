@@ -1,0 +1,37 @@
+.Summary {
+	width: 100%;
+	padding: 15px 22.5px;
+	box-sizing: border-box;
+	margin: auto;
+}
+
+.Container {
+	box-sizing: border-box;
+	padding: 20px;
+}
+
+.Heading{
+	color: #404245;
+    font-size: 25px;
+    font-weight: 400;
+    font-family: sailec,-apple-system,BlinkMacSystemFont,avenir next,avenir,helvetica neue,helvetica,ubuntu,roboto,noto,segoe ui,arial,sans-serif;
+    margin-bottom: 20px;
+}
+
+.Empty {
+	margin: 0;
+	font-family: sailec,-apple-system,BlinkMacSystemFont,avenir next,avenir,helvetica neue,helvetica,ubuntu,roboto,noto,segoe ui,arial,sans-serif;
+	font-size: 16px;
+	text-align: center;
+	padding: 20px;
+	line-height: 25px;
+	background-color: white;
+	box-shadow: 0 8px 32px 0 rgba(0,0,0,.1);
+}
+
+.SubHeading {
+	font-size: 15px;
+    margin: 20px 0;
+    font-weight: 400;
+    color: #404245;
+}

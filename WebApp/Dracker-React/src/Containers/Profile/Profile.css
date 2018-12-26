@@ -1,0 +1,110 @@
+.Profile {
+	width: 100%;
+	padding: 15px 22.5px;
+	box-sizing: border-box;
+	margin: auto;
+}
+
+.Container {
+	box-sizing: border-box;
+	padding: 20px;
+}
+
+.Heading{
+	color: #404245;
+    font-size: 26px;
+    font-weight: 400;
+    font-family: sailec,-apple-system,BlinkMacSystemFont,avenir next,avenir,helvetica neue,helvetica,ubuntu,roboto,noto,segoe ui,arial,sans-serif;
+    margin-bottom: 20px;
+}
+
+.SubHeading {
+	font-size: 15px;
+    margin: 20px 0;
+    font-weight: 400;
+    color: #404245;
+}
+
+.Section {
+	margin: 0;
+	font-family: sailec,-apple-system,BlinkMacSystemFont,avenir next,avenir,helvetica neue,helvetica,ubuntu,roboto,noto,segoe ui,arial,sans-serif;
+	font-size: 16px;
+	padding: 15px;
+	line-height: 25px;
+	background-color: white;
+	box-shadow: 0 8px 32px 0 rgba(0,0,0,.1);
+	margin-bottom: 20px;
+}
+
+.SectionContainer {
+	display: flex;
+}
+
+.Image {
+	width: 96px;
+	height: 96px;
+	border-radius: 100%;
+}
+
+.Name {
+	color: #404245;
+	box-sizing: border-box;
+	margin: auto 22px;
+    font-size: 20px;
+}
+
+.Smaller {
+	font-size: 13px;
+}
+
+.Title {
+	font-size: 20px;
+	font-weight: 500;
+	margin: 5px auto;
+}
+
+.Link {
+	text-decoration: none;
+	color: #0091ff;
+}
+
+.Deatils {
+	line-height: 18.5px;
+	margin: 0;
+	padding: 0;
+}
+
+.Message {
+	font-size: 14px;
+	height: 18.5px;
+	line-height: 18.5px;
+    color: #0c0466;
+    text-align: center;
+    margin: 0 5%;
+}
+
+.MessageBody {
+	margin: auto;
+	transition: opacity 0.4s ease-out;
+}
+
+.Empty {
+	margin: 0;
+	font-family: sailec,-apple-system,BlinkMacSystemFont,avenir next,avenir,helvetica neue,helvetica,ubuntu,roboto,noto,segoe ui,arial,sans-serif;
+	font-size: 15px;
+	text-align: center;
+	padding: 5px;
+	line-height: 25px;
+	background-color: white;
+}
+
+.Loader {
+    justify-content: center;
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    box-sizing: border-box;
+    margin: auto;
+    width: 100%;
+    transition: all 0.3s ease-out;
+}

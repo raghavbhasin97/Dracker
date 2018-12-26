@@ -1,0 +1,10 @@
+.Header {
+	padding: 2px 20px;
+	text-align: center;
+	display: block;
+	width: 100%;
+	color: #404245;
+    font-size: 25px;
+    font-weight: 400;
+    font-family: sailec,-apple-system,BlinkMacSystemFont,avenir next,avenir,helvetica neue,helvetica,ubuntu,roboto,noto,segoe ui,arial,sans-serif;
+}

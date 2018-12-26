@@ -1,0 +1,83 @@
+.Summary {
+	width: 100%;
+	padding: 25px 5%;
+	box-sizing: border-box;
+	margin: auto;
+}
+
+.Container {
+	background: white;
+	box-sizing: border-box;
+	padding: 17.5px;
+	margin: 0;
+	box-shadow: 0 8px 32px 0 rgba(0,0,0,.1);
+}
+
+.Heading{
+	text-align: center;
+	font-size: 24px;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 600;
+	margin-bottom: 15px;
+}
+
+.Back {
+	margin-left: 10px;
+  	color: #6a757f;
+  	font-size: 50px;
+  	background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s ease-out;
+}
+
+.Back:hover {
+  	color: black;
+	-webkit-transform: translateX(-5px);
+	-moz-transform: translateX(-5px);
+	-ms-transform: translateX(-5px);
+	-o-transform: translateX(-5px);
+	transform: translateX(-5px);
+	font-weight: 500;
+}
+
+.Controll {
+	display: flex;
+	flex-flow: row;
+	text-align: center;
+	justify-content: center;
+	width: 100%;
+	margin-top: 36px;
+	border-bottom: 1px solid black;
+	padding-bottom: 10px;
+}
+
+.Item {
+	width: 33%;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 17px;
+}
+
+.Item:hover {
+	cursor: pointer;
+}
+
+.Selected {
+	font-size: 20px;
+	font-weight: 600;
+	color: #0c0466;
+}
+
+.TransactionsItems {
+	margin-top: 20px;
+}
+
+.Empty {
+	margin: 0;
+	font-family: 'Asap', sans-serif;
+	font-size: 16px;
+	text-align: center;
+	padding: 20px;
+	line-height: 25px;
+}

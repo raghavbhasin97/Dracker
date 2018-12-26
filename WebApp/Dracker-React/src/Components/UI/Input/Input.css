@@ -1,0 +1,67 @@
+.Input {
+	text-align: left;
+	box-sizing: border-box;
+}
+
+.Label {
+    font-weight: 400;
+    margin: 10px 0 0;
+    display: inline-block;
+    padding-right: 10px;
+    font-size: 14px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, Helvetica, Arial, sans-serif !important;
+}
+
+.Text {
+	cursor: text;
+	margin: 5px 0 15px;
+	width: 100%;
+	font-size: 16px;
+    border: 1px solid #d1d7db;
+    height: 34px;
+    border-radius: 2px;
+    padding: 0 10px;
+    background: #fff;
+    vertical-align: middle;
+    box-sizing : border-box;
+}
+
+.Password {
+    padding-right: 60px;
+}
+
+
+.InvalidLabel {
+    color: red;
+}
+
+.Validity {
+    font-weight: 400;
+    height: 20px;
+    position: relative;
+    top: -15px;
+    margin-bottom: -15px;
+    color: red;
+    box-sizing: border-box;
+    font-size: 14px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, Helvetica, Arial, sans-serif !important;
+}
+
+.Show {
+  width: 40px;
+  height: 14px;
+  position: absolute; 
+  top: 8px;
+  right: 0;
+  padding: 5px 10px;
+  font-size: 13px;
+  font-weight: 500px;
+}
+
+.Show:hover {
+    cursor: pointer;
+}
+
+.InputContainer {
+    position: relative; 
+}

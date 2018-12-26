@@ -1,0 +1,60 @@
+.SummaryDetailItem {
+	width: 100%;
+    box-sizing: border-box;
+    outline: 0;
+    margin-bottom: 17.5px;
+    padding: 7.5px;
+    display: flex;
+	flex-flow: row;
+	border-bottom: 1.5px solid rgba(0, 0, 0, 0.19);
+}
+
+.Container {
+	margin: 0;
+	padding: 0px;
+	display: flex;
+	flex-flow: row;
+}
+
+.DetailsItem {
+	width: calc(100%);
+	margin-left: 10px;
+	font-weight: normal;
+	text-align: left;
+	margin-top: 10px;
+}
+
+.Time {
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 400;
+	color: #6a757f;
+	font-size: 11px;
+    line-height: 16px;
+}
+
+.Description {
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 400;
+	font-size: 16px;
+	color: black;
+}
+
+
+.Amount {
+	margin:auto;
+	font-size: 20px;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 600;
+}
+
+.Settled {
+	color: #0c0466;
+}
+
+.Charge {
+	color: #058905;
+}
+
+.Pay {
+	color: #9e0d00;
+}

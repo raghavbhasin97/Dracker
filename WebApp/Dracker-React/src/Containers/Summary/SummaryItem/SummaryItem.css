@@ -1,0 +1,107 @@
+.SummaryItem {
+	width: 100%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-sizing: border-box;
+    outline: 0;
+    border-radius: 5px;
+    margin-bottom: 17.5px;
+    padding: 7.5px;
+    display: flex;
+	flex-flow: row;
+	background-color: white;
+}
+
+.DetailsContainer {
+	margin: 0;
+	padding: 0px;
+	display: flex;
+	flex-flow: row;
+}
+
+.ImageContainer {
+	margin: 0;
+	padding: 0px;
+	float:left;
+	margin-left: 10px;
+	width: 12%;
+}
+
+.Image{
+	border-radius: 100%;
+	height: auto;
+	width: 100%;
+}
+
+
+.DetailsItem {
+	width: calc(100%);
+	margin-left: 10px;
+	float:right;
+	font-weight: normal;
+	text-align: left;
+	margin-top: 10px;
+}
+
+.Description {
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 600;
+	font-size: 18px;
+	color: #545d66;
+}
+
+.Time {
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 400;
+	color: #6a757f;
+	font-size: 10.35px;
+    line-height: 16px;
+}
+
+.Details {
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 600;
+	color: #6a757f;
+	font-size: 13px;
+
+}
+
+.Amount {
+	margin: auto;
+	font-size: 20px;
+	font-family: 'Montserrat', sans-serif;
+}
+
+.Charge {
+	color: #058905;
+}
+
+.Payed {
+	color: #9e0d00;
+}
+
+.More {
+	margin: auto;
+	font-size: 20px;
+	font-family: 'Montserrat', sans-serif;
+}
+
+.More Button {
+	display: flex;
+	flex-flow: row;
+	
+}
+
+.More Button div {
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.More Button:hover div {
+  -webkit-transform: translateX(7px);
+  -moz-transform: translateX(7px);
+  -ms-transform: translateX(7px);
+  -o-transform: translateX(7px);
+  transform: translateX(7px);
+}

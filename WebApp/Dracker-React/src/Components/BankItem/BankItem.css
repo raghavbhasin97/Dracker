@@ -1,0 +1,42 @@
+.BankItem {
+	width: 100%;
+	border-bottom: 1px solid rgba(0,0,0,0.1);
+	display: flex;
+	padding: 10px;
+}
+
+.Logo {
+	width: auto;
+	height: 30px;
+	vertical-align: middle;
+}
+
+.Container {
+	width: 50%;
+	margin: auto;
+    color: #404245;
+    font-weight: 400;
+}
+
+.Name {
+	font-size: 20px;
+}
+
+.Default {
+	font-size: 13px;
+	color: #0c0466;
+	line-height: 18.5px;
+}
+
+.setDefault {
+	font-size: 13px;
+	color: #404245;
+	line-height: 18.5px;
+}
+
+.Link {
+	color: #0091ff;
+}
+.Link:hover {
+	cursor: pointer;
+}

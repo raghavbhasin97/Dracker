@@ -1,0 +1,11 @@
+.App {
+	box-sizing: border-box;
+	background: linear-gradient(red,yellow);
+	height:600px; 
+}
+
+.App p {
+	font-weight: bold;
+	text-align: center;
+	font-size: 30px;
+}

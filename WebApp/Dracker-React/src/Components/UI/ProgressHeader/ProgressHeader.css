@@ -1,0 +1,31 @@
+.Item {
+	line-height: 1.15;
+	color: #5a5c5e;
+	font-size: 12px;
+	display: table-cell;
+	padding-right: 4px;
+	font-family: sailec,-apple-system,BlinkMacSystemFont,avenir next,avenir,helvetica neue,helvetica,ubuntu,roboto,noto,segoe ui,arial,sans-serif;
+}
+
+.Active {
+	color: #0091ff;
+}
+
+.ItemsContainer {
+	margin-bottom: 10px;
+	display: flex;
+}
+
+.Progress {
+	width: 100%;
+	background-color: #e6e9eb;
+	margin: 16px auto;
+	height: 9.6px;
+	border-radius: 4.8px;
+}
+
+.Filled {
+	background-color: #0091ff;
+	height: 9.6px;
+	border-radius: 4.8px;
+}

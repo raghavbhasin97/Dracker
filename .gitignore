@@ -89,4 +89,10 @@ fastlane/test_output
 =======
 **/dracker-9443c-firebase-adminsdk-gmc2g-7d48bbd323.json
 **/keys.json
+**/config
+**/config/**
+**/node_modules
+**/node_modules/**
+**/Firebase.js
+**/Axios.js
 >>>>>>> 171495c00977e6fee9c8ed825fdf2682260fd227
