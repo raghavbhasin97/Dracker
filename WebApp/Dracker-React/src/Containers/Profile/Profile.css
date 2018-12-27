@@ -41,9 +41,38 @@
 }
 
 .Image {
-	width: 96px;
-	height: 96px;
+	width: 110px;
+	height: 110px;
 	border-radius: 100%;
+}
+
+
+.ProfilePic {
+	position: relative;
+	display: inline-block;
+}
+
+.ProfilePic:hover .Edit {
+	display: block;
+}
+
+.Edit{
+	background-color: rgba(0,0,0,0.3);
+	border-radius: 100%;
+	box-sizing: border-box;
+	text-align: center;
+	position: absolute;
+	right: 0;
+	top: 0;
+	display: none;
+	width: 100%;
+	height: 110px;
+	margin: auto;
+	cursor: pointer;
+}
+
+.EditLink {
+	margin-top: 40%;
 }
 
 .Name {
@@ -69,7 +98,7 @@
 }
 
 .Deatils {
-	line-height: 18.5px;
+	line-height:15px;
 	margin: 0;
 	padding: 0;
 }
@@ -108,3 +137,64 @@
     width: 100%;
     transition: all 0.3s ease-out;
 }
+
+
+.Upload {
+	margin-top: 10px;
+}
+
+.ButtonDiv {
+	text-align: center;
+	margin: auto;
+}
+
+.Button {
+	font-family: sailec,-apple-system,BlinkMacSystemFont,avenir next,avenir,helvetica neue,helvetica,ubuntu,roboto,noto,segoe ui,arial,sans-serif;
+    background-color: transparent;
+    border: none;
+    color: #404245;
+    outline: none;
+    cursor: pointer;
+    font: inherit;
+    padding: 10px;
+    font-weight: 600;
+}
+
+.Button:hover {
+	color: #0091ff;
+}
+
+.ProfileModal {
+	padding: 15px;
+}
+
+.UploadError {
+	font-weight: 400;
+    margin: 10px 0 0;
+    display: inline-block;
+    padding-right: 10px;
+    font-size: 14px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, Helvetica, Arial, sans-serif !important;
+    color: red;
+    text-align: center;
+    width: 100%;
+}
+
+.UploadImage {
+	width: 96px;
+}
+
+.Close {
+	width: 100%;
+	top: 0;
+	right:0;
+	color: #7a7d82;
+	text-align: right;
+	padding-right: 10px;
+}
+
+.CloseIcon:hover {
+	cursor: pointer;
+	color: #404245;
+}
+

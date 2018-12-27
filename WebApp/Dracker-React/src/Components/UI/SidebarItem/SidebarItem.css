@@ -1,0 +1,33 @@
+.SidebarItem {
+	box-sizing: border-box;
+	font-family: sailec,-apple-system,BlinkMacSystemFont,avenir next,avenir,helvetica neue,helvetica,ubuntu,roboto,noto,segoe ui,arial,sans-serif;
+    margin: auto;
+    color: #5a5c5e;
+    margin-bottom: 30px;
+}
+
+.ImageDiv {
+	text-align: center;
+    float: none;
+    margin-bottom: 8px;
+}
+
+.Image {
+	height: 110px;
+	width: auto;
+}
+
+.Header {
+	margin: 0;
+	padding: 0;
+    font-size: 18px;
+	font-weight: 400;
+}
+
+.Description {
+	font-weight: 300;
+	margin: 10px 0;
+	line-height: 17.5px;
+    font-size: 13px;
+    font-weight: 400;
+}

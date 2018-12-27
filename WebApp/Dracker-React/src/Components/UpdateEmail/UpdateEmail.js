@@ -85,6 +85,7 @@ class UpdateEmail extends  Component{
 		return(
 			<form onSubmit={(event) => this.continuePressed(event)}>
 				<Input 
+					key="updateEmail_newEmail"
 					valid = {this.state.validity.email}
 					type = "email"
 					label = "Email Address"

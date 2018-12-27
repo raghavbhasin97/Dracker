@@ -10,11 +10,17 @@ import Wallet from "./Components/Wallet/Wallet"
 import Summary from "./Containers/Summary/Summary"
 import RestingSite from './Components/RestingSite/RestingSite'
 import Login from './Components/Login/Login'
+import Register from './Components/Register/Register'
 import Logout from './Components/Logout/Logout'
 import PasswordReset from './Components/PasswordReset/PasswordReset'
 import Profile from './Containers/Profile/Profile'
 import UpdateEmail from './Components/UpdateEmail/UpdateEmail'
 import UpdatePassword from './Components/UpdatePassword/UpdatePassword'
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faCamera, faEnvelope, faUnlock, faPhone, faTimes } from '@fortawesome/free-solid-svg-icons';
+
+
+library.add(faCamera, faEnvelope, faUnlock, faPhone, faTimes);
 
 class App extends Component {
 	state = {}
@@ -129,6 +135,7 @@ class App extends Component {
 					<Switch>
 						<Route path="/" exact component={RestingSite} />
 						<Route path="/auth/login/" exact component={Login} />
+						<Route path="/auth/register/" exact component={Register} />
 						<Route path = "/auth/account-recovery" exact component={PasswordReset} />
 						<Route component={() => <Unavailible text="Oops! It looks like that page doesn't exist"/>} />
 					</Switch>

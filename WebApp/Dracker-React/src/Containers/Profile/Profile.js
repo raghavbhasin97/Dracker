@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
-import classes from './Profile.css'
-import { formatPhone, getProfile , getIdentifier} from '../../Formattings'
-import BankItem from '../../Components/BankItem/BankItem'
-import uuid4 from 'uuid4'
-import Axios from '../../Axios'
-import Spinner from '../../Components/UI/Spinner/Spinner'
-import Backdrop from '../../Components/UI/Backdrop/Backdrop'
+import classes from './Profile.css';
+import { formatPhone, getProfile , getIdentifier} from '../../Formattings';
+import BankItem from '../../Components/BankItem/BankItem';
+import uuid4 from 'uuid4';
+import Axios from '../../Axios';
+import Spinner from '../../Components/UI/Spinner/Spinner';
+import Backdrop from '../../Components/UI/Backdrop/Backdrop';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Modal from '../../Components/UI/Modal/Modal';
+import uploadFile from '../../S3.js'
+import Aux from '../../hoc/Aux/Aux'
+import Avatar from '../../assests/images/avatar.png'
+
+
 
 class Profile extends Component {
 	state = {}
@@ -23,19 +30,27 @@ class Profile extends Component {
 				default: isDefault
 			});
 		}
+
 		this.state = {
 			email: props.User.email,
 			name: props.User.name,
 			phone: props.User.phone,
 			uid: props.User.uid,
+			profileImage: getProfile(props.User.uid),
 			session: uuid4(),
 			accounts: accounts,
 			paymentMessage: null,
 			displayMessage: false,
-			isLoading: false
+			isLoading: false,
+			updateProfile: false,
+			selectedFile: null,
+			isUploadingProfile: false,
+			uploadError: null,
+			avatar: Avatar,
 
 		}
 		localStorage.setItem('session', this.state.session)
+		
 	}
 
 	handleChangeDefault = (newUrl) => {
@@ -85,8 +100,74 @@ class Profile extends Component {
 		}, 5000);
 	}
 
+	selectFile = (event) => {
+		const file = event.target.files[0];
+		console.log(file)
+		if(file) {
+			let reader = new FileReader();
+			reader.onload = () => {
+				this.setState({selectedFile: file, uploadError: null, avatar: reader.result}) 
+			}
+			reader.readAsDataURL(file)       
+		} else {
+			this.setState({selectedFile: null, uploadError: 'Please select a profile image to upload.', avatar: Avatar}) 
+		}
+	}
+
+	editProfile = () => {
+		this.setState({updateProfile: true})
+	}
+
+	dissmissEditProfile = (field) => {
+		if(!this.state.isUploadingProfile){
+			this.setState({isUploadingProfile: false, selectedFile: null, updateProfile: false , avatar: Avatar})
+		}
+	}
+
+	handleUpload = () => {
+		if(this.state.selectedFile) {
+			this.setState({isUploadingProfile: true, uploadError: null})
+			uploadFile(this.state.uid, this.state.selectedFile).then(res =>{
+				setTimeout(() =>{
+					this.setState({isUploadingProfile: false, selectedFile: null, updateProfile: false,  profileImage: this.state.avatar , avatar: Avatar})
+				}, 2000)
+			}).catch(err =>{
+				this.setState({
+								isUploadingProfile: false, 
+								uploadError: 'Oops! It looks like something went wrong while uploading the new profile image.'
+							  });
+			})
+		} else {
+			this.setState({uploadError: 'Please select a profile image to upload.'})
+		}
+	}
+
+	getUploadOptions = () => {
+		return(
+				<Aux>
+					<div className={classes.Close}>
+						<FontAwesomeIcon className={classes.CloseIcon} icon="times"  size="lg" onClick={this.dissmissEditProfile}/>
+					</div>
+					<div>
+						<img className = {classes.UploadImage} src={this.state.avatar} alt="Avatar" /> 
+					</div>
+					<div className={classes.Upload}>
+						<input type="file" accept="image/*" onChange={this.selectFile}/>
+					</div>
+					<div className={classes.ButtonDiv}>
+						<button className={classes.Button} onClick={this.handleUpload}>
+							Upload
+						</button>
+					</div>
+					<div className={classes.UploadError}>
+						{this.state.uploadError}
+					</div>
+				</Aux>
+		);
+	}
+
 	render() {
-		const image = getProfile(this.state.uid);
+		let uploadProfileChildren = null;
 		let bankAccounts = []
 		for(let i = 0; i < this.state.accounts.length; i++){
 			const item = this.state.accounts[i]
@@ -109,6 +190,14 @@ class Profile extends Component {
 						</div>
 					);
 		} 
+
+		if(this.state.updateProfile) {
+			uploadProfileChildren = this.getUploadOptions()
+			if(this.state.isUploadingProfile) {
+				uploadProfileChildren = <Spinner />
+			}
+		}
+
 		return(
 		    <div className={classes.Profile}>
 		    	<div className={classes.Container}>
@@ -128,12 +217,21 @@ class Profile extends Component {
 			    		Basic Info
 			    	</h1>
 				    <div className={classes.SectionContainer}>
-				    	<img className={classes.Image} src={image} alt={this.state.name + '_Profile'} />
+				    	<div className={classes.ProfilePic}>
+				    		<img className={classes.Image} src={this.state.profileImage} alt={this.state.name + '_Profile'} />
+				    		<div className={classes.Edit}>
+				    			<div onClick={this.editProfile} className={classes.EditLink}>
+				    				  <FontAwesomeIcon icon="camera" color="#ededed" size="2x"/>
+				    			</div>
+				    		</div>
+				    	</div>
 				    	<p className={classes.Name}>
 				    		{this.state.name}
 				    		<br />
 				    		<span className={classes.Deatils}>
 					    		<span className={classes.Smaller}>
+					    			<FontAwesomeIcon icon="envelope" color="#404245" size="1x"/>
+					    			&nbsp;
 					    			{this.state.email}
 					    			<span>
 					    				&nbsp;
@@ -146,10 +244,14 @@ class Profile extends Component {
 					    		</span>
 					    		<br />
 					    		<span className={classes.Smaller}>
+					    			<FontAwesomeIcon icon="phone" color="#404245" size="1x"/>
+					    			&nbsp;
 					    			+1 {formatPhone(this.state.phone)}
 					    		</span>
 					    		<br />
 					    		<span className={classes.Smaller}>
+					    			<FontAwesomeIcon icon="unlock" color="#404245" size="1x"/>
+					    			&nbsp;
 					    			*******
 					    			<span>
 					    				&nbsp;
@@ -192,6 +294,9 @@ class Profile extends Component {
 					>
 					<Spinner />
 				</div>
+				<Modal show = {this.state.updateProfile} clicked = {this.dissmissEditProfile} className={classes.ProfileModal}>
+					{uploadProfileChildren}
+				</Modal>
 		    </div>
 		);
 	}

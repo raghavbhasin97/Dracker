@@ -1,6 +1,7 @@
 .Input {
 	text-align: left;
 	box-sizing: border-box;
+  width: 100%;
 }
 
 .Label {
@@ -17,13 +18,13 @@
 	margin: 5px 0 15px;
 	width: 100%;
 	font-size: 16px;
-    border: 1px solid #d1d7db;
-    height: 34px;
-    border-radius: 2px;
-    padding: 0 10px;
-    background: #fff;
-    vertical-align: middle;
-    box-sizing : border-box;
+  border: 1px solid #d1d7db;
+  height: 44px;
+  border-radius: 2px;
+  padding: 0 10px;
+  background: #fff;
+  vertical-align: middle;
+  box-sizing : border-box;
 }
 
 .Password {
@@ -49,13 +50,13 @@
 
 .Show {
   width: 40px;
-  height: 14px;
+  line-height: 34px;
   position: absolute; 
-  top: 8px;
+  top: 5px;
   right: 0;
   padding: 5px 10px;
   font-size: 13px;
-  font-weight: 500px;
+  font-weight: 500;
 }
 
 .Show:hover {

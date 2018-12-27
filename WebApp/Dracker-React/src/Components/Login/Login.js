@@ -76,6 +76,7 @@ class Login extends Component {
 				<form className={classes.Form} onSubmit={this.loginToDracker}>
 					<div className={classes.InputContainer}>
 						<Input 
+							key="login_email"
 							valid = {this.state.validity.email}
 							type = "email"
 							label = "Email Address"
@@ -87,6 +88,7 @@ class Login extends Component {
 							invalidMessage = "Please enter a valid email address."
 						/>
 						<Input 
+							key="login_password"
 							valid = {this.state.validity.password}
 							type = "password"
 							label = "Password"

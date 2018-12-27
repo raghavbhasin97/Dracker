@@ -36,6 +36,7 @@ class PasswordReset extends  Component{
 		return(
 			<form onSubmit={(event) => this.continuePressed(event)}>
 				<Input 
+					key="passwordReset_email"
 					valid = {this.state.validity.email}
 					type = "email"
 					label = "Email Address"

@@ -32,9 +32,11 @@ class ProgressHeader extends Component {
 						<div 
 							key={i}
 							className={attachedClasses.join(' ')} style={style}>
-							{'Step' + (i + 1)}
+							{'Step ' + (i + 1)}
 							<br/ >
-							{description}
+							<div className={classes.StepDescription}>
+								{description}
+							</div>
 						</div>
 			);
 		}

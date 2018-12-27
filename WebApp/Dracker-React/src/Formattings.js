@@ -24,7 +24,7 @@ export const formatDate = (dateString) =>  {
 }
 
 export const getProfile = (uid) => {
-	return "https://s3.amazonaws.com/drackerprofiles/".concat(uid);
+	return "https://s3.amazonaws.com/drackerprofiles/".concat(uid).concat('?versionId=null');
 }
 
 export const getTransactionImage = (imageID) => {

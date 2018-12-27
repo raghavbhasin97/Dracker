@@ -12,7 +12,8 @@ class Input extends Component {
 	  				valid: props.valid, 
 	  				empty: true, 
 	  				type: this.props.type, 
-	  				showText: this.props.type === 'password' ? 'Show'  : null
+	  				showText: this.props.type === 'password' ? 'Show'  : null,
+	  				length: this.props.maxLength ? this.props.maxLength: 200
 	  };
 	}
 
@@ -94,6 +95,7 @@ class Input extends Component {
 						type = {this.state.type}
 						id = {this.props.id}
 						name = {this.props.name}
+						maxLength = {this.state.length}
 						autoCapitalize = {this.props.autoCapitalize}
 						onBlur = {(event) => this.focussedOut(event)}
 						onChange = {(event) => this.valueChanged(event)}

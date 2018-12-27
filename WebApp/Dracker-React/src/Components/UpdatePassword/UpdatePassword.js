@@ -9,8 +9,6 @@ import Invalid from '../UI/Unavailible/Unavailible'
 import Spinner from '../UI/Spinner/Spinner'
 import Backdrop from '../UI/Backdrop/Backdrop'
 import Auth from '../../Firebase'
-import Aux from '../../hoc/Aux/Aux'
-
 
 const steps = ['Enter your password', 'Enter new password', 'Password reset successful']
 const headers = ['Enter Your Current Password', 'Reset Your Password', 'Reset Successful']
@@ -50,6 +48,7 @@ class UpdatePassword extends  Component{
 
 		if(this.state.selected === 0) {
 			Auth.signInWithEmailAndPassword(this.props.email, password).then(res =>{
+				localStorage.setItem('session', null)
 				this.setState({isLoading: false, selected: 1})
 			}).catch(err =>{
 				this.setState({isLoading: false, errorMessage: 'The provided password doesn\'t match with our records. Please check the password provided.'})
@@ -70,6 +69,7 @@ class UpdatePassword extends  Component{
 		return(
 			<form onSubmit={(event) => this.continuePressed(event)}>
 				<Input 
+					key={"updatePassword_" + this.state.selected}
 					valid = {this.state.validity.password}
 					type = "password"
 					label = "Password"
@@ -90,6 +90,10 @@ class UpdatePassword extends  Component{
 		);
 	}
 
+	logOut = () => {
+		this.props.history.push('/auth/logout/')
+	}
+
 	render(){
 		let view = <Invalid text="This password update session is invalid or
 							has expired. Please go to profile and start over." />
@@ -97,6 +101,7 @@ class UpdatePassword extends  Component{
 			let compenent = null;
 			let boxContent = null;
 			if(this.state.selected < 2 ) {
+				compenent = this.passwordFieldCompenent();
 				let boxText = "Once you confirm your password, you will be allowed " +
 							  "to reset it."
 				if(this.state.selected === 1) {
@@ -112,22 +117,31 @@ class UpdatePassword extends  Component{
 							</p>
 						</div>
 				);
-				compenent = (
-					<Aux>
-						{this.passwordFieldCompenent()}
-						<div>
-							<div className={classes.RegisterBox}>
-								{boxContent}
-							</div>
-						</div>
-					</Aux>
-
-				);
+				
 			}  else  {
 				compenent = (
 						<a className={classes.Link} href="/profile/">
 							Continue
 						</a>
+				);
+				boxContent = (
+						<div>
+							<p>
+								Your new password has been set up. You can now 
+								use it to log in next time. 
+							</p>
+							<h2 className={classes.BoxHeader}>
+								Want to log out right now?
+							</h2>
+							<p>
+								If you would like to log out and try your new 
+								password right now, click&nbsp;
+								<span className={classes.Link} onClick={this.logOut}>
+									here
+								</span>
+								.
+							</p>
+						</div>
 				);
 			}
 
@@ -146,6 +160,11 @@ class UpdatePassword extends  Component{
 							{descriptions[this.state.selected]}
 						</p>
 						{compenent}
+						<div>
+							<div className={classes.RegisterBox}>
+								{boxContent}
+							</div>
+						</div>
 					</section>
 				</div>
 			);

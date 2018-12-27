@@ -95,4 +95,6 @@ fastlane/test_output
 **/node_modules/**
 **/Firebase.js
 **/Axios.js
+**/S3.js
+**/build
 >>>>>>> 171495c00977e6fee9c8ed825fdf2682260fd227
