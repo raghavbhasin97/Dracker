@@ -53,7 +53,34 @@ An iOS and React app to send/receive money and manage debt. This app allows user
 
 <kbd><img src="img/react/register3.png" width="420" height="228"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/react/register4.png" width="420" height="228"></kbd>
 
+#### Home
+<kbd><img src="img/react/home.png" width="420" height="228"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/react/home-item.png" width="420" height="228"></kbd>
 
+
+#### Wallet
+<kbd><img src="img/react/wallet.png" width="420" height="228"></kbd>
+
+
+#### Summary
+<kbd><img src="img/react/summary.png" width="420" height="228"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/react/summary-detail.png" width="420" height="228"></kbd>
+
+
+#### Profile
+<kbd><img src="img/react/profile.png" width="420" height="228"></kbd>
+
+
+#### Email Change
+<kbd><img src="img/react/email-change.png" width="420" height="228"></kbd>
+
+
+#### Password Change
+<kbd><img src="img/react/password-change1.png" width="420" height="228"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/react/password-change2.png" width="420" height="228"></kbd>
+
+<kbd><img src="img/react/password-change3.png" width="420" height="228"></kbd>
+
+
+#### Invalid Page
+<kbd><img src="img/react/not-found.png" width="420" height="228"></kbd>
 
 
 ### Text Messages
