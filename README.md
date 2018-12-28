@@ -9,39 +9,49 @@ An iOS and React app to send/receive money and manage debt. This app allows user
 
 ## UI
 
+###iOS
+
 #### Login/Register
-<kbd><img src="img/login.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/register.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/register2.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/register3.png" width="180" height="310"></kbd>
+<kbd><img src="img/ios/login.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/ios/register.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/ios/register2.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/ios/register3.png" width="180" height="310"></kbd>
 
 
 #### Dashboard
-<kbd><img src="img/home.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/wallet.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/profile.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/settings.png" width="180" height="310"></kbd>
+<kbd><img src="img/ios/home.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/ios/wallet.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/ios/profile.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/ios/settings.png" width="180" height="310"></kbd>
 
 #### Existing Transactions
-<kbd><img src="img/details.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/add_note.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/transaction_details_peek.png" width="180" height="310"></kbd>
+<kbd><img src="img/ios/details.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/ios/add_note.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/ios/transaction_details_peek.png" width="180" height="310"></kbd>
 
 #### New Transactions
-<kbd><img src="img/add_transaction.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/qr_code.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/tag_image.png" width="180" height="310"></kbd>
+<kbd><img src="img/ios/add_transaction.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/ios/qr_code.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/ios/tag_image.png" width="180" height="310"></kbd>
 
 #### Summary
-<kbd><img src="img/friends.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/friends_detail.png" width="180" height="310"></kbd>
+<kbd><img src="img/ios/friends.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/ios/friends_detail.png" width="180" height="310"></kbd>
 
 #### Profile
-<kbd><img src="img/change_password.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/change_email.png" width="180" height="310"></kbd>
+<kbd><img src="img/ios/change_password.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/ios/change_email.png" width="180" height="310"></kbd>
 
 #### Settings
-<kbd><img src="img/change_passcode.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/set_passcode.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/set_frequency.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/bank_account.png" width="180" height="310" style="border: 1px solid black;"></kbd>
+<kbd><img src="img/ios/change_passcode.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/ios/set_passcode.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/ios/set_frequency.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/ios/bank_account.png" width="180" height="310" style="border: 1px solid black;"></kbd>
 
 #### Security
-<kbd><img src="img/authentication.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/passcode.png" width="180" height="310"></kbd>
+<kbd><img src="img/ios/authentication.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/ios/passcode.png" width="180" height="310"></kbd>
 
 #### Miscellaneous
-<kbd><img src="img/quick_actions.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/notifications.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/no_internet.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/onboarding.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/bank.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/plaid.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/notifications.jpeg" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/save_image.jpeg" width="180" height="310"></kbd>
+<kbd><img src="img/ios/quick_actions.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/ios/notifications.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/no_internet.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/ios/onboarding.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/ios/bank.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/ios/plaid.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/ios/notifications.jpeg" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/ios/save_image.jpeg" width="180" height="310"></kbd>
 
-#### SMS
-<kbd><img src="img/text-messages.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/settle-text.png" width="180" height="310"></kbd>
 
-#### Email Templates
-<kbd><img src="img/welcome_email.jpg" width="200" height="310"></kbd>&nbsp;&nbsp;&nbsp;<kbd><img src="img/transaction_email.jpg" width="200" height="310"></kbd>&nbsp;&nbsp;&nbsp;<kbd><img src="img/passwordReset_email.jpg" width="200" height="310"></kbd>&nbsp;&nbsp;&nbsp;<kbd><img src="img/emailChange_email.jpg" width="210" height="310"></kbd>
+### React
+
+####Login
+<kbd><img src="img/react/login.png" width="420" height="228">
+
+
+### Text Messages
+<kbd><img src="img/text/text-messages.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/text/settle-text.png" width="180" height="310"></kbd>
+
+### Emails 
+<kbd><img src="img/emails/welcome_email.jpg" width="200" height="310"></kbd>&nbsp;&nbsp;&nbsp;<kbd><img src="img/emails/transaction_email.jpg" width="200" height="310"></kbd>&nbsp;&nbsp;&nbsp;<kbd><img src="img/emails/passwordReset_email.jpg" width="200" height="310"></kbd>&nbsp;&nbsp;&nbsp;<kbd><img src="img/emails/emailChange_email.jpg" width="210" height="310"></kbd>
+
 
 ## Features
 
@@ -84,7 +94,7 @@ An iOS and React app to send/receive money and manage debt. This app allows user
 ## Architecture
 
 #### Rest API
-![](img/API_Architecture.png)
+![](img/architecture/API_Architecture.png)
 - API Gateway and AWS Lambda are used to deploy the REST API
 - DynamoDB is used to store all the data for user transactions and other details
 - S3 is used to store profile images and tagged images with transactions
@@ -95,7 +105,7 @@ An iOS and React app to send/receive money and manage debt. This app allows user
 - Dwolla for triggering ACH Transactions
 
 #### iOS Application
-![](img/iosApp_Architecture.png)
+![](img/architecture/iosApp_Architecture.png)
 - Dracker API for all operations (REST API calls)
 - Firebase is used for Login (Username/Password Validations)
 - Plaid for Bank Integrations (Getting an authentication token to exchange at backend)
