@@ -9,7 +9,7 @@ An iOS and React app to send/receive money and manage debt. This app allows user
 
 ## UI
 
-###iOS
+### iOS
 
 #### Login/Register
 <kbd><img src="img/ios/login.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/ios/register.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/ios/register2.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/ios/register3.png" width="180" height="310"></kbd>
@@ -43,7 +43,15 @@ An iOS and React app to send/receive money and manage debt. This app allows user
 ### React
 
 #### Login
-<kbd><img src="img/react/login.png" width="420" height="228">
+<kbd><img src="img/react/login.png" width="420" height="228"></kbd>
+
+#### Password Reset
+<kbd><img src="img/react/forgot-password.png" width="420" height="228"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/react/forgot-password2.png" width="420" height="228"></kbd>
+
+#### Register
+<kbd><img src="img/react/register1" width="420" height="228"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/react/register2" width="420" height="228"></kbd><kbd>&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/react/register3" width="420" height="228"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/react/register4" width="420" height="228"></kbd>
+
+
 
 
 ### Text Messages
