@@ -49,9 +49,9 @@ An iOS and React app to send/receive money and manage debt. This app allows user
 <kbd><img src="img/react/forgot-password.png" width="420" height="228"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/react/forgot-password2.png" width="420" height="228"></kbd>
 
 #### Register
-<kbd><img src="img/react/register1.png" width="420" height="228"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/react/register2.png" width="420" height="228"></kbd><kbd>
+<kbd><img src="img/react/register1.png" width="420" height="228"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/react/register2.png" width="420" height="228"></kbd>
 
-<img src="img/react/register3.png" width="420" height="228"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/react/register4.png" width="420" height="228"></kbd>
+<kbd><img src="img/react/register3.png" width="420" height="228"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/react/register4.png" width="420" height="228"></kbd>
 
 
 
