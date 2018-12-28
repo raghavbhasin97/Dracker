@@ -129,6 +129,7 @@ class QRCode: UIViewController {
     
     fileprivate func generate_QRCode(from string: String) -> UIImage? {
         let data = string.data(using: String.Encoding.ascii)
+
         if let filter = CIFilter(name: "CIQRCodeGenerator") {
             guard let color_filter = CIFilter(name: "CIFalseColor") else { return nil }
             filter.setValue(data, forKey: "inputMessage")

@@ -31,6 +31,7 @@ class Profile extends Component {
 			});
 		}
 
+
 		this.state = {
 			email: props.User.email,
 			name: props.User.name,
@@ -46,8 +47,7 @@ class Profile extends Component {
 			selectedFile: null,
 			isUploadingProfile: false,
 			uploadError: null,
-			avatar: Avatar,
-
+			avatar: Avatar
 		}
 		localStorage.setItem('session', this.state.session)
 		
