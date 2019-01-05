@@ -1,0 +1,11 @@
+
+target 'Dracker' do
+  use_frameworks!
+  	pod 'Firebase/Core'
+  	pod 'Firebase/Auth'
+  	pod 'AWSS3'
+ 	pod 'Alamofire'
+ 	pod 'SendGrid-Swift'
+	pod 'Plaid'
+	pod 'NVActivityIndicatorView'
+end

@@ -9,7 +9,36 @@ An iOS and React app to send/receive money and manage debt. This app allows user
 
 ## UI
 
-### iOS
+### iOS V2
+A more refined UI that utilizes the Tab Bar style along with some of the latest HCI guidelines. A total redesign of a few screens and a new completely customizable Action Sheet component.
+
+#### Login & Forgot Password Screens
+<kbd><img src="img/ios2/login.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/ios2/forgotPassword.png" width="180" height="310">
+
+
+#### Dashboard
+<kbd><img src="img/ios2/home.png" width="180" height="310"></kbd>
+
+#### Existing Transactions
+<kbd><img src="img/ios2/existingTransaction.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/ios2/sendNote.png" width="180" height="310"></kbd>
+
+#### New Transactions
+<kbd><img src="img/ios2/add.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/ios2/tagImage.png" width="180" height="310"></kbd>
+
+#### Summary
+<kbd><img src="img/ios2/summary.png" width="180" height="310"></kbd>
+
+#### Profile
+<kbd><img src="img/ios2/profile.png" width="180" height="310"></kbd>
+
+#### Wallet
+<kbd><img src="img/ios2/wallet.png" width="180" height="310"></kbd>
+
+#### Settings
+<kbd><img src="img/ios2/settings.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/ios2/updatePassword.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/ios2/fundingSources.png" width="180" height="310"></kbd>
+
+
+### iOS V1
 
 #### Login/Register
 <kbd><img src="img/ios/login.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/ios/register.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/ios/register2.png" width="180" height="310"></kbd>&nbsp;&nbsp;&nbsp;&nbsp;<kbd><img src="img/ios/register3.png" width="180" height="310"></kbd>

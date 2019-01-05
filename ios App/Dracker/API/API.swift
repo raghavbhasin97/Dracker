@@ -9,7 +9,9 @@ func fetch_data(user_id: String, completion: @escaping () -> Void) {
             completion()
             return
         }
+        
         let result = data.value as! [String: Any]
+        print(result)
         let settled = result["settled"] as! [[String: Any]]
         settled_transactions = []
         for transaction in settled {

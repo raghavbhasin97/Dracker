@@ -49,13 +49,13 @@ class App extends Component {
 	componentDidMount() {
 		if(this.state.isAuthenticated){
 			this.setState({isLoading: true})
-			const path = '/users/' + this.state.User.uid
+			const path = '/transaction/' + this.state.User.uid
 			Axios.get(path).then(res => {
-				const path = '/friends/' + this.state.User.uid
+				const path = '/summary/' + this.state.User.uid
 				const data = res.data
 				Axios.get(path).then(res2 =>{
 					const summaryData = res2.data
-					Axios.get('/users', {params: {phone: this.state.User.phone}}).then(res3 =>{
+					Axios.get('/users/user', {params: {phone: this.state.User.phone}}).then(res3 =>{
 						const User = res3.data
 						localStorage.setItem('User', JSON.stringify(User))
 						this.setState({isLoading: false, userData: data, summary: summaryData, User: User})

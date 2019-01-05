@@ -69,10 +69,12 @@ fastlane/test_output
 
 **/.DS_Store
 **/*.pyc
+**/info.plist
 **/Endpoints.swift
 **/Keys.swift
 **/Templates.swift
 **/Pods
+**/Pods/**
 **/Deployment Package
 **/Test Package
 **/Podfile.lock

@@ -324,7 +324,7 @@ class Register extends Component {
 			birthdate: birthdate
 		}
 		console.log(User)
-		Axios.post('/users/create', User).then(res =>{
+		Axios.post('/users', User).then(res =>{
 			const message = res.data.message
 			let errorMessage = null
 			switch(message){
